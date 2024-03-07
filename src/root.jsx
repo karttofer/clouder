@@ -1,11 +1,15 @@
 // Dependencies
 import React from 'react'
-import { createRoot } from 'react-dom/client';
+import ReactDom from 'react-dom/client'
 
-// Components
-import App from './ui/App.jsx'
+// Routes
+import { AppRoutes } from './utils/router/routes.jsx'
 
-const domNode = document.getElementById('root');
-const root = createRoot(domNode);
+//Style
+import './assets/main.scss'
 
-root.render(<App/>)
+ReactDom.createRoot(document.querySelector('#root')).render(
+  <React.StrictMode>
+    <AppRoutes />
+  </React.StrictMode>
+)

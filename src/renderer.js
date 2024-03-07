@@ -1,2 +1,2 @@
-import './index.scss';
-import './root.jsx';
+import './assets/main.scss'
+import './root.jsx'

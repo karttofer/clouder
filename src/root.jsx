@@ -13,7 +13,7 @@ import { AppRoutes } from './utils/router/routes.jsx'
 //Style
 import './assets/main.scss'
 
-const { Button, Main, Divider, Popover } = chakraTheme.components
+const { Button, Main, Divider, Popover, Avatar } = chakraTheme.components
 
 const theme = extendBaseTheme({
   components: {
@@ -21,6 +21,7 @@ const theme = extendBaseTheme({
     Main,
     Divider,
     Popover,
+    Avatar
   },
   colors: {
     button: {

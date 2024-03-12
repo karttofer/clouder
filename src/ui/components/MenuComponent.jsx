@@ -10,6 +10,10 @@ import {
   Heading,
   Spacer,
   Box,
+  Avatar,
+  AvatarBadge,
+  WrapItem,
+  Wrap,
 } from '@chakra-ui/react'
 
 // Pre-defined styles
@@ -31,7 +35,114 @@ import MenuLeftOptionsPopover from './MenuLeftOptionsPopover.jsx'
 
 import { AnimatePresence, motion } from 'framer-motion'
 
+import img from '../../assets/images/dan_test_img.png'
+
 const menuConfig = [
+  {
+    label: 'Yesterday',
+    children: [
+      {
+        label: 'Homeaaaaaaaaaaaaaaa',
+        color: '',
+        icon: '',
+        childElement: <MenuLeftOptionsPopover />,
+      },
+      {
+        label: 'Chat',
+        color: '',
+        icon: '',
+      },
+      {
+        label: 'Settings',
+        color: '',
+        icon: '',
+      },
+    ],
+  },
+  {
+    label: 'Yesterday',
+    children: [
+      {
+        label: 'Homeaaaaaaaaaaaaaaa',
+        color: '',
+        icon: '',
+        childElement: <MenuLeftOptionsPopover />,
+      },
+      {
+        label: 'Chat',
+        color: '',
+        icon: '',
+      },
+      {
+        label: 'Settings',
+        color: '',
+        icon: '',
+      },
+    ],
+  },
+  {
+    label: 'Yesterday',
+    children: [
+      {
+        label: 'Homeaaaaaaaaaaaaaaa',
+        color: '',
+        icon: '',
+        childElement: <MenuLeftOptionsPopover />,
+      },
+      {
+        label: 'Chat',
+        color: '',
+        icon: '',
+      },
+      {
+        label: 'Settings',
+        color: '',
+        icon: '',
+      },
+    ],
+  },
+  {
+    label: 'Yesterday',
+    children: [
+      {
+        label: 'Homeaaaaaaaaaaaaaaa',
+        color: '',
+        icon: '',
+        childElement: <MenuLeftOptionsPopover />,
+      },
+      {
+        label: 'Chat',
+        color: '',
+        icon: '',
+      },
+      {
+        label: 'Settings',
+        color: '',
+        icon: '',
+      },
+    ],
+  },
+  {
+    label: 'Yesterday',
+    children: [
+      {
+        label: 'Homeaaaaaaaaaaaaaaa',
+        color: '',
+        icon: '',
+        childElement: <MenuLeftOptionsPopover />,
+      },
+      {
+        label: 'Chat',
+        color: '',
+        icon: '',
+      },
+      {
+        label: 'Settings',
+        color: '',
+        icon: '',
+      },
+    ],
+  },
   {
     label: 'Yesterday',
     children: [
@@ -62,7 +173,7 @@ const NavigationComponent = () => {
       <Flex>
         <AnimatePresence>
           <motion.div
-            animate={{ left: !hideMenu ? -245 : 0 }}
+            animate={{ left: hideMenu ? -245 : 0 }}
             transition={{ duration: 0.3 }}
             style={{
               position: 'relative',
@@ -73,7 +184,7 @@ const NavigationComponent = () => {
               maxW={250}
               backgroundColor="layout.yaleblue300"
             >
-              <Box>
+              <Box height="94vh">
                 <Flex
                   padding={3}
                   paddingBottom={5}
@@ -95,7 +206,17 @@ const NavigationComponent = () => {
                   />
                 </Flex>
                 <Divider marginBottom={5} css={{ opacity: '.1' }} />
-                <Stack direction="column" spacing={4}>
+                <Stack
+                  direction="column"
+                  spacing={4}
+                  css={{
+                    overflowX: 'hidden',
+                    height: '824px',
+                    scrollbarColor: "#003566 transparent",
+                    scrollbarWidth: "thin",
+                    scrollbarGutter: "stable"
+                  }}
+                >
                   {menuConfig.map((btnConfig) => (
                     <>
                       <Text textColor="layout.yaleblue50" paddingLeft={3}>
@@ -124,11 +245,16 @@ const NavigationComponent = () => {
                   ))}
                 </Stack>
               </Box>
+              <Divider css={{ opacity: '.1' }} />
+              <Flex p={2} align="center" w="100%" justify="left" height="57px">
+                <Avatar size="sm" name="chems" src={img} marginRight={2} />
+                <Text color="white">Jhornan Colina</Text>
+              </Flex>
             </Container>
           </motion.div>
           <AnimatePresence>
             <motion.div
-              animate={{ left: !hideMenu ? -245 : 0 }}
+              animate={{ left: hideMenu ? -245 : 0 }}
               transition={{ duration: 0.3 }}
               style={{
                 position: 'relative',

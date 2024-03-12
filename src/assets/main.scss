@@ -3,11 +3,27 @@
 html,
 body,
 main {
-  font-family: 'w-sans-regular',Lato;
+  font-family: 'w-sans-regular', Lato;
   font-weight: normal;
   font-style: normal;
+
 }
-.hideMenuAnimation {
-  transition: transform 0.3s ease;
-  transform: translateX(-100%);
+.conversation-container {
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--outline-dimmest) transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-left: 1px solid var(--outline-dimmest);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--outline-dimmest);
+    border-radius: 6px;
+  }
 }

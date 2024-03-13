@@ -17,19 +17,28 @@ import { CustomHDotsIcon } from '../../assets/chakra/icons'
 
 import { LeftMenuConverastionItemOptionsStyle } from '../../assets/chakra/appStyle'
 
-const MenuLeftOptionsPopover = () => {
+
+const MenuLeftOptionsPopover = ({reference}) => {
   return (
-    <Popover>
+    <Popover >
       <PopoverTrigger>
-        <CustomHDotsIcon {...LeftMenuConverastionItemOptionsStyle} />
+      <Button>
+      <CustomHDotsIcon {...LeftMenuConverastionItemOptionsStyle} />
+      </Button>
       </PopoverTrigger>
-      <PopoverContent>
-        <PopoverArrow />
-        <PopoverCloseButton />
-        <PopoverHeader>Confirmation!</PopoverHeader>
-        <PopoverBody>Are you sure you want to have that milkshake?</PopoverBody>
-      </PopoverContent>
+      <Portal >
+        <PopoverContent>
+          <PopoverArrow />
+          <PopoverHeader>Header</PopoverHeader>
+          <PopoverCloseButton />
+          <PopoverBody>
+            <Button colorScheme="blue">Button</Button>
+          </PopoverBody>
+          <PopoverFooter>This is the footer</PopoverFooter>
+        </PopoverContent>
+      </Portal>
     </Popover>
-  )
-}
+  );
+};
+
 export default MenuLeftOptionsPopover

@@ -3,14 +3,26 @@ import React from 'react'
 
 // Components
 import MenuComponent from './components/MenuComponent.jsx'
-import { Container, Box } from '@chakra-ui/layout'
+import { Container, Box, Grid, GridItem } from '@chakra-ui/layout'
 
 const App = () => {
   return (
     <Container>
-      <Box>
-        <MenuComponent />
-      </Box>
+      <Grid
+        templateAreas={'nav main'}
+        h="100%"
+        gridTemplateRows={'100vh '}
+        gridTemplateColumns={'240px 1fr'}
+        color='blackAlpha.700'
+        fontWeight='bold'
+      >
+        <GridItem rowSpan={1} colSpan={1} bg="tomato" area={'nav'}>
+          <MenuComponent />
+        </GridItem>
+        <GridItem rowSpan={1} colSpan={1} bg="green.300" area={'main'}>
+          Main
+        </GridItem>
+      </Grid>
     </Container>
   )
 }

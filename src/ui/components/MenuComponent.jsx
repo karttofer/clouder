@@ -14,7 +14,19 @@ import {
   AvatarBadge,
   WrapItem,
   Wrap,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  PopoverFooter,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverAnchor,
+  Portal,
 } from '@chakra-ui/react'
+
+import { CustomHDotsIcon } from '../../assets/chakra/icons'
 
 // Pre-defined styles
 import {
@@ -168,118 +180,63 @@ const menuConfig = [
 
 const NavigationComponent = () => {
   const [hideMenu, setHideMenu] = useState(false)
+  const optRef = React.useRef()
   return (
-    <>
-      <Flex>
-        <AnimatePresence>
-          <motion.div
-            animate={{ left: hideMenu ? -245 : 0 }}
-            transition={{ duration: 0.3 }}
-            style={{
-              position: 'relative',
-            }}
-          >
-            <Container
-              height="100vh"
-              maxW={250}
-              backgroundColor="layout.yaleblue300"
-            >
-              <Box height="94vh">
-                <Flex
-                  padding={3}
-                  paddingBottom={5}
-                  paddingTop={4}
-                  align="center"
-                >
-                  <Heading
-                    fontWeight={700}
-                    fontFamily="w-sans-black"
-                    fontSize="2xl"
-                    color="white"
-                  >
-                    CLOUDER
-                  </Heading>
-                  <Spacer />
-                  <CustomPencilIcon
-                    color="white"
-                    {...LeftMenuConverastionItemOptionsStyle}
-                  />
-                </Flex>
-                <Divider marginBottom={5} css={{ opacity: '.1' }} />
-                <Stack
-                  direction="column"
-                  spacing={4}
-                  css={{
-                    overflowX: 'hidden',
-                    height: '824px',
-                    scrollbarColor: "#003566 transparent",
-                    scrollbarWidth: "thin",
-                    scrollbarGutter: "stable"
-                  }}
-                >
-                  {menuConfig.map((btnConfig) => (
-                    <>
-                      <Text textColor="layout.yaleblue50" paddingLeft={3}>
-                        {btnConfig.label}
-                      </Text>
-                      {btnConfig.children.map((btn) => (
-                        <Button {...LeftMenuConversationStyle}>
-                          <Text
-                            textAlign="left"
-                            w="100%"
-                            overflow="hidden"
-                            textOverflow="ellipsis"
-                            maxWidth="200px"
-                            fontWeight={500}
-                          >
-                            {btn.label}
-                          </Text>
+    <Flex direction="column" h="100%">
+    {/* Top section with company logo, icon, and title */}
+    <Flex justify="space-between" align="center" p={4}>
+   
+      <Text>Title Here</Text>
+    </Flex>
 
-                          <MenuLeftOptionsPopover />
-                          <CustomArchiveIcon
-                            {...LeftMenuConverastionItemOptionsStyle}
-                          />
-                        </Button>
-                      ))}
-                    </>
-                  ))}
-                </Stack>
-              </Box>
-              <Divider css={{ opacity: '.1' }} />
-              <Flex p={2} align="center" w="100%" justify="left" height="57px">
-                <Avatar size="sm" name="chems" src={img} marginRight={2} />
-                <Text color="white">Jhornan Colina</Text>
-              </Flex>
-            </Container>
-          </motion.div>
-          <AnimatePresence>
-            <motion.div
-              animate={{ left: hideMenu ? -245 : 0 }}
-              transition={{ duration: 0.3 }}
-              style={{
-                position: 'relative',
-              }}
-            >
-              <Container height="100vh">
-                <Flex height="100%" justify="center" align="center">
-                  <CustomCaretLeftIcon
-                    click={() => setHideMenu(!hideMenu)}
-                    color="black"
-                    configs={{
-                      props: { ...LeftMenuConversationHideIconStyle },
-                      size: 6,
-                      css: {
-                        transform: hideMenu ? 'rotate(180deg)' : 'rotate(0deg)',
-                      },
-                    }}
-                  />
-                </Flex>
-              </Container>
-            </motion.div>
-          </AnimatePresence>
-        </AnimatePresence>
-      </Flex>
-    </>
+    {/* Middle section with menu */}
+    <Stack
+      direction="column"
+      spacing={4}
+      css={{
+        maxWidth: 240,
+        overflowX: 'hidden',
+        flexGrow: 1, // Grow to fill available space
+        scrollbarColor: '#003566 transparent',
+        scrollbarWidth: 'thin',
+        scrollbarGutter: 'stable',
+      }}
+    >
+      {menuConfig.map((btnConfig) => (
+        <>
+          <Text textColor="layout.yaleblue50" paddingLeft={3}>
+            {btnConfig.label}
+          </Text>
+          {btnConfig.children.map((btn) => (
+            <Button {...LeftMenuConversationStyle}>
+              <Text
+                textAlign="left"
+                w="100%"
+                overflow="hidden"
+                textOverflow="ellipsis"
+                maxWidth="200px"
+                fontWeight={500}
+              >
+                {btn.label}
+              </Text>
+
+              <MenuLeftOptionsPopover />
+              <CustomArchiveIcon {...LeftMenuConverastionItemOptionsStyle} />
+            </Button>
+          ))}
+        </>
+      ))}
+    </Stack>
+
+    {/* Bottom section with user avatar and name */}
+    <Flex justify="flex-end" align="center" p={4}>
+      {/* Avatar */}
+      <Avatar src={img} />
+
+      {/* User Name */}
+      <Text ml={2}>a</Text>
+    </Flex>
+  </Flex>
   )
 }
 export default NavigationComponent

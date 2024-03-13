@@ -1,6 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+@import './fonts.scss';
 
 html,
-body {
-  font-family: 'Roboto Mono', monospace;
+body,
+main {
+  font-family: 'w-sans-regular', Lato;
+  font-weight: normal;
+  font-style: normal;
 }

@@ -1,26 +1,17 @@
 // Dependencies
 import React from 'react'
-import {
-  Button,
-  Stack,
-  Divider,
-  Text,
-  Flex,
-  Heading,
-} from '@chakra-ui/react'
+import { Button, Stack, Divider, Text, Flex, Heading, Spacer } from '@chakra-ui/react'
 
 // Icon
-import {
-  CustomArchiveIcon,
-  CustomPencilIcon,
-} from '../../assets/chakra/icons'
+import { CustomArchiveIcon, CustomPencilIcon } from '../../assets/chakra/icons'
 
-// Style
+// Themes
 import {
   SliderBarPrimaryTheme,
   IconButtonTheme,
   LeftMenuItemsTheme,
   LeftMenuItemTextTheme,
+  ButtonTheme,
 } from '../../assets/chakra/appStyle.js'
 
 // Components
@@ -35,137 +26,19 @@ const menuConfig = [
     label: 'Yesterday',
     children: [
       {
-        label: 'a',
-        color: '',
-        icon: '',
-      },
-      {
-        label: 'd',
-        color: '',
-        icon: '',
-      },
-      {
-        label: 'g',
+        label:
+          'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
         color: '',
         icon: '',
       },
     ],
   },
   {
-    label: 'Yesterday',
+    label: 'After One Day',
     children: [
       {
-        label: 'e',
-        color: '',
-        icon: '',
-      },
-      {
-        label: 'k',
-        color: '',
-        icon: '',
-      },
-      {
-        label: 'x',
-        color: '',
-        icon: '',
-      },
-    ],
-  },
-  {
-    label: 'Yesterday',
-    children: [
-      {
-        label: 'asdas',
-        color: '',
-        icon: '',
-      },
-      {
-        label: 'asdaaa',
-        color: '',
-        icon: '',
-      },
-      {
-        label: 'dqw',
-        color: '',
-        icon: '',
-      },
-    ],
-  },
-  {
-    label: 'Yesterday',
-    children: [
-      {
-        label: 'dfsd',
-        color: '',
-        icon: '',
-      },
-      {
-        label: 'cxzcbv',
-        color: '',
-        icon: '',
-      },
-      {
-        label: 'asdqweref',
-        color: '',
-        icon: '',
-      },
-    ],
-  },
-  {
-    label: 'Yesterday',
-    children: [
-      {
-        label: 'hyjhty',
-        color: '',
-        icon: '',
-      },
-      {
-        label: 'klu',
-        color: '',
-        icon: '',
-      },
-      {
-        label: 'kuiku',
-        color: '',
-        icon: '',
-      },
-    ],
-  },
-  {
-    label: 'Yesterday',
-    children: [
-      {
-        label: 'bv',
-        color: '',
-        icon: '',
-      },
-      {
-        label: 'kuiku',
-        color: '',
-        icon: '',
-      },
-      {
-        label: 'ioli',
-        color: '',
-        icon: '',
-      },
-    ],
-  },
-  {
-    label: 'Yesterday',
-    children: [
-      {
-        label: 'bv',
-        color: '',
-        icon: '',
-      },
-      {
-        label: 'kuiku',
-        color: '',
-        icon: '',
-      },
-      {
-        label: 'ioli',
+        label:
+          'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
         color: '',
         icon: '',
       },
@@ -176,11 +49,18 @@ const menuConfig = [
 const NavigationComponent = () => {
   return (
     <Flex h="100%" direction="column">
-      <Flex justify="space-between" align="center" p={5}>
-        <Heading color="white" fontSize="1.2em">
-          Clouder
-        </Heading>
-        <CustomPencilIcon {...IconButtonTheme('button.icon.inner')} />
+      <Flex
+        justify="space-between"
+        align="center"
+        margin={2}
+      >
+        <Button color="white" paddingLeft={1} {...ButtonTheme} w="100%">
+          <Text>Clouder</Text>
+          <Spacer/>
+          <CustomPencilIcon
+            {...IconButtonTheme('button.icon.inner', 'button.icon.hover')}
+          />
+        </Button>
       </Flex>
       <Divider css={{ opacity: '.1' }} marginBottom="10px" />
       <Stack h="100%" direction="column" spacing={2} {...SliderBarPrimaryTheme}>
@@ -192,9 +72,10 @@ const NavigationComponent = () => {
             {btnConfig.children.map((btn, childIndex) => (
               <Flex key={`${btn}-${childIndex}`} {...LeftMenuItemsTheme()}>
                 <Text {...LeftMenuItemTextTheme}>{btn.label}</Text>
-
                 <MenuLeftOptionsPopover />
-                <Button {...IconButtonTheme('button.icon.inner', 'button.icon.hover')}>
+                <Button
+                  {...IconButtonTheme('button.icon.inner', 'button.icon.hover')}
+                >
                   <CustomArchiveIcon />
                 </Button>
               </Flex>
@@ -203,7 +84,7 @@ const NavigationComponent = () => {
         ))}
       </Stack>
       <Divider css={{ opacity: '.1' }} />
-      <MenuLeftMenuProfile avatarImg={img}/>
+      <MenuLeftMenuProfile avatarImg={img} />
     </Flex>
   )
 }

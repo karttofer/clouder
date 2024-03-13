@@ -16,8 +16,10 @@ import {
   Text
 } from '@chakra-ui/react'
 
+// Icons
 import { CustomGearIcon, CustomExistIcon } from '../../assets/chakra/icons.js'
 
+// Themes
 import { IconButtonTheme, ButtonTheme } from '../../assets/chakra/appStyle.js'
 
 const MenuLeftAvatarProfile = ({ avatarImg }) => {

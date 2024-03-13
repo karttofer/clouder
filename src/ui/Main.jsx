@@ -1,9 +1,9 @@
 // Dependencies
 import React from 'react'
+import { Container, Grid, GridItem } from '@chakra-ui/layout'
 
 // Components
 import MenuComponent from './components/MenuComponent.jsx'
-import { Container, Box, Grid, GridItem } from '@chakra-ui/layout'
 
 const App = () => {
   return (

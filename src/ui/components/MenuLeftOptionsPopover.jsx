@@ -1,3 +1,4 @@
+// Dependencies
 import React from 'react'
 import {
   Popover,
@@ -10,12 +11,14 @@ import {
   Stack,
 } from '@chakra-ui/react'
 
+// Icons
 import {
   CustomHDotsIcon,
   CustomPencilIcon,
   CustomTrashIcon,
 } from '../../assets/chakra/icons'
 
+// Themes
 import { IconButtonTheme } from '../../assets/chakra/appStyle.js'
 
 const MenuLeftOptionsPopover = () => {

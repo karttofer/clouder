@@ -90,12 +90,13 @@ export const LeftMenuItemsTheme = () => ({
 })
 
 export const LeftMenuItemTextTheme = {
-  textAlign: 'left',
-  w: '100%',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  maxWidth: '200px',
-  fontWeight: 500,
-  display: 'flex',
-  align: 'center',
+    textAlign: 'left',
+    w: '100%',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    maxWidth: '200px',
+    fontWeight: 500,
+    display: 'flex',
+    alignItems: 'center',
+    whiteSpace: 'nowrap'
 }

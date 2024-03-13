@@ -1,14 +1,5 @@
+// Dependencies
 import React from 'react'
-import {
-  PhoneIcon,
-  AddIcon,
-  WarningIcon,
-  ArrowLeftIcon,
-  ArrowRightIcon,
-  ArrowUpIcon,
-  ArrowDownIcon,
-  ChevronDownIcon,
-} from '@chakra-ui/icons'
 import { Icon } from '@chakra-ui/react'
 
 // New Library
@@ -56,14 +47,6 @@ const CustomExistIcon = (props) => {
   return <Icon {...props} as={ExitIcon} />
 }
 export {
-  PhoneIcon,
-  AddIcon,
-  WarningIcon,
-  ArrowLeftIcon,
-  ArrowRightIcon,
-  ArrowUpIcon,
-  ArrowDownIcon,
-  ChevronDownIcon,
   CustomHDotsIcon,
   CustomArchiveIcon,
   CustomDoubleArrowLeftIcon,

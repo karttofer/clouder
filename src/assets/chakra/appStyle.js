@@ -1,18 +1,37 @@
-import { popoverAnatomy as parts } from '@chakra-ui/anatomy'
-import { createMultiStyleConfigHelpers } from '@chakra-ui/react'
-const { definePartsStyle } = createMultiStyleConfigHelpers(parts.keys)
-
 /**
  * Buttron
  */
+export const ButtonTheme = {
+  css: {
+    background:"transparent",
+    transition: 'background .3s',
+    borderWidth: '2px',
+    borderColor: 'transparent',
+  },
+  _hover: {
+    background: 'layout.white.white5',
+    cursor: 'pointer',
+  },
+  _active: {
+    background: 'layout.white.white10',
+  },
+  _focus: {
+    borderColor: 'layout.white.white10',
+    background: 'layout.white.white5',
+  },
+}
+
 export const IconButtonTheme = (color, hoverColor, hoverBg) => ({
   color,
   variant: 'ghost',
   cursor: 'pointer',
   _hover: {
     background: hoverBg,
-    color:hoverColor,
+    color: hoverColor,
   },
+  _active:{
+    background:"transparent"
+  }
 })
 
 /**
@@ -34,7 +53,7 @@ export const popoverPrimary = {
 export const SliderBarPrimaryTheme = {
   css: {
     overflowX: 'hidden',
-    scrollbarColor: '#003566 transparent',
+    scrollbarColor: '#3b3b3b transparent',
     scrollbarWidth: 'thin',
     scrollbarGutter: 'stable',
   },

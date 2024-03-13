@@ -7,14 +7,13 @@ import {
   Text,
   Flex,
   Heading,
-  Avatar,
-  Spacer,
 } from '@chakra-ui/react'
 
-import { CustomHDotsIcon } from '../../assets/chakra/icons'
-
 // Icon
-import { CustomArchiveIcon, CustomPencilIcon } from '../../assets/chakra/icons'
+import {
+  CustomArchiveIcon,
+  CustomPencilIcon,
+} from '../../assets/chakra/icons'
 
 // Style
 import {
@@ -26,9 +25,9 @@ import {
 
 // Components
 import MenuLeftOptionsPopover from './MenuLeftOptionsPopover.jsx'
+import MenuLeftMenuProfile from './MenuLeftProfileIcon.jsx'
 
-import { AnimatePresence, motion } from 'framer-motion'
-
+// Images
 import img from '../../assets/images/dan_test_img.png'
 
 const menuConfig = [
@@ -171,21 +170,20 @@ const menuConfig = [
         icon: '',
       },
     ],
-  }
+  },
 ]
 
 const NavigationComponent = () => {
   return (
     <Flex h="100%" direction="column">
-      {/* Top section with company logo, icon, and title */}
       <Flex justify="space-between" align="center" p={5}>
         <Heading color="white" fontSize="1.2em">
           Clouder
         </Heading>
-        <CustomPencilIcon {...IconButtonTheme("button.icon.inner")} />
+        <CustomPencilIcon {...IconButtonTheme('button.icon.inner')} />
       </Flex>
       <Divider css={{ opacity: '.1' }} marginBottom="10px" />
-      <Stack  h="100%" direction="column" spacing={2} {...SliderBarPrimaryTheme}>
+      <Stack h="100%" direction="column" spacing={2} {...SliderBarPrimaryTheme}>
         {menuConfig.map((btnConfig) => (
           <>
             <Text textColor="primary.white10" paddingLeft={3}>
@@ -196,7 +194,7 @@ const NavigationComponent = () => {
                 <Text {...LeftMenuItemTextTheme}>{btn.label}</Text>
 
                 <MenuLeftOptionsPopover />
-                <Button {...IconButtonTheme("button.icon.inner")}>
+                <Button {...IconButtonTheme('button.icon.inner', 'button.icon.hover')}>
                   <CustomArchiveIcon />
                 </Button>
               </Flex>
@@ -205,30 +203,7 @@ const NavigationComponent = () => {
         ))}
       </Stack>
       <Divider css={{ opacity: '.1' }} />
-
-      <Button
-        p={0}
-        w="100%"
-        height="60px"
-        css={{ background: 'transparent' }}
-        _hover={{
-          background: 'layout.white.white5',
-          cursor: 'pointer',
-        }}
-      >
-        <Flex
-          w="100%"
-          justify="flex-start"
-          align="center"
-          paddingLeft={3}
-          paddingRight={3}
-          marginTop={2}
-        >
-          <Avatar src={img} paddingRight={2} />
-          <Text color="white">Jhornan Colina</Text>
-          <Spacer />
-        </Flex>
-      </Button>
+      <MenuLeftMenuProfile avatarImg={img}/>
     </Flex>
   )
 }

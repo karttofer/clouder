@@ -1,46 +1,28 @@
 // Dependencies
-import React, { useState } from 'react'
+import React from 'react'
 import {
-  Container,
   Button,
   Stack,
   Divider,
   Text,
   Flex,
   Heading,
-  Spacer,
-  Box,
   Avatar,
-  AvatarBadge,
-  WrapItem,
-  Wrap,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverHeader,
-  PopoverBody,
-  PopoverFooter,
-  PopoverArrow,
-  PopoverCloseButton,
-  PopoverAnchor,
-  Portal,
+  Spacer,
 } from '@chakra-ui/react'
 
 import { CustomHDotsIcon } from '../../assets/chakra/icons'
 
-// Pre-defined styles
-import {
-  LeftMenuConversationStyle,
-  LeftMenuConverastionItemOptionsStyle,
-  LeftMenuConversationHideIconStyle,
-} from '../../assets/chakra/appStyle'
-
 // Icon
+import { CustomArchiveIcon, CustomPencilIcon } from '../../assets/chakra/icons'
+
+// Style
 import {
-  CustomArchiveIcon,
-  CustomPencilIcon,
-  CustomCaretLeftIcon,
-} from '../../assets/chakra/icons'
+  SliderBarPrimaryTheme,
+  IconButtonTheme,
+  LeftMenuItemsTheme,
+  LeftMenuItemTextTheme,
+} from '../../assets/chakra/appStyle.js'
 
 // Components
 import MenuLeftOptionsPopover from './MenuLeftOptionsPopover.jsx'
@@ -54,18 +36,17 @@ const menuConfig = [
     label: 'Yesterday',
     children: [
       {
-        label: 'Homeaaaaaaaaaaaaaaa',
-        color: '',
-        icon: '',
-        childElement: <MenuLeftOptionsPopover />,
-      },
-      {
-        label: 'Chat',
+        label: 'a',
         color: '',
         icon: '',
       },
       {
-        label: 'Settings',
+        label: 'd',
+        color: '',
+        icon: '',
+      },
+      {
+        label: 'g',
         color: '',
         icon: '',
       },
@@ -75,18 +56,17 @@ const menuConfig = [
     label: 'Yesterday',
     children: [
       {
-        label: 'Homeaaaaaaaaaaaaaaa',
-        color: '',
-        icon: '',
-        childElement: <MenuLeftOptionsPopover />,
-      },
-      {
-        label: 'Chat',
+        label: 'e',
         color: '',
         icon: '',
       },
       {
-        label: 'Settings',
+        label: 'k',
+        color: '',
+        icon: '',
+      },
+      {
+        label: 'x',
         color: '',
         icon: '',
       },
@@ -96,18 +76,17 @@ const menuConfig = [
     label: 'Yesterday',
     children: [
       {
-        label: 'Homeaaaaaaaaaaaaaaa',
-        color: '',
-        icon: '',
-        childElement: <MenuLeftOptionsPopover />,
-      },
-      {
-        label: 'Chat',
+        label: 'asdas',
         color: '',
         icon: '',
       },
       {
-        label: 'Settings',
+        label: 'asdaaa',
+        color: '',
+        icon: '',
+      },
+      {
+        label: 'dqw',
         color: '',
         icon: '',
       },
@@ -117,18 +96,17 @@ const menuConfig = [
     label: 'Yesterday',
     children: [
       {
-        label: 'Homeaaaaaaaaaaaaaaa',
-        color: '',
-        icon: '',
-        childElement: <MenuLeftOptionsPopover />,
-      },
-      {
-        label: 'Chat',
+        label: 'dfsd',
         color: '',
         icon: '',
       },
       {
-        label: 'Settings',
+        label: 'cxzcbv',
+        color: '',
+        icon: '',
+      },
+      {
+        label: 'asdqweref',
         color: '',
         icon: '',
       },
@@ -138,18 +116,17 @@ const menuConfig = [
     label: 'Yesterday',
     children: [
       {
-        label: 'Homeaaaaaaaaaaaaaaa',
-        color: '',
-        icon: '',
-        childElement: <MenuLeftOptionsPopover />,
-      },
-      {
-        label: 'Chat',
+        label: 'hyjhty',
         color: '',
         icon: '',
       },
       {
-        label: 'Settings',
+        label: 'klu',
+        color: '',
+        icon: '',
+      },
+      {
+        label: 'kuiku',
         color: '',
         icon: '',
       },
@@ -159,84 +136,100 @@ const menuConfig = [
     label: 'Yesterday',
     children: [
       {
-        label: 'Homeaaaaaaaaaaaaaaa',
-        color: '',
-        icon: '',
-        childElement: <MenuLeftOptionsPopover />,
-      },
-      {
-        label: 'Chat',
+        label: 'bv',
         color: '',
         icon: '',
       },
       {
-        label: 'Settings',
+        label: 'kuiku',
+        color: '',
+        icon: '',
+      },
+      {
+        label: 'ioli',
         color: '',
         icon: '',
       },
     ],
   },
+  {
+    label: 'Yesterday',
+    children: [
+      {
+        label: 'bv',
+        color: '',
+        icon: '',
+      },
+      {
+        label: 'kuiku',
+        color: '',
+        icon: '',
+      },
+      {
+        label: 'ioli',
+        color: '',
+        icon: '',
+      },
+    ],
+  }
 ]
 
 const NavigationComponent = () => {
-  const [hideMenu, setHideMenu] = useState(false)
-  const optRef = React.useRef()
   return (
-    <Flex direction="column" h="100%">
-    {/* Top section with company logo, icon, and title */}
-    <Flex justify="space-between" align="center" p={4}>
-   
-      <Text>Title Here</Text>
+    <Flex h="100%" direction="column">
+      {/* Top section with company logo, icon, and title */}
+      <Flex justify="space-between" align="center" p={5}>
+        <Heading color="white" fontSize="1.2em">
+          Clouder
+        </Heading>
+        <CustomPencilIcon {...IconButtonTheme("button.icon.inner")} />
+      </Flex>
+      <Divider css={{ opacity: '.1' }} marginBottom="10px" />
+      <Stack  h="100%" direction="column" spacing={2} {...SliderBarPrimaryTheme}>
+        {menuConfig.map((btnConfig) => (
+          <>
+            <Text textColor="primary.white10" paddingLeft={3}>
+              {btnConfig.label}
+            </Text>
+            {btnConfig.children.map((btn, childIndex) => (
+              <Flex key={`${btn}-${childIndex}`} {...LeftMenuItemsTheme()}>
+                <Text {...LeftMenuItemTextTheme}>{btn.label}</Text>
+
+                <MenuLeftOptionsPopover />
+                <Button {...IconButtonTheme("button.icon.inner")}>
+                  <CustomArchiveIcon />
+                </Button>
+              </Flex>
+            ))}
+          </>
+        ))}
+      </Stack>
+      <Divider css={{ opacity: '.1' }} />
+
+      <Button
+        p={0}
+        w="100%"
+        height="60px"
+        css={{ background: 'transparent' }}
+        _hover={{
+          background: 'layout.white.white5',
+          cursor: 'pointer',
+        }}
+      >
+        <Flex
+          w="100%"
+          justify="flex-start"
+          align="center"
+          paddingLeft={3}
+          paddingRight={3}
+          marginTop={2}
+        >
+          <Avatar src={img} paddingRight={2} />
+          <Text color="white">Jhornan Colina</Text>
+          <Spacer />
+        </Flex>
+      </Button>
     </Flex>
-
-    {/* Middle section with menu */}
-    <Stack
-      direction="column"
-      spacing={4}
-      css={{
-        maxWidth: 240,
-        overflowX: 'hidden',
-        flexGrow: 1, // Grow to fill available space
-        scrollbarColor: '#003566 transparent',
-        scrollbarWidth: 'thin',
-        scrollbarGutter: 'stable',
-      }}
-    >
-      {menuConfig.map((btnConfig) => (
-        <>
-          <Text textColor="layout.yaleblue50" paddingLeft={3}>
-            {btnConfig.label}
-          </Text>
-          {btnConfig.children.map((btn) => (
-            <Button {...LeftMenuConversationStyle}>
-              <Text
-                textAlign="left"
-                w="100%"
-                overflow="hidden"
-                textOverflow="ellipsis"
-                maxWidth="200px"
-                fontWeight={500}
-              >
-                {btn.label}
-              </Text>
-
-              <MenuLeftOptionsPopover />
-              <CustomArchiveIcon {...LeftMenuConverastionItemOptionsStyle} />
-            </Button>
-          ))}
-        </>
-      ))}
-    </Stack>
-
-    {/* Bottom section with user avatar and name */}
-    <Flex justify="flex-end" align="center" p={4}>
-      {/* Avatar */}
-      <Avatar src={img} />
-
-      {/* User Name */}
-      <Text ml={2}>a</Text>
-    </Flex>
-  </Flex>
   )
 }
 export default NavigationComponent

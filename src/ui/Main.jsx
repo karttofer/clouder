@@ -16,7 +16,7 @@ const App = () => {
         color='blackAlpha.700'
         fontWeight='bold'
       >
-        <GridItem rowSpan={1} colSpan={1} bg="tomato" area={'nav'}>
+        <GridItem rowSpan={1} colSpan={1} bg="layout.black.black900" area={'nav'}>
           <MenuComponent />
         </GridItem>
         <GridItem rowSpan={1} colSpan={1} bg="green.300" area={'main'}>

@@ -18,6 +18,7 @@ import {
   DoubleArrowLeftIcon,
   Pencil1Icon,
   CaretLeftIcon,
+  TrashIcon,
 } from '@radix-ui/react-icons'
 
 const CustomHDotsIcon = (props) => {
@@ -43,6 +44,9 @@ const CustomCaretLeftIcon = ({ configs, click }) => {
     />
   )
 }
+const CustomTrashIcon = (props) => {
+  return <Icon {...props} as={TrashIcon} />
+}
 
 export {
   PhoneIcon,
@@ -58,4 +62,5 @@ export {
   CustomDoubleArrowLeftIcon,
   CustomPencilIcon,
   CustomCaretLeftIcon,
+  CustomTrashIcon
 }

@@ -5,6 +5,7 @@ import {
   ChakraBaseProvider,
   extendBaseTheme,
   theme as chakraTheme,
+  FormControl,
 } from '@chakra-ui/react'
 
 // Routes
@@ -12,16 +13,35 @@ import { AppRoutes } from './utils/router/routes.jsx'
 
 //Style
 import './assets/main.scss'
+import { Form } from 'react-router-dom'
 
-const { Button, Main, Divider, Popover, Avatar } = chakraTheme.components
+const {
+  Radio,
+  Checkbox,
+  Select,
+  Menu,
+  Button,
+  Main,
+  Divider,
+  Popover,
+  Avatar,
+  Stack,
+  Switch,
+} = chakraTheme.components
 
 const theme = extendBaseTheme({
   components: {
+    Switch,
+    Stack,
+    Select,
+    Menu,
     Button,
     Main,
     Divider,
     Popover,
     Avatar,
+    Checkbox,
+    Radio,
   },
   colors: {
     button: {
@@ -35,6 +55,9 @@ const theme = extendBaseTheme({
       hover: '#f7fafc',
       active: '#1a202c',
       focus: '#1a202c',
+    },
+    text: {
+      hint: '#a9a9a9',
     },
     layout: {
       yale: {
@@ -74,6 +97,7 @@ const theme = extendBaseTheme({
       },
       black: {
         black900: '#101010',
+        black800: '#1c1c1c',
       },
       white: {
         white5: '#ffffff17',

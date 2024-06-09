@@ -9,7 +9,7 @@ import { chatMenuItems } from './configs.js'
 const ChatComponent = () => {
   return (
     <Container>
-      <Flex>
+      <Flex padding="15px">
         <Box>
           <SelectComponent
             placeholder="Select an option"

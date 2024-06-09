@@ -85,13 +85,8 @@ const theme = extendBaseTheme({
         darkRed300: '#B50603',
         darkRed200: '#A10502',
         darkRed100: '#8D0401',
-        darkRed50: '#8D0401',
-
         sec: {
           darkRed400: '#8D0801',
-          darkRed300: '#8D0801',
-          darkRed200: '#8D0801',
-          darkRed100: '#8D0801',
           darkRed50: '#7A0701',
         },
       },
@@ -100,6 +95,7 @@ const theme = extendBaseTheme({
         black800: '#1c1c1c',
       },
       white: {
+        white: '#ffffff',
         white5: '#ffffff17',
         white10: '#c5c5c517',
       },

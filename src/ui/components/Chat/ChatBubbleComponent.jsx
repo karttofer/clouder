@@ -57,7 +57,7 @@ const ChatBubbleComponent = ({ type, message }) => {
           )}
           <Text
             color="layout.white.white0"
-            padding="10px"
+            padding={type === 'ai' ? '10px' : '0px'}
             bg={type === 'user' ? '' : 'layout.black.black900'}
             borderRadius="general"
             marginBlock="10px"

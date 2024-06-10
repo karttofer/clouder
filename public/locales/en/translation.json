@@ -5,12 +5,10 @@
   "select_models_02_hint": "Newest and most advanced model",
   "select_models_03_hint": "Advanced model for complex tasks",
   "select_models_04_hint": "Great for everyday tasks",
-
   "select_models_01_label": "Clouder GTPs",
   "select_models_02_label": "Chat GPT4o",
   "select_models_03_label": "Chat GPT4",
   "select_models_04_label": "Chat GPT 3.5",
-
   "select_save_conversation": "Save conversation",
   "select_save_conversation_hint": "Great for everyday tasks",
   "select_export_conversation": "Export Conversation",

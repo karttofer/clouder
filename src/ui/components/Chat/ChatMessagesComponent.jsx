@@ -52,7 +52,6 @@ function ChatContainer() {
           spacing={4}
           align="stretch"
           overflow="auto"
-          padding="10px"
           className="hidde_slider-bar"
           maxW="1024px"
           height="100%"

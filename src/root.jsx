@@ -7,7 +7,7 @@ import {
   theme as chakraTheme,
 } from '@chakra-ui/react'
 import { Toaster } from 'react-hot-toast'
-
+import './utils/i18n/index.js'
 // Routes
 import { AppRoutes } from './utils/router/routes.jsx'
 
@@ -115,7 +115,6 @@ const theme = extendBaseTheme({
 ReactDom.createRoot(document.querySelector('#root')).render(
   <React.StrictMode>
     <Toaster position="bottom-right" reverseOrder={false} />
-
     <ChakraBaseProvider theme={theme}>
       <AppRoutes />
     </ChakraBaseProvider>

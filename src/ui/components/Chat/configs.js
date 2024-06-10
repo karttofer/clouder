@@ -1,6 +1,5 @@
 // Dependencies
 import React from 'react'
-
 // Icons
 import {
   CustomSparkIcon,
@@ -9,48 +8,55 @@ import {
   CustomBrainIcon,
   CustomDownloadIcon,
 } from '../../../assets/chakra/icons'
+// Language
+import { t } from 'i18next'
+
+export const selectInitialValue = {
+  value: '0',
+  label: 'select_models_01_label',
+}
 
 export const chatMenuItems = [
   {
     value: '0',
-    label: 'Clouder GTPs',
+    label: 'select_models_01_label',
     icon: <CustomBrainIcon />,
-    hint: 'Our model, trained with AWS Knowledges',
+    hint: 'select_models_01_hint',
     type: 'radio',
   },
   {
     value: '1',
-    label: 'Chat GPT4o',
+    label: 'select_models_02_label',
     icon: <CustomSparkIcon />,
-    hint: 'Newest and most advanced model',
+    hint: 'select_models_02_hint',
     type: 'radio',
   },
   {
     value: '2',
-    label: 'Chat GPT4',
+    label: 'select_models_03_label',
     icon: <CustomSparkleIcon />,
-    hint: 'Advanced model for complex tasks',
+    hint: 'select_models_03_hint',
     type: 'radio',
   },
   {
     value: '3',
-    label: 'Chat GPT 3.5',
+    label: 'select_models_04_label',
     icon: <CustomZapIcon />,
-    hint: 'Great for everyday tasks',
+    hint: 'select_models_04_hint',
     type: 'radio',
   },
   {
     type: 'divider',
   },
   {
-    label: 'Save conversation',
+    label: t('select_save_conversation'),
     icon: <CustomZapIcon />,
     for: 'save_conversation_switch',
-    hint: 'Great for everyday tasks',
+    hint: t('select_save_conversation_hint'),
     type: 'switch',
   },
   {
-    label: 'Export Conversation',
+    label: t('select_export_conversation'),
     icon: <CustomDownloadIcon />,
     type: 'switch',
   },

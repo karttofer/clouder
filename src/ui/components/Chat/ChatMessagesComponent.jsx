@@ -11,6 +11,8 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { CustomArrowUpIcon } from '../../../assets/chakra/icons.js'
+// language
+import { t } from 'i18next'
 
 function ChatContainer() {
   // This is just a mock
@@ -77,7 +79,7 @@ function ChatContainer() {
               height="45px"
               color="text.hint"
               bg="layout.black.black900"
-              placeholder="Basic usage"
+              placeholder={t('placeholder_01')}
               _focus={{ textColor: 'white' }}
               value={inputValue}
               onChange={handleInputChange}
@@ -100,8 +102,7 @@ function ChatContainer() {
             fontWeight="100"
             fontSize=".7em"
           >
-            Clouder is powered by CHAT-GPT and can make mistakes. Check
-            important info.
+            {t('info_message_01')}
           </Text>
         </Box>
       </Flex>

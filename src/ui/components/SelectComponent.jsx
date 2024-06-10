@@ -1,5 +1,5 @@
 // Dependencies
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Menu,
   MenuButton,
@@ -19,11 +19,19 @@ import {
 import { ChevronDownIcon } from '@chakra-ui/icons'
 // Themes
 import { SelectTheme } from '../../assets/chakra/appStyle'
+import { t } from 'i18next'
 
-const CustomSelect = ({ placeholder, items }) => {
-  const [value, setValue] = useState('')
+const SelectComponent = ({ placeholder, items, initialValue }) => {
+  const [value, setValue] = useState(initialValue?.value || '')
   const [switchValues, setSwitchValues] = useState({})
-  const [buttonLabel, setButtonLabel] = useState('')
+  const [buttonLabel, setButtonLabel] = useState(initialValue?.label || '')
+
+  useEffect(() => {
+    if (initialValue) {
+      setValue(t(initialValue.value))
+      setButtonLabel(t(initialValue.label))
+    }
+  }, [initialValue])
 
   const handleSwitchChange = (e, itemFor) => {
     e.preventDefault()
@@ -37,7 +45,7 @@ const CustomSelect = ({ placeholder, items }) => {
 
   const handleRadioChange = (nextValue, labelSelected) => {
     setValue(nextValue)
-    setButtonLabel(labelSelected)
+    setButtonLabel(t(labelSelected))
   }
 
   return (
@@ -62,7 +70,7 @@ const CustomSelect = ({ placeholder, items }) => {
                 <Flex gap="3" align="center" direction="row">
                   {item.icon}
                   <Radio size="md" value={item.value}>
-                    {item.label}
+                    {t(item.label)}
                   </Radio>
                 </Flex>
                 <Text
@@ -72,7 +80,7 @@ const CustomSelect = ({ placeholder, items }) => {
                   paddingRight="29px"
                   fontSize="xs"
                 >
-                  {item.hint}
+                  {t(item.hint)}
                 </Text>
               </RadioGroup>
             )}
@@ -92,14 +100,14 @@ const CustomSelect = ({ placeholder, items }) => {
                 >
                   <Flex direction="column">
                     <FormLabel htmlFor={item.for} mb="0">
-                      {item.label}
+                      {t(item.label)}
                     </FormLabel>
                     <FormHelperText
                       fontSize="xs"
                       maxWidth="253px"
                       color="text.hint"
                     >
-                      {item.hint}
+                      {t(item.hint)}
                     </FormHelperText>
                   </Flex>
                   <Switch
@@ -115,4 +123,4 @@ const CustomSelect = ({ placeholder, items }) => {
     </Menu>
   )
 }
-export default CustomSelect
+export default SelectComponent

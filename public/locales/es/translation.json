@@ -1,0 +1,18 @@
+{
+  "toast_copy": "¡Copiado! ¡Tu mensaje ahora está listo para una gira mundial!",
+  "info_message_01": "Clouder está impulsado por CHAT-GPT y puede cometer errores. Verifica la información importante.",
+  "select_models_01_hint": "Nuestro modelo, entrenado con conocimientos de AWS",
+  "select_models_02_hint": "Modelo más nuevo y avanzado",
+  "select_models_03_hint": "Modelo avanzado para tareas complejas",
+  "select_models_04_hint": "Excelente para tareas cotidianas",
+  "select_models_01_label": "Clouder GTPs",
+  "select_models_02_label": "Chat GPT4o",
+  "select_models_03_label": "Chat GPT4",
+  "select_models_04_label": "Chat GPT 3.5",
+  "select_save_conversation": "Guardar conversación",
+  "select_save_conversation_hint": "Excelente para tareas cotidianas",
+  "select_export_conversation": "Exportar conversación",
+  "placeholder_01": "¡Escribe algo sorprendente! 👌",
+  "button_copy": "Copiar",
+  "button_regenerate": "Regenerar"
+}

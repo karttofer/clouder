@@ -11,8 +11,11 @@ import {
   useClipboard,
 } from '@chakra-ui/react'
 import toast from 'react-hot-toast'
+import { t } from 'i18next'
+
 // Components
 import TooltipComponent from '../../TooltipComponent.jsx'
+
 // Images/Icons
 import {
   CustomCopyIcon,
@@ -28,7 +31,7 @@ const ChatBubbleComponent = ({ type, message }) => {
   }, [message, setValue])
 
   const notify = () =>
-    toast('Copied! Your message is now ready for a world tour!', {
+    toast(t('toast_copy'), {
       icon: '👏',
       style: {
         borderRadius: '10px',
@@ -70,7 +73,7 @@ const ChatBubbleComponent = ({ type, message }) => {
         >
           <TooltipComponent
             maxW="18px"
-            label="Copy"
+            label={t('button_copy')}
             jsxElement={
               <CustomCopyIcon
                 onClick={(event) => {
@@ -89,7 +92,7 @@ const ChatBubbleComponent = ({ type, message }) => {
           />
           <TooltipComponent
             maxW="18px"
-            label="Regenerate"
+            label={t('button_regenerate')}
             jsxElement={
               <CustomRefreshCcwIcon
                 cursor="pointer"

@@ -28,6 +28,7 @@ import {
 // Components
 import MenuLeftOptionsPopover from './MenuLeftOptionsPopover.jsx'
 import MenuLeftMenuProfile from './MenuLeftProfileIcon.jsx'
+import ToggleLanguageComponent from '../ToggleLanguageComponent.jsx'
 
 // Images
 import img from '../../../assets/images/dan_test_img.png'
@@ -82,6 +83,7 @@ const NavigationComponent = () => {
                 {...LeftMenuItemsTheme()}
                 padding="0px"
               >
+                asdas
                 <Text {...LeftMenuItemTextTheme}>{btn.label}</Text>
                 <MenuLeftOptionsPopover />
               </Flex>

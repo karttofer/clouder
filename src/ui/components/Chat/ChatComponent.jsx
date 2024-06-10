@@ -5,7 +5,7 @@ import { Container, Flex, Box } from '@chakra-ui/layout'
 import SelectComponent from '../SelectComponent.jsx'
 import ChatMessageComponent from './ChatMessagesComponent.jsx'
 // Configs
-import { chatMenuItems } from './configs.js'
+import { chatMenuItems, selectInitialValue } from './configs.js'
 
 const ChatComponent = () => {
   return (
@@ -18,6 +18,7 @@ const ChatComponent = () => {
       >
         <Box>
           <SelectComponent
+            initialValue={selectInitialValue}
             placeholder="Select an option"
             items={chatMenuItems}
             type="radio"

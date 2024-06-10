@@ -17,6 +17,8 @@ import {
   FormHelperText,
 } from '@chakra-ui/react'
 import { ChevronDownIcon } from '@chakra-ui/icons'
+// Themes
+import { SelectTheme } from '../../assets/chakra/appStyle'
 
 const CustomSelect = ({ placeholder, items }) => {
   const [value, setValue] = useState('')
@@ -40,16 +42,7 @@ const CustomSelect = ({ placeholder, items }) => {
 
   return (
     <Menu closeOnSelect={false}>
-      <MenuButton
-        color="layout.white.white0"
-        bg="transparent"
-        _hover="transparent"
-        _active={{
-          bgColor: 'layout.black.black900',
-        }}
-        as={Button}
-        rightIcon={<ChevronDownIcon />}
-      >
+      <MenuButton {...SelectTheme} as={Button} rightIcon={<ChevronDownIcon />}>
         {buttonLabel || placeholder}
       </MenuButton>
       <MenuList bg="layout.black.black900" color="layout.white.white0">

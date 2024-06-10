@@ -3,7 +3,7 @@
  */
 export const ButtonTheme = {
   css: {
-    background:"transparent",
+    background: 'transparent',
     transition: 'background .3s',
     borderWidth: '2px',
     borderColor: 'transparent',
@@ -29,9 +29,9 @@ export const IconButtonTheme = (color, hoverColor, hoverBg) => ({
     background: hoverBg,
     color: hoverColor,
   },
-  _active:{
-    background:"transparent"
-  }
+  _active: {
+    background: 'transparent',
+  },
 })
 
 /**
@@ -90,13 +90,20 @@ export const LeftMenuItemsTheme = () => ({
 })
 
 export const LeftMenuItemTextTheme = {
-    textAlign: 'left',
-    w: '100%',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    maxWidth: '200px',
-    fontWeight: 500,
-    display: 'flex',
-    alignItems: 'center',
-    whiteSpace: 'nowrap'
+  textAlign: 'left',
+  w: '100%',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  maxWidth: '200px',
+  fontWeight: 500,
+  display: 'flex',
+  alignItems: 'center',
+  whiteSpace: 'nowrap',
+}
+
+export const SelectTheme = {
+  color: 'layout.white.white0',
+  bg: 'transparent',
+  _hover: 'transparent',
+  _active: { bgColor: 'layout.black.black900' },
 }

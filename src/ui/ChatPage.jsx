@@ -3,7 +3,7 @@ import React from 'react'
 import { Container, Grid, GridItem } from '@chakra-ui/layout'
 
 // Components
-import MenuComponent from './components/MenuComponent.jsx'
+import MenuComponent from './components/LeftMenu/MenuComponent.jsx'
 import ChatComponent from './components/Chat/ChatComponent.jsx'
 
 const ChatPage = () => {

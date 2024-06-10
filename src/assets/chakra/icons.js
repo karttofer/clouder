@@ -17,6 +17,8 @@ import {
   Brain,
   SquareArrowUp,
   Download,
+  Copy,
+  RefreshCcw,
 } from 'lucide-react'
 
 const CustomBrainIcon = (props) => {
@@ -69,8 +71,16 @@ const CustomArrowUpIcon = (props) => {
 const CustomDownloadIcon = (props) => {
   return <Icon {...props} as={Download} />
 }
+const CustomCopyIcon = (props) => {
+  return <Icon {...props} as={Copy} />
+}
+const CustomRefreshCcwIcon = (props) => {
+  return <Icon {...props} as={RefreshCcw} />
+}
 
 export {
+  CustomRefreshCcwIcon,
+  CustomCopyIcon,
   CustomHDotsIcon,
   CustomArchiveIcon,
   CustomDoubleArrowLeftIcon,

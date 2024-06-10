@@ -5,15 +5,14 @@ import {
   ChakraBaseProvider,
   extendBaseTheme,
   theme as chakraTheme,
-  FormControl,
 } from '@chakra-ui/react'
+import { Toaster } from 'react-hot-toast'
 
 // Routes
 import { AppRoutes } from './utils/router/routes.jsx'
 
 //Style
 import './assets/main.scss'
-import { Form } from 'react-router-dom'
 
 const {
   Radio,
@@ -28,6 +27,7 @@ const {
   Stack,
   Switch,
   Input,
+  Tooltip,
 } = chakraTheme.components
 
 const theme = extendBaseTheme({
@@ -44,6 +44,7 @@ const theme = extendBaseTheme({
     Checkbox,
     Radio,
     Input,
+    Tooltip,
   },
   colors: {
     button: {
@@ -113,6 +114,8 @@ const theme = extendBaseTheme({
 
 ReactDom.createRoot(document.querySelector('#root')).render(
   <React.StrictMode>
+    <Toaster position="bottom-right" reverseOrder={false} />
+
     <ChakraBaseProvider theme={theme}>
       <AppRoutes />
     </ChakraBaseProvider>

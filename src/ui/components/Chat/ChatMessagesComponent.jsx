@@ -15,8 +15,14 @@ import { CustomArrowUpIcon } from '../../../assets/chakra/icons.js'
 function ChatContainer() {
   // This is just a mock
   const [messages, setMessages] = useState([
-    { type: 'user', content: 'User message' },
-    { type: 'ai', content: 'AI message' },
+    {
+      type: 'user',
+      content: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also`,
+    },
+    {
+      type: 'ai',
+      content: `he leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
+    },
   ])
   const [inputValue, setInputValue] = useState('')
   const messagesEndRef = useRef(null)
@@ -55,7 +61,7 @@ function ChatContainer() {
             <ChatBubbleComponent
               key={index}
               type={msg.type}
-              content={msg.content}
+              message={msg.content}
             />
           ))}
           <div ref={messagesEndRef} />

@@ -3,13 +3,19 @@ import React from 'react'
 import { Container, Flex, Box } from '@chakra-ui/layout'
 // Components
 import SelectComponent from '../SelectComponent.jsx'
+import ChatMessageComponent from './ChatMessagesComponent.jsx'
 // Configs
 import { chatMenuItems } from './configs.js'
 
 const ChatComponent = () => {
   return (
-    <Container>
-      <Flex padding="15px">
+    <Container height="100%">
+      <Flex
+        padding="15px"
+        direction="column"
+        height="100%"
+        justify="space-between"
+      >
         <Box>
           <SelectComponent
             placeholder="Select an option"
@@ -17,7 +23,9 @@ const ChatComponent = () => {
             type="radio"
           />
         </Box>
-        <Box></Box>
+        <Box>
+          <ChatMessageComponent />
+        </Box>
       </Flex>
     </Container>
   )

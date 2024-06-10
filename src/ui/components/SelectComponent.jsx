@@ -41,7 +41,7 @@ const CustomSelect = ({ placeholder, items }) => {
   return (
     <Menu closeOnSelect={false}>
       <MenuButton
-        color="layout.white.white"
+        color="layout.white.white0"
         bg="transparent"
         _hover="transparent"
         _active={{
@@ -52,7 +52,7 @@ const CustomSelect = ({ placeholder, items }) => {
       >
         {buttonLabel || placeholder}
       </MenuButton>
-      <MenuList bg="layout.black.black900" color="layout.white.white">
+      <MenuList bg="layout.black.black900" color="layout.white.white0">
         {items.map((item, index) => (
           <MenuItem
             key={index}

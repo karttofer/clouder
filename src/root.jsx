@@ -27,6 +27,7 @@ const {
   Avatar,
   Stack,
   Switch,
+  Input,
 } = chakraTheme.components
 
 const theme = extendBaseTheme({
@@ -42,6 +43,7 @@ const theme = extendBaseTheme({
     Avatar,
     Checkbox,
     Radio,
+    Input,
   },
   colors: {
     button: {
@@ -95,7 +97,7 @@ const theme = extendBaseTheme({
         black800: '#1c1c1c',
       },
       white: {
-        white: '#ffffff',
+        white0: '#ffffff',
         white5: '#ffffff17',
         white10: '#c5c5c517',
       },
@@ -103,6 +105,9 @@ const theme = extendBaseTheme({
     primary: {
       white10: '#ffffffab',
     },
+  },
+  radii: {
+    general: '5px',
   },
 })
 

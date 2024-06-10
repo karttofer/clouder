@@ -15,6 +15,8 @@ import {
   Sparkle,
   Zap,
   Brain,
+  SquareArrowUp,
+  Download,
 } from 'lucide-react'
 
 const CustomBrainIcon = (props) => {
@@ -61,6 +63,12 @@ const CustomGearIcon = (props) => {
 const CustomExistIcon = (props) => {
   return <Icon {...props} as={LogOut} />
 }
+const CustomArrowUpIcon = (props) => {
+  return <Icon {...props} as={SquareArrowUp} />
+}
+const CustomDownloadIcon = (props) => {
+  return <Icon {...props} as={Download} />
+}
 
 export {
   CustomHDotsIcon,
@@ -75,4 +83,6 @@ export {
   CustomSparkleIcon,
   CustomZapIcon,
   CustomBrainIcon,
+  CustomArrowUpIcon,
+  CustomDownloadIcon,
 }

@@ -7,6 +7,7 @@ import {
   CustomSparkleIcon,
   CustomZapIcon,
   CustomBrainIcon,
+  CustomDownloadIcon,
 } from '../../../assets/chakra/icons'
 
 export const chatMenuItems = [
@@ -46,6 +47,11 @@ export const chatMenuItems = [
     icon: <CustomZapIcon />,
     for: 'save_conversation_switch',
     hint: 'Great for everyday tasks',
+    type: 'switch',
+  },
+  {
+    label: 'Export Conversation',
+    icon: <CustomDownloadIcon />,
     type: 'switch',
   },
 ]

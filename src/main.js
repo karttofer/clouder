@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, session } = require('electron')
 const path = require('path')
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -13,20 +13,34 @@ const createWindow = () => {
     height: 600,
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
+      contextIsolation: true,
+      enableRemoteModule: false,
     },
   })
 
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
 
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  // // Open the DevTools.
+  // mainWindow.webContents.openDevTools()
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+app.on('ready', () => {
+  // Modify the CSP headers
+  const filter = {
+    urls: ['//127.0.0.1:8000/*'],
+  }
+
+  session.defaultSession.webRequest.onBeforeSendHeaders(
+    filter,
+    (details, callback) => {
+      details.requestHeaders['User-Agent'] = 'MyAgent'
+      callback({ requestHeaders: details.requestHeaders })
+    }
+  )
+
+  createWindow()
+})
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits

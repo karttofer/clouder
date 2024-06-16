@@ -1,5 +1,32 @@
 /**
- * Buttron
+ * Button Default Primary
+ *
+ * This is the default button style, please use it if you want to
+ * create a new button, also... I think there is a problema with !important since
+ * don't know why it is needed
+ */
+export const ButtonThemePrimary = {
+  css: {
+    background: '#ff6000',
+    transition: 'background .3s',
+    borderWidth: '2px',
+    borderColor: 'transparent',
+  },
+  _hover: {
+    background: '#F0C86A',
+    cursor: 'pointer',
+  },
+  _active: {
+    background: '#b14605 !important',
+    color: '#ffffff',
+  },
+  _focus: {
+    borderColor: '#b14605',
+  },
+}
+
+/**
+ * Button Transaprent Bg
  */
 export const ButtonTheme = {
   css: {

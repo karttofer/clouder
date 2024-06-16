@@ -2,11 +2,16 @@
 import React from 'react'
 import { Container, Flex, Text, Button, Box } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
+import { t } from 'i18next'
+
+// Dependencies
 import { ButtonThemePrimary } from '../../../../assets/chakra/appStyle'
 
+// Backgrounds
 import noiseBg from '../../../../assets/images/nouse_bg_one.svg'
+
+// Components
 import LogoComponent from '../../General/LogoComponent.jsx'
-import MarqueeTextComponent from '../../General/MarqueeTextComponent.jsx'
 
 const animation = {
   initial: {
@@ -18,6 +23,7 @@ const animation = {
     opacity: 1,
   },
 }
+
 const LoginMessageComponent = () => {
   return (
     <Container
@@ -35,28 +41,27 @@ const LoginMessageComponent = () => {
         flexDir="column"
       >
         <Box>
-          <LogoComponent message="Powered By OpenAi" />
+          <LogoComponent message={t('powered_by_openai')} />
         </Box>
         <Box>
           <motion.div {...animation} transition={{ duration: '0.3' }}>
             <Text fontSize="4xl" color="layout.black.black800">
-              One platform
+              {t('login_message_one')}
             </Text>
           </motion.div>
           <motion.div {...animation} transition={{ duration: '0.8' }}>
             <Text fontSize="4xl" color="layout.black.black800">
-              Multiple ways to do it
+              {t('login_message_two')}
             </Text>
           </motion.div>
           <Button marginBottom="20px" marginTop="20px" {...ButtonThemePrimary}>
-            Learn more about us
+            {t('login_message_three')}
           </Button>
         </Box>
 
         <motion.div {...animation} transition={{ duration: '1' }}>
           <Text maxW="420px" color="layout.black.black900" fontWeight="400">
-            Clouder isn't a simple AI tool, it is an universe where won't need
-            to go out to find somethnig
+            {t('login_message_fourth')}
           </Text>
         </motion.div>
       </Flex>

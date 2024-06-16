@@ -1,3 +1,4 @@
+// Dependencies
 import React, { useState } from 'react'
 import {
   FormControl,
@@ -13,22 +14,26 @@ import {
 } from '@chakra-ui/react'
 import { useGoogleLogin } from '@react-oauth/google'
 import { useNavigate } from 'react-router-dom'
+// Styles
 import {
   ButtonThemePrimary,
   InputThemePrimary,
 } from '../../assets/chakra/appStyle'
 
+// Translation
+import { t } from 'i18next'
+
 const DynamicFormComponent = ({ formConfig, onSubmit, margin, maxW }) => {
   const [formData, setFormData] = useState({})
   const navigate = useNavigate()
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
+  const handleChange = (event) => {
+    const { name, value } = event.target
     setFormData((prevData) => ({ ...prevData, [name]: value }))
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = (event) => {
+    event.preventDefault()
     onSubmit(formData)
   }
 
@@ -91,7 +96,7 @@ const DynamicFormComponent = ({ formConfig, onSubmit, margin, maxW }) => {
                 </FormLabel>
                 <Input
                   {...InputThemePrimary}
-                  _placeholder={{ color: 'white' }}
+                  _placeholder={{ color: 'white', opacity: 0.3 }}
                   type={field.inputType}
                   name={field.name}
                   placeholder={field.placeholder}
@@ -122,7 +127,7 @@ const DynamicFormComponent = ({ formConfig, onSubmit, margin, maxW }) => {
                         }}
                       >
                         <Text color="layout.white.white0">
-                          Sign in with Google 🚀
+                          {t('login_google_quicklink_label')} 🚀
                         </Text>
                       </Button>
                     )
@@ -165,7 +170,7 @@ const DynamicFormComponent = ({ formConfig, onSubmit, margin, maxW }) => {
         type="submit"
         colorScheme="blue"
       >
-        Submit
+        {t('login_submit_button')}
       </Button>
       <VStack spacing={2} mt={4} w="100%">
         {formConfig.map((field) => {

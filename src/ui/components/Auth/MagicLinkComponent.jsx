@@ -2,6 +2,6 @@
 import React from 'react'
 
 const MagicLinkComponent = () => {
-  return <h1></h1>
+  return <h1>asdas</h1>
 }
 export default MagicLinkComponent

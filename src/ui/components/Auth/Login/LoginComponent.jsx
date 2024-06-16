@@ -1,6 +1,7 @@
 // Dependencies
 import React from 'react'
 import { Container, Grid, GridItem, Flex } from '@chakra-ui/layout'
+import { t } from 'i18next'
 
 // Components
 import DynamicFormComponent from '../../DynamicFormComponent.jsx'
@@ -9,19 +10,16 @@ import LoginMessageComponent from './LoginMessageComponent.jsx'
 const formConfig = [
   {
     type: 'text',
-    label: 'Name',
+    label: t('login_form_username'),
     name: 'name',
-    placeholder: 'Enter your name',
+    placeholder: t('login_form_username_placeholder'),
   },
   {
-    type: 'select',
-    label: 'Country',
-    name: 'country',
-    placeholder: 'Select country',
-    options: [
-      { value: 'uae', label: 'United Arab Emirates' },
-      { value: 'nigeria', label: 'Nigeria' },
-    ],
+    type: 'text',
+    inputType: 'password',
+    label: t('login_form_username'),
+    name: 'password',
+    placeholder: t('login_form_password_placeholder'),
   },
   {
     type: 'button',
@@ -35,16 +33,17 @@ const formConfig = [
     type: 'links',
     links: [
       {
-        label: 'Forgot Password?',
-        path: '/forgot-password',
+        label: t('login_forgot_password'),
+        path: '/magic-link',
       },
       {
-        label: 'Sign Up',
+        label: t('login_signup'),
         path: '/sign-up',
       },
     ],
   },
 ]
+
 const LoginComponent = () => {
   const handleSubmit = (data) => {
     console.log('Form Data:', data)

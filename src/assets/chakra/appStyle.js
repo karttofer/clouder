@@ -39,7 +39,6 @@ export const InputThemePrimary = {
   },
   _active: {
     background: '#b14605 !important',
-    color: '#ffffff',
   },
   _focusVisible: {
     borderColor: '#b14605',

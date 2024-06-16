@@ -14,5 +14,18 @@
   "select_export_conversation": "Exportar conversación",
   "placeholder_01": "¡Escribe algo sorprendente! 👌",
   "button_copy": "Copiar",
-  "button_regenerate": "Regenerar"
+  "button_regenerate": "Regenerar",
+  "login_form_username": "Nombre de usuario",
+  "login_form_username_placeholder": "Ingresa el nombre de tu usuario :)",
+  "login_form_password": "Password",
+  "login_form_password_placeholder": "¿Algun contraseña?",
+  "login_google_quicklink_label": "Inicia sesion con Google",
+  "login_submit_button": "Iniciar sesion",
+  "login_forgot_password": "Olvidaste tu contraseña?",
+  "login_signup": "Registrarse",
+  "login_message_one": "Una plataforma",
+  "login_message_two": "Múltiples formas de hacerlo",
+  "login_message_three": "Conoce más sobre nosotros",
+  "login_message_fourth": "Clouder no es una herramienta de IA simple, es un universo donde no necesitarás salir para encontrar algo",
+  "powered_by_openai": "Potenciado Con CHAT-GPT"
 }

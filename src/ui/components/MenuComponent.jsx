@@ -21,7 +21,7 @@ import { ChevronDownIcon } from '@chakra-ui/icons'
 import { SelectTheme } from '../../assets/chakra/appStyle'
 import { t } from 'i18next'
 
-const SelectComponent = ({ placeholder, items, initialValue }) => {
+const MenuComponent = ({ placeholder, items, initialValue }) => {
   const [value, setValue] = useState(initialValue?.value || '')
   const [switchValues, setSwitchValues] = useState({})
   const [buttonLabel, setButtonLabel] = useState(initialValue?.label || '')
@@ -123,4 +123,4 @@ const SelectComponent = ({ placeholder, items, initialValue }) => {
     </Menu>
   )
 }
-export default SelectComponent
+export default MenuComponent

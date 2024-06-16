@@ -14,3 +14,10 @@ main {
 .hidde_slider-bar {
   scrollbar-width: none;
 }
+
+/*
+  Select > Option Color change
+*/
+.select-option-bg-color-primary > option {
+  background-color: #101010 !important;
+}

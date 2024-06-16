@@ -1,30 +1,59 @@
 // Dependencies
 import React from 'react'
-import { Container, Grid, GridItem } from '@chakra-ui/layout'
+import { Container, Grid, GridItem, Flex } from '@chakra-ui/layout'
 
 // Components
-import DynamicForm from '../../DynamicFormComponent.jsx'
+import DynamicFormComponent from '../../DynamicFormComponent.jsx'
 import LoginMessageComponent from './LoginMessageComponent.jsx'
+
+// Icons
+import googleIcon from '../../../../assets/images/google_logo.svg'
 
 const formConfig = [
   {
-    type: 'select',
-    label: 'Country',
-    placeholder: 'Select country',
-    options: [
-      { value: 'uae', label: 'United Arab Emirates' },
-      { value: 'nigeria', label: 'Nigeria' },
-    ],
+    type: 'text',
+    inputType: 'text',
+    label: 'Username',
+    name: 'name',
+    placeholder: 'Enter your name',
   },
   {
     type: 'text',
-    label: 'Name',
-    placeholder: 'Enter your name',
+    inputType: 'password',
+    label: 'Password',
+    name: 'password',
+    placeholder: 'You should have a password mate',
   },
-  // Add more fields as needed
+  {
+    type: 'button',
+    buttons: [
+      {
+        textContainer: 'Login with Google',
+        label: 'Google Login',
+        colorScheme: {},
+        imgIcon: googleIcon,
+        onClick: () => alert('Google Login Clicked'),
+      },
+    ],
+  },
+  {
+    type: 'links',
+    links: [
+      {
+        label: 'Forgot Password?',
+        path: '/forgot-password',
+      },
+      {
+        label: `You don't have an account yet?`,
+        path: '/sign-up',
+      },
+    ],
+  },
 ]
-
 const LoginComponent = () => {
+  const handleSubmit = (data) => {
+    console.log('Form Data:', data)
+  }
   return (
     <Container>
       <Grid
@@ -49,7 +78,20 @@ const LoginComponent = () => {
           bg="layout.black.black800"
           area={'log'}
         >
-          Login
+          <Flex
+            h="100%"
+            display="flex"
+            justify="center"
+            align="center"
+            w="100%"
+          >
+            <DynamicFormComponent
+              margin={5}
+              maxW="500px"
+              formConfig={formConfig}
+              onSubmit={handleSubmit}
+            />
+          </Flex>
         </GridItem>
       </Grid>
     </Container>

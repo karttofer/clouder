@@ -2,7 +2,7 @@
 import React from 'react'
 import { Container, Flex, Box } from '@chakra-ui/layout'
 // Components
-import SelectComponent from '../SelectComponent.jsx'
+import MenuComponent from '../MenuComponent.jsx'
 import ChatMessageComponent from './ChatMessagesComponent.jsx'
 // Configs
 import { chatMenuItems, selectInitialValue } from './configs.js'
@@ -17,7 +17,7 @@ const ChatComponent = () => {
         justify="space-between"
       >
         <Box>
-          <SelectComponent
+          <MenuComponent
             initialValue={selectInitialValue}
             placeholder="Select an option"
             items={chatMenuItems}

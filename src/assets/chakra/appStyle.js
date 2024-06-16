@@ -25,6 +25,28 @@ export const ButtonThemePrimary = {
   },
 }
 
+export const InputThemePrimary = {
+  css: {
+    color: 'white',
+    background: '#3b3b3b',
+    transition: 'background .3s',
+    borderWidth: '2px',
+    borderColor: 'transparent',
+  },
+  _hover: {
+    background: '#252525',
+    cursor: 'pointer',
+  },
+  _active: {
+    background: '#b14605 !important',
+    color: '#ffffff',
+  },
+  _focusVisible: {
+    borderColor: '#b14605',
+    borderWidth: '2px',
+  },
+}
+
 /**
  * Button Transaprent Bg
  */

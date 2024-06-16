@@ -1,8 +1,6 @@
 // Dependencies
 import React from 'react'
 import {
-  Avatar,
-  Spacer,
   Popover,
   PopoverTrigger,
   PopoverContent,
@@ -10,34 +8,28 @@ import {
   PopoverArrow,
   Portal,
   Button,
-  Flex,
   Stack,
-  Divider,
-  Text
 } from '@chakra-ui/react'
 
 // Icons
-import { CustomGearIcon, CustomExistIcon } from '../../assets/chakra/icons.js'
+import {
+  CustomHDotsIcon,
+  CustomPencilIcon,
+  CustomTrashIcon,
+} from '../../../assets/chakra/icons.js'
 
 // Themes
-import { IconButtonTheme, ButtonTheme } from '../../assets/chakra/appStyle.js'
+import { IconButtonTheme } from '../../../assets/chakra/appStyle.js'
 
-const MenuLeftAvatarProfile = ({ avatarImg }) => {
+const MenuLeftOptionsPopover = () => {
   return (
     <Popover>
       <PopoverTrigger>
-        <Button p={0} marginBlock={4} w="100%" height="60px" {...ButtonTheme}>
-          <Flex
-            w="100%"
-            justify="flex-start"
-            align="center"
-            paddingLeft={3}
-            paddingRight={3}
-          >
-            <Avatar src={avatarImg} paddingRight={2} />
-            <Text color="white">Jhornan Colina</Text>
-            <Spacer />
-          </Flex>
+        <Button
+          variant="ghost"
+          {...IconButtonTheme('button.icon.inner', 'button.icon.hover')}
+        >
+          <CustomHDotsIcon />
         </Button>
       </PopoverTrigger>
       <Portal>
@@ -46,7 +38,7 @@ const MenuLeftAvatarProfile = ({ avatarImg }) => {
           <PopoverBody>
             <Stack direction="column" spacing={4}>
               <Button
-                rightIcon={<CustomGearIcon />}
+                rightIcon={<CustomPencilIcon />}
                 colorScheme="teal"
                 variant="solid"
                 {...IconButtonTheme(
@@ -56,11 +48,10 @@ const MenuLeftAvatarProfile = ({ avatarImg }) => {
                 )}
                 justifyContent="space-between"
               >
-                Settings
+                Rename
               </Button>
-              <Divider />
               <Button
-                rightIcon={<CustomExistIcon />}
+                rightIcon={<CustomTrashIcon />}
                 colorScheme="teal"
                 variant="outline"
                 justifyContent="space-between"
@@ -70,7 +61,7 @@ const MenuLeftAvatarProfile = ({ avatarImg }) => {
                   'button.icon.hoverSecondaryBg'
                 )}
               >
-                Sign Out
+                Delete Conversation
               </Button>
             </Stack>
           </PopoverBody>
@@ -79,4 +70,5 @@ const MenuLeftAvatarProfile = ({ avatarImg }) => {
     </Popover>
   )
 }
-export default MenuLeftAvatarProfile
+
+export default MenuLeftOptionsPopover

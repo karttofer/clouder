@@ -6,22 +6,45 @@ import {
   extendBaseTheme,
   theme as chakraTheme,
 } from '@chakra-ui/react'
-
+import { Toaster } from 'react-hot-toast'
+import './utils/i18n/index.js'
 // Routes
 import { AppRoutes } from './utils/router/routes.jsx'
 
 //Style
 import './assets/main.scss'
 
-const { Button, Main, Divider, Popover, Avatar } = chakraTheme.components
+const {
+  Radio,
+  Checkbox,
+  Select,
+  Menu,
+  Button,
+  Main,
+  Divider,
+  Popover,
+  Avatar,
+  Stack,
+  Switch,
+  Input,
+  Tooltip,
+} = chakraTheme.components
 
 const theme = extendBaseTheme({
   components: {
+    Switch,
+    Stack,
+    Select,
+    Menu,
     Button,
     Main,
     Divider,
     Popover,
     Avatar,
+    Checkbox,
+    Radio,
+    Input,
+    Tooltip,
   },
   colors: {
     button: {
@@ -35,6 +58,9 @@ const theme = extendBaseTheme({
       hover: '#f7fafc',
       active: '#1a202c',
       focus: '#1a202c',
+    },
+    text: {
+      hint: '#a9a9a9',
     },
     layout: {
       yale: {
@@ -62,20 +88,17 @@ const theme = extendBaseTheme({
         darkRed300: '#B50603',
         darkRed200: '#A10502',
         darkRed100: '#8D0401',
-        darkRed50: '#8D0401',
-
         sec: {
           darkRed400: '#8D0801',
-          darkRed300: '#8D0801',
-          darkRed200: '#8D0801',
-          darkRed100: '#8D0801',
           darkRed50: '#7A0701',
         },
       },
       black: {
         black900: '#101010',
+        black800: '#1c1c1c',
       },
       white: {
+        white0: '#ffffff',
         white5: '#ffffff17',
         white10: '#c5c5c517',
       },
@@ -84,10 +107,14 @@ const theme = extendBaseTheme({
       white10: '#ffffffab',
     },
   },
+  radii: {
+    general: '5px',
+  },
 })
 
 ReactDom.createRoot(document.querySelector('#root')).render(
   <React.StrictMode>
+    <Toaster position="bottom-right" reverseOrder={false} />
     <ChakraBaseProvider theme={theme}>
       <AppRoutes />
     </ChakraBaseProvider>

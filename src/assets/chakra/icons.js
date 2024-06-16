@@ -2,35 +2,54 @@
 import React from 'react'
 import { Icon } from '@chakra-ui/react'
 
-// New Library
 import {
-  ArchiveIcon,
-  DotsHorizontalIcon,
-  DoubleArrowLeftIcon,
-  Pencil1Icon,
-  CaretLeftIcon,
-  TrashIcon,
-  GearIcon,
-  ExitIcon
-} from '@radix-ui/react-icons'
+  Pencil,
+  Ellipsis,
+  Archive,
+  ChevronsLeft,
+  ArrowLeft,
+  Trash2,
+  Settings,
+  LogOut,
+  Sparkles,
+  Sparkle,
+  Zap,
+  Brain,
+  SquareArrowUp,
+  Download,
+  Copy,
+  RefreshCcw,
+} from 'lucide-react'
 
+const CustomBrainIcon = (props) => {
+  return <Icon {...props} as={Brain} />
+}
+const CustomZapIcon = (props) => {
+  return <Icon {...props} as={Zap} />
+}
+const CustomSparkIcon = (props) => {
+  return <Icon {...props} as={Sparkles} />
+}
+const CustomSparkleIcon = (props) => {
+  return <Icon {...props} as={Sparkle} />
+}
 const CustomHDotsIcon = (props) => {
-  return <Icon {...props} as={DotsHorizontalIcon} />
+  return <Icon {...props} as={Ellipsis} />
 }
 const CustomArchiveIcon = (props) => {
-  return <Icon {...props} as={ArchiveIcon} />
+  return <Icon {...props} as={Archive} />
 }
 const CustomDoubleArrowLeftIcon = (props) => {
-  return <Icon {...props} as={DoubleArrowLeftIcon} />
+  return <Icon {...props} as={ChevronsLeft} />
 }
 const CustomPencilIcon = (props) => {
-  return <Icon {...props} as={Pencil1Icon} />
+  return <Icon {...props} as={Pencil} />
 }
 const CustomCaretLeftIcon = ({ configs, click }) => {
   return (
     <Icon
       {...configs.props}
-      as={CaretLeftIcon}
+      as={ArrowLeft}
       boxSize={configs.size}
       onClick={click}
       css={configs.css}
@@ -38,15 +57,30 @@ const CustomCaretLeftIcon = ({ configs, click }) => {
   )
 }
 const CustomTrashIcon = (props) => {
-  return <Icon {...props} as={TrashIcon} />
+  return <Icon {...props} as={Trash2} />
 }
 const CustomGearIcon = (props) => {
-  return <Icon {...props} as={GearIcon} />
+  return <Icon {...props} as={Settings} />
 }
 const CustomExistIcon = (props) => {
-  return <Icon {...props} as={ExitIcon} />
+  return <Icon {...props} as={LogOut} />
 }
+const CustomArrowUpIcon = (props) => {
+  return <Icon {...props} as={SquareArrowUp} />
+}
+const CustomDownloadIcon = (props) => {
+  return <Icon {...props} as={Download} />
+}
+const CustomCopyIcon = (props) => {
+  return <Icon {...props} as={Copy} />
+}
+const CustomRefreshCcwIcon = (props) => {
+  return <Icon {...props} as={RefreshCcw} />
+}
+
 export {
+  CustomRefreshCcwIcon,
+  CustomCopyIcon,
   CustomHDotsIcon,
   CustomArchiveIcon,
   CustomDoubleArrowLeftIcon,
@@ -54,5 +88,11 @@ export {
   CustomCaretLeftIcon,
   CustomTrashIcon,
   CustomGearIcon,
-  CustomExistIcon
+  CustomExistIcon,
+  CustomSparkIcon,
+  CustomSparkleIcon,
+  CustomZapIcon,
+  CustomBrainIcon,
+  CustomArrowUpIcon,
+  CustomDownloadIcon,
 }

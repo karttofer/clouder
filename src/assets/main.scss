@@ -7,3 +7,10 @@ main {
   font-weight: normal;
   font-style: normal;
 }
+
+/*
+  Style that are not inside of chakra
+*/
+.hidde_slider-bar {
+  scrollbar-width: none;
+}

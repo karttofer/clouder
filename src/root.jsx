@@ -8,6 +8,7 @@ import {
 } from '@chakra-ui/react'
 import { Toaster } from 'react-hot-toast'
 import './utils/i18n/index.js'
+import { GoogleOAuthProvider } from '@react-oauth/google'
 // Routes
 import { AppRoutes } from './utils/router/routes.jsx'
 
@@ -122,7 +123,9 @@ ReactDom.createRoot(document.querySelector('#root')).render(
   <React.StrictMode>
     <Toaster position="bottom-right" reverseOrder={false} />
     <ChakraBaseProvider theme={theme}>
-      <AppRoutes />
+      <GoogleOAuthProvider clientId="994479845253-99ihsfb15guej9p3d9ef12poi679gia9.apps.googleusercontent.com">
+        <AppRoutes />
+      </GoogleOAuthProvider>
     </ChakraBaseProvider>
   </React.StrictMode>
 )

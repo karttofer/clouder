@@ -6,33 +6,28 @@ import { Container, Grid, GridItem, Flex } from '@chakra-ui/layout'
 import DynamicFormComponent from '../../DynamicFormComponent.jsx'
 import LoginMessageComponent from './LoginMessageComponent.jsx'
 
-// Icons
-import googleIcon from '../../../../assets/images/google_logo.svg'
-
 const formConfig = [
   {
     type: 'text',
-    inputType: 'text',
-    label: 'Username',
+    label: 'Name',
     name: 'name',
     placeholder: 'Enter your name',
   },
   {
-    type: 'text',
-    inputType: 'password',
-    label: 'Password',
-    name: 'password',
-    placeholder: 'You should have a password mate',
+    type: 'select',
+    label: 'Country',
+    name: 'country',
+    placeholder: 'Select country',
+    options: [
+      { value: 'uae', label: 'United Arab Emirates' },
+      { value: 'nigeria', label: 'Nigeria' },
+    ],
   },
   {
     type: 'button',
     buttons: [
       {
-        textContainer: 'Login with Google',
-        label: 'Google Login',
-        colorScheme: {},
-        imgIcon: googleIcon,
-        onClick: () => alert('Google Login Clicked'),
+        type: 'google',
       },
     ],
   },
@@ -44,7 +39,7 @@ const formConfig = [
         path: '/forgot-password',
       },
       {
-        label: `You don't have an account yet?`,
+        label: 'Sign Up',
         path: '/sign-up',
       },
     ],

@@ -11,6 +11,7 @@ import {
   Text,
   Image,
 } from '@chakra-ui/react'
+import { useGoogleLogin } from '@react-oauth/google'
 import { useNavigate } from 'react-router-dom'
 import {
   ButtonThemePrimary,
@@ -34,6 +35,11 @@ const DynamicFormComponent = ({ formConfig, onSubmit, margin, maxW }) => {
   const handleNavigation = (path) => {
     navigate(path)
   }
+
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => console.log(codeResponse),
+    flow: 'auth-code',
+  })
 
   return (
     <Container
@@ -98,34 +104,54 @@ const DynamicFormComponent = ({ formConfig, onSubmit, margin, maxW }) => {
             )
           case 'button':
             return (
-              <VStack key={index}>
-                <Text color="layout.white.white0" m="10px">
-                  Or
-                </Text>
-                {field.buttons.map((button, idx) => (
-                  <Button
-                    key={idx}
-                    aria-label={button.label}
-                    onClick={button.onClick}
-                    {...button.colorScheme}
-                    w="100%"
-                    background="layout.black.black850"
-                    border="2px"
-                    borderColor="layout.black.black700"
-                    _hover={{
-                      background: 'layout.black.black800',
-                    }}
-                  >
-                    <Image
-                      src={button.imgIcon}
-                      alt="quick login"
-                      marginRight="10px"
-                    />
-                    <Text color="layout.white.white0">
-                      {button.textContainer}
-                    </Text>
-                  </Button>
-                ))}
+              <VStack key={index} spacing={4} mt={4} w="100%">
+                {field.buttons.map((button, idx) => {
+                  if (button.type === 'google') {
+                    return (
+                      <Button
+                        key={idx}
+                        aria-label="Google Login"
+                        onClick={() => login()}
+                        {...button.colorScheme}
+                        w="100%"
+                        background="layout.black.black850"
+                        border="2px"
+                        borderColor="layout.black.black700"
+                        _hover={{
+                          background: 'layout.black.black800',
+                        }}
+                      >
+                        <Text color="layout.white.white0">
+                          Sign in with Google 🚀
+                        </Text>
+                      </Button>
+                    )
+                  }
+                  return (
+                    <Button
+                      key={idx}
+                      aria-label={button.label}
+                      onClick={button.onClick}
+                      {...button.colorScheme}
+                      w="100%"
+                      background="layout.black.black850"
+                      border="2px"
+                      borderColor="layout.black.black700"
+                      _hover={{
+                        background: 'layout.black.black800',
+                      }}
+                    >
+                      <Image
+                        src={button.imgIcon}
+                        alt="quick login"
+                        marginRight="10px"
+                      />
+                      <Text color="layout.white.white0">
+                        {button.textContainer}
+                      </Text>
+                    </Button>
+                  )
+                })}
               </VStack>
             )
           default:

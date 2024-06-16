@@ -15,6 +15,9 @@ import { AppRoutes } from './utils/router/routes.jsx'
 //Style
 import './assets/main.scss'
 
+// Enviroments
+import { GOOGLE_CLIENT_ID } from '../enviroment.js'
+
 const {
   Radio,
   Checkbox,
@@ -123,7 +126,7 @@ ReactDom.createRoot(document.querySelector('#root')).render(
   <React.StrictMode>
     <Toaster position="bottom-right" reverseOrder={false} />
     <ChakraBaseProvider theme={theme}>
-      <GoogleOAuthProvider clientId="994479845253-99ihsfb15guej9p3d9ef12poi679gia9.apps.googleusercontent.com">
+      <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
         <AppRoutes />
       </GoogleOAuthProvider>
     </ChakraBaseProvider>

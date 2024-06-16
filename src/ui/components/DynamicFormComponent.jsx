@@ -11,6 +11,7 @@ import {
   FormHelperText,
   Text,
   Image,
+  Box,
 } from '@chakra-ui/react'
 import { useGoogleLogin } from '@react-oauth/google'
 import { useNavigate } from 'react-router-dom'
@@ -23,7 +24,16 @@ import {
 // Translation
 import { t } from 'i18next'
 
-const DynamicFormComponent = ({ formConfig, onSubmit, margin, maxW }) => {
+const DynamicFormComponent = ({
+  title,
+  subtitle,
+  formConfig,
+  onSubmit,
+  margin,
+  maxW,
+  submitText,
+  enableSubmit,
+}) => {
   const [formData, setFormData] = useState({})
   const navigate = useNavigate()
 
@@ -54,6 +64,23 @@ const DynamicFormComponent = ({ formConfig, onSubmit, margin, maxW }) => {
       m={margin}
       maxW={maxW}
     >
+      <Box>
+        {title && (
+          <Text
+            color="layout.white.white0"
+            marginBottom="10px"
+            fontSize="2xl"
+            fontWeight="bold"
+          >
+            {title}
+          </Text>
+        )}
+        {subtitle && (
+          <Text opacity=".7" color="layout.white.white0" marginBottom="10px">
+            {subtitle}
+          </Text>
+        )}
+      </Box>
       {formConfig.map((field, index) => {
         switch (field.type) {
           case 'select':
@@ -163,24 +190,31 @@ const DynamicFormComponent = ({ formConfig, onSubmit, margin, maxW }) => {
             return null
         }
       })}
-      <Button
-        w="100%"
-        marginTop="20px"
-        {...ButtonThemePrimary}
-        type="submit"
-        colorScheme="blue"
-      >
-        {t('login_submit_button')}
-      </Button>
+      {enableSubmit && (
+        <Button
+          w="100%"
+          marginTop="20px"
+          {...ButtonThemePrimary}
+          type="submit"
+          colorScheme="blue"
+        >
+          {submitText || t('login_submit_button')}
+        </Button>
+      )}
       <VStack spacing={2} mt={4} w="100%">
         {formConfig.map((field) => {
           if (field.type === 'links') {
             return field.links.map((link, idx) => (
               <Button
                 key={idx}
-                w="100%"
                 colorScheme="teal"
                 variant="link"
+                _hover={{
+                  textDecoration: 'underline',
+                  textDecorationColor: 'layout.orange.orange500',
+                  textDecorationStyle: 'wavy',
+                  textUnderlineOffset: '5px',
+                }}
                 onClick={() => handleNavigation(link.path)}
               >
                 <Text color="layout.white.white0">{link.label}</Text>

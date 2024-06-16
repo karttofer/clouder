@@ -8,7 +8,7 @@ import { t } from 'i18next'
 import { ButtonThemePrimary } from '../../../../assets/chakra/appStyle'
 
 // Backgrounds
-import noiseBg from '../../../../assets/images/nouse_bg_one.svg'
+import noiseBg from '../../../../assets/images/noise_bg_one.svg'
 
 // Components
 import LogoComponent from '../../General/LogoComponent.jsx'

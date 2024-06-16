@@ -80,6 +80,7 @@ const LoginComponent = () => {
             w="100%"
           >
             <DynamicFormComponent
+              enableSubmit
               margin={5}
               maxW="500px"
               formConfig={formConfig}

@@ -14,6 +14,7 @@ export const ButtonThemePrimary = {
   },
   _hover: {
     background: '#F0C86A',
+    color: '#000000',
     cursor: 'pointer',
   },
   _active: {

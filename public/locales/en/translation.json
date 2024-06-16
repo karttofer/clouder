@@ -27,5 +27,13 @@
   "login_message_two": "Multiple ways to do it",
   "login_message_three": "Learn more about us",
   "login_message_fourth": "Clouder isn't a simple AI tool, it is an universe where won't need to go out to find somethnig",
-  "powered_by_openai": "Powered By CHAT-GPT"
+  "powered_by_openai": "Powered By CHAT-GPT",
+  "recovery_subtitle": "We have a quick and secure system to help you recover your account. First, please provide your email address. We will then send you an email with a PIN to reset your password. :)",
+  "recovery_title_message": "Sometimes we just forgot our things, but don't worry",
+  "recovery_input_label": "Email address",
+  "recovery_input_placeholder": "Input email address where you'll recieve the magic link",
+  "recivery_submit_text": "Send magic link",
+  "back_to_login": "Back to login",
+  "email_just_sent_title": "Knock Knock, take a look to your email, we just send a maigc link to:",
+  "email_just_sent_subtitle": "If you have an account with us, you will recieve the message"
 }

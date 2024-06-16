@@ -27,5 +27,13 @@
   "login_message_two": "Múltiples formas de hacerlo",
   "login_message_three": "Conoce más sobre nosotros",
   "login_message_fourth": "Clouder no es una herramienta de IA simple, es un universo donde no necesitarás salir para encontrar algo",
-  "powered_by_openai": "Potenciado Con CHAT-GPT"
+  "powered_by_openai": "Potenciado Con CHAT-GPT",
+  "recovery_subtitle": "Tenemos un sistema rápido y seguro para recuperar tu cuenta. Solo proporciona tu correo electrónico y te enviaremos un PIN para restablecer tu contraseña. :)",
+  "recovery_title_message": "A veces simplemente olvidamos nuestras cosas, pero no te preocupes",
+  "recovery_input_label": "Correo electronico",
+  "recovery_input_placeholder": "Ingresa el correo donde recibiras el link magico",
+  "recivery_submit_text": "Enviar link magico",
+  "back_to_login": "Regresar al login",
+  "email_just_sent_title": "Toc toc, revisa tu correo, justo te enviamos un magic link a:",
+  "email_just_sent_subtitle": "Si tienes una cuenta con nosotros recibiras el correo"
 }

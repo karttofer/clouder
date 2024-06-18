@@ -33,6 +33,7 @@ const DynamicFormComponent = ({
   maxW,
   submitText,
   enableSubmit,
+  darkTheme,
 }) => {
   const [formData, setFormData] = useState({})
   const navigate = useNavigate()
@@ -67,7 +68,7 @@ const DynamicFormComponent = ({
       <Box>
         {title && (
           <Text
-            color="layout.white.white0"
+            color={!darkTheme ? 'layout.white.white0' : 'layout.black.black0'}
             marginBottom="10px"
             fontSize="2xl"
             fontWeight="bold"
@@ -76,7 +77,12 @@ const DynamicFormComponent = ({
           </Text>
         )}
         {subtitle && (
-          <Text opacity=".7" color="layout.white.white0" marginBottom="10px">
+          <Text
+            textAlign="center"
+            opacity=".7"
+            color={!darkTheme ? 'layout.white.white0' : 'layout.black.black0'}
+            marginBottom="10px"
+          >
             {subtitle}
           </Text>
         )}
@@ -89,7 +95,9 @@ const DynamicFormComponent = ({
                 <FormLabel
                   marginTop="10px"
                   marginBottom="5px"
-                  color="layout.white.white0"
+                  color={
+                    !darkTheme ? 'layout.white.white0' : 'layout.black.black0'
+                  }
                 >
                   {field.label}
                 </FormLabel>
@@ -106,7 +114,12 @@ const DynamicFormComponent = ({
                     </option>
                   ))}
                 </Select>
-                <FormHelperText color="layout.white.white0" fontWeight="300">
+                <FormHelperText
+                  color={
+                    !darkTheme ? 'layout.white.white0' : 'layout.black.black0'
+                  }
+                  fontWeight="300"
+                >
                   {field.hint}
                 </FormHelperText>
               </FormControl>
@@ -117,7 +130,9 @@ const DynamicFormComponent = ({
                 <FormLabel
                   marginTop="10px"
                   marginBottom="5px"
-                  color="layout.white.white0"
+                  color={
+                    !darkTheme ? 'layout.white.white0' : 'layout.black.black0'
+                  }
                 >
                   {field.label}
                 </FormLabel>
@@ -129,7 +144,12 @@ const DynamicFormComponent = ({
                   placeholder={field.placeholder}
                   onChange={handleChange}
                 />
-                <FormHelperText color="layout.white.white0" fontWeight="300">
+                <FormHelperText
+                  color={
+                    !darkTheme ? 'layout.white.white0' : 'layout.black.black0'
+                  }
+                  fontWeight="300"
+                >
                   {field.hint}
                 </FormHelperText>
               </FormControl>
@@ -153,7 +173,13 @@ const DynamicFormComponent = ({
                           background: 'layout.black.black800',
                         }}
                       >
-                        <Text color="layout.white.white0">
+                        <Text
+                          color={
+                            !darkTheme
+                              ? 'layout.white.white0'
+                              : 'layout.black.black0'
+                          }
+                        >
                           {t('login_google_quicklink_label')} 🚀
                         </Text>
                       </Button>
@@ -217,7 +243,13 @@ const DynamicFormComponent = ({
                 }}
                 onClick={() => handleNavigation(link.path)}
               >
-                <Text color="layout.white.white0">{link.label}</Text>
+                <Text
+                  color={
+                    !darkTheme ? 'layout.white.white0' : 'layout.black.black0'
+                  }
+                >
+                  {link.label}
+                </Text>
               </Button>
             ))
           }

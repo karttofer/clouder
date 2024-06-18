@@ -35,5 +35,16 @@
   "recivery_submit_text": "Enviar link magico",
   "back_to_login": "Regresar al login",
   "email_just_sent_title": "Toc toc, revisa tu correo, justo te enviamos un magic link a:",
-  "email_just_sent_subtitle": "Si tienes una cuenta con nosotros recibiras el correo"
+  "email_just_sent_subtitle": "Si tienes una cuenta con nosotros recibiras el correo",
+  "registration_nickname": "Apodo de usuario",
+  "registration_title": "¡Bienvenido a Clouder! 🚀",
+  "registration_subtitle": "¡Solo un paso más para unirte a la comunidad!",
+  "registration_email": "Correo electronico",
+  "registration_password": "Contraseña",
+  "registration_repeat_password": "Repetir contraseña",
+  "registration_repeat_password_placeholder": "Debes estar seguro de tu contraseña",
+  "registration_submit": "¡Hagamoslo! 🚀",
+  "registration_nick_placeholder": "Apodo de usuario",
+  "registration_email_placeholder": "Escribe tu correo electronico. Ex: jhondoe@address.com",
+  "registration_password_placeholder": "Escribe tu contraseña"
 }

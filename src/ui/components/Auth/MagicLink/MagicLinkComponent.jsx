@@ -29,7 +29,7 @@ const formConfig = [
 ]
 
 const MagicLinkComponent = () => {
-  const [magicLinkSent, setMagicLinkSent] = useState()
+  const [magicLinkSent, setMagicLinkSent] = useState(false)
   const [userEmail, setUserEmail] = useState('')
 
   const handleSubmit = (formData) => {

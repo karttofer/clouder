@@ -7,7 +7,7 @@ import MenuComponent from './components/LeftMenu/MenuComponent.jsx'
 import ChatComponent from './components/Chat/ChatComponent.jsx'
 
 const ChatPage = () => {
-  fetch('http://127.0.0.1:8000/')
+  // fetch('http://127.0.0.1:8000/')
   return (
     <Container>
       <Grid

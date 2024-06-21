@@ -1,13 +1,19 @@
 // Dependencies
 import React, { useState } from 'react'
 import { t } from 'i18next'
+import { motion } from 'framer-motion'
+import { Container, Box } from '@chakra-ui/react'
 
 // Components
 import DynamicFormComponent from '../../DynamicFormComponent.jsx'
 import MagicLinkSentMessageComponent from './MagicLinkSentMessageComponent.jsx'
+
 // Background
 import noiseBg from '../../../../assets/images/noise_bg_two.svg'
-import { Container } from '@chakra-ui/react'
+import noiseBgSuccess from '../../../../assets/images/nouse_bg_success.svg'
+
+// Anims
+import { topBottomAnim } from '../../../../assets/chakra/appStyle.js'
 
 const formConfig = [
   {
@@ -39,28 +45,33 @@ const MagicLinkComponent = () => {
 
   return (
     <Container
-      backgroundSize="cover"
-      backgroundImage={noiseBg}
       w="100%"
       h="100vh"
       display="flex"
       alignItems="center"
       justifyContent="center"
+      flexDir="column"
+      backgroundSize="cover"
+      backgroundImage={!magicLinkSent ? noiseBg : noiseBgSuccess}
     >
-      {!magicLinkSent ? (
-        <DynamicFormComponent
-          enableSubmit
-          title={t('recovery_title_message')}
-          subtitle={t('recovery_subtitle')}
-          margin={5}
-          maxW="500px"
-          formConfig={formConfig}
-          onSubmit={handleSubmit}
-          submitText={t('recivery_submit_text')}
-        />
-      ) : (
-        <MagicLinkSentMessageComponent userEmail={userEmail} />
-      )}
+      <Box>
+        {!magicLinkSent ? (
+          <DynamicFormComponent
+            animationType={topBottomAnim}
+            showLogo
+            enableSubmit
+            title={t('recovery_title_message')}
+            subtitle={t('recovery_subtitle')}
+            margin={5}
+            maxW="500px"
+            formConfig={formConfig}
+            onSubmit={handleSubmit}
+            submitText={t('recivery_submit_text')}
+          />
+        ) : (
+          <MagicLinkSentMessageComponent userEmail={userEmail} />
+        )}
+      </Box>
     </Container>
   )
 }

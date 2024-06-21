@@ -1,6 +1,5 @@
 // Dependencies
 import React from 'react'
-import { Box } from '@chakra-ui/react'
 import { t } from 'i18next'
 
 // Components
@@ -20,15 +19,14 @@ const formConfig = [
 
 const MagicLinkSentMessageComponent = ({ userEmail }) => {
   return (
-    <Box>
-      <DynamicFormComponent
-        title={`${t('email_just_sent_title')} ${userEmail}`}
-        subtitle={t('email_just_sent_subtitle')}
-        margin={5}
-        maxW="500px"
-        formConfig={formConfig}
-      />
-    </Box>
+    <DynamicFormComponent
+      darkTheme
+      title={`${t('email_just_sent_title')} ${userEmail}`}
+      subtitle={t('email_just_sent_subtitle')}
+      margin={5}
+      maxW="500px"
+      formConfig={formConfig}
+    />
   )
 }
 export default MagicLinkSentMessageComponent

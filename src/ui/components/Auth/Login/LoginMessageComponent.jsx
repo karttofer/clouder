@@ -5,24 +5,16 @@ import { motion } from 'framer-motion'
 import { t } from 'i18next'
 
 // Dependencies
-import { ButtonThemePrimary } from '../../../../assets/chakra/appStyle'
+import {
+  ButtonThemePrimary,
+  topBottomAnim,
+} from '../../../../assets/chakra/appStyle'
 
 // Backgrounds
 import noiseBg from '../../../../assets/images/noise_bg_one.svg'
 
 // Components
 import LogoComponent from '../../General/LogoComponent.jsx'
-
-const animation = {
-  initial: {
-    transform: 'translateY(0px)',
-    opacity: 0,
-  },
-  animate: {
-    transform: 'translateY(7px)',
-    opacity: 1,
-  },
-}
 
 const LoginMessageComponent = () => {
   return (
@@ -44,12 +36,12 @@ const LoginMessageComponent = () => {
           <LogoComponent message={t('powered_by_openai')} />
         </Box>
         <Box>
-          <motion.div {...animation} transition={{ duration: '0.3' }}>
+          <motion.div {...topBottomAnim} transition={{ duration: '0.3' }}>
             <Text fontSize="4xl" color="layout.black.black800">
               {t('login_message_one')}
             </Text>
           </motion.div>
-          <motion.div {...animation} transition={{ duration: '0.8' }}>
+          <motion.div {...topBottomAnim} transition={{ duration: '0.8' }}>
             <Text fontSize="4xl" color="layout.black.black800">
               {t('login_message_two')}
             </Text>
@@ -59,7 +51,7 @@ const LoginMessageComponent = () => {
           </Button>
         </Box>
 
-        <motion.div {...animation} transition={{ duration: '1' }}>
+        <motion.div {...topBottomAnim} transition={{ duration: '1' }}>
           <Text maxW="420px" color="layout.black.black900" fontWeight="400">
             {t('login_message_fourth')}
           </Text>

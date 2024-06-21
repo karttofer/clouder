@@ -28,6 +28,7 @@ export const ButtonThemePrimary = {
 
 export const InputThemePrimary = {
   css: {
+    cursor: 'text',
     color: 'white',
     background: '#3b3b3b',
     transition: 'background .3s',
@@ -36,7 +37,7 @@ export const InputThemePrimary = {
   },
   _hover: {
     background: '#252525',
-    cursor: 'pointer',
+    cursor: 'text',
   },
   _active: {
     background: '#b14605 !important',
@@ -155,4 +156,23 @@ export const SelectTheme = {
   bg: 'transparent',
   _hover: 'transparent',
   _active: { bgColor: 'layout.black.black900' },
+}
+
+// Animations
+export const centerAnim = {
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+}
+
+export const topBottomAnim = {
+  initial: {
+    transform: 'translateY(0px)',
+    opacity: 0,
+  },
+  animate: {
+    transform: 'translateY(7px)',
+    opacity: 1,
+  },
 }

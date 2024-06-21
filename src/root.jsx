@@ -102,6 +102,7 @@ const theme = extendBaseTheme({
         orange400: '#b14605',
       },
       black: {
+        black0: '#000000',
         black900: '#101010',
         black850: '#161616',
         black800: '#1c1c1c',

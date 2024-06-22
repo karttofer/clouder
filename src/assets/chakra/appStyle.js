@@ -125,7 +125,7 @@ export const ButtonDisableTheme = {
     cursor: 'default',
   },
   _active: {
-    background: '#e7e7e7',
+    background: '#e7e7e7 !important',
     cursor: 'default',
   },
 }

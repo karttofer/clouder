@@ -1,5 +1,5 @@
 // Dependencies
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   FormControl,
   FormLabel,
@@ -22,6 +22,7 @@ import { t } from 'i18next'
 // Styles
 import {
   ButtonThemePrimary,
+  ButtonDisableTheme,
   InputThemePrimary,
   centerAnim,
 } from '../../../assets/chakra/appStyle.js'
@@ -45,12 +46,20 @@ const DynamicFormComponent = ({
   const [formData, setFormData] = useState({})
   const [selectedAvatar, setSelectedAvatar] = useState(null)
   const [errors, setErrors] = useState({})
+  const [touched, setTouched] = useState({})
+  const [isFormValid, setIsFormValid] = useState(false)
   const navigate = useNavigate()
+
+  useEffect(() => {
+    validateForm()
+  }, [formData])
 
   const handleChange = (event) => {
     const { name, value } = event.target
     setFormData((prevData) => ({ ...prevData, [name]: value }))
+    setTouched((prevTouched) => ({ ...prevTouched, [name]: true }))
     setErrors((prevErrors) => ({ ...prevErrors, [name]: null }))
+    validateForm() // Ensure validation is triggered after changes
   }
 
   const validateField = (name, value, validation) => {
@@ -63,8 +72,7 @@ const DynamicFormComponent = ({
     return null
   }
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
+  const validateForm = () => {
     let isValid = true
     const newErrors = {}
 
@@ -90,10 +98,20 @@ const DynamicFormComponent = ({
       }
     })
 
-    if (isValid) {
+    setErrors(newErrors)
+    setIsFormValid(isValid)
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    const newTouched = {}
+    formConfig.forEach((field) => {
+      newTouched[field.name] = true
+    })
+    setTouched(newTouched)
+    validateForm()
+    if (isFormValid) {
       onSubmit({ ...formData, avatar: selectedAvatar })
-    } else {
-      setErrors(newErrors)
     }
   }
 
@@ -139,10 +157,11 @@ const DynamicFormComponent = ({
           )}
         </Box>
         {formConfig.map((field, index) => {
+          const hasError = touched[field.name] && errors[field.name]
           switch (field.type) {
             case 'select':
               return (
-                <FormControl key={index} isInvalid={errors[field.name]}>
+                <FormControl key={index} isInvalid={hasError}>
                   <FormLabel
                     marginTop="10px"
                     marginBottom="5px"
@@ -172,7 +191,7 @@ const DynamicFormComponent = ({
                   >
                     {field.hint}
                   </FormHelperText>
-                  {errors[field.name] && (
+                  {hasError && (
                     <Text color="red.500" fontSize="sm">
                       {errors[field.name]}
                     </Text>
@@ -181,11 +200,7 @@ const DynamicFormComponent = ({
               )
             case 'text':
               return (
-                <FormControl
-                  key={index}
-                  isInvalid={errors[field.name]}
-                  w="100%"
-                >
+                <FormControl key={index} isInvalid={hasError} w="100%">
                   <FormLabel
                     marginTop="10px"
                     marginBottom="5px"
@@ -216,7 +231,7 @@ const DynamicFormComponent = ({
                   >
                     {field.hint}
                   </FormHelperText>
-                  {errors[field.name] && (
+                  {hasError && (
                     <Text color="red.500" fontSize="sm">
                       {errors[field.name]}
                     </Text>
@@ -225,11 +240,7 @@ const DynamicFormComponent = ({
               )
             case 'pin':
               return (
-                <FormControl
-                  key={index}
-                  isInvalid={errors[field.name]}
-                  w="100%"
-                >
+                <FormControl key={index} isInvalid={hasError} w="100%">
                   <FormLabel
                     textAlign="center"
                     marginTop="10px"
@@ -247,7 +258,7 @@ const DynamicFormComponent = ({
                     length={field.length}
                     timerConfig={field.timer}
                   />
-                  {errors[field.name] && (
+                  {hasError && (
                     <Text color="red.500" fontSize="sm">
                       {errors[field.name]}
                     </Text>
@@ -256,11 +267,7 @@ const DynamicFormComponent = ({
               )
             case 'avatar':
               return (
-                <FormControl
-                  key={index}
-                  isInvalid={errors[field.name]}
-                  w="100%"
-                >
+                <FormControl key={index} isInvalid={hasError} w="100%">
                   <FormLabel
                     marginTop="10px"
                     marginBottom="5px"
@@ -301,7 +308,7 @@ const DynamicFormComponent = ({
                   >
                     {field.hint}
                   </FormHelperText>
-                  {errors[field.name] && (
+                  {hasError && (
                     <Text color="red.500" fontSize="sm">
                       {errors[field.name]}
                     </Text>
@@ -373,6 +380,8 @@ const DynamicFormComponent = ({
             {...ButtonThemePrimary}
             type="submit"
             colorScheme="blue"
+            isDisabled={!isFormValid}
+            _disabled={ButtonDisableTheme}
           >
             {submitText || t('login_submit_button')}
           </Button>

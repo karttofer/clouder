@@ -3,7 +3,7 @@ import { HStack, Input, Button, Text } from '@chakra-ui/react'
 import {
   ButtonDisableTheme,
   ButtonSecondaryTheme,
-} from '../../../assets/chakra/appStyle'
+} from '../../../assets/chakra/appStyle' // adjust the import path as needed
 
 const PinFormComponent = ({
   name,
@@ -45,7 +45,9 @@ const PinFormComponent = ({
   }
 
   const handleResend = () => {
-    setPin(new Array(length).fill(''))
+    const emptyPin = new Array(length).fill('')
+    setPin(emptyPin)
+    handleChange({ target: { name, value: '' } }) // Ensure form validation updates
     setTimeLeft(timerConfig.duration)
     setIsTimerActive(true)
     // Trigger resend PIN logic here
@@ -80,7 +82,15 @@ const PinFormComponent = ({
           onChange={handleChange}
         />
       </HStack>
-      <HStack spacing={2} justify="end" mt={4}>
+      <HStack spacing={2} justify="center" mt={4}>
+        <Button
+          onClick={handleResend}
+          disabled={isTimerActive}
+          isDisabled={isTimerActive}
+          {...(isTimerActive ? ButtonDisableTheme : ButtonSecondaryTheme)}
+        >
+          {timerConfig.resendLabel}
+        </Button>
         {isTimerActive && (
           <Text
             color={!darkTheme ? 'layout.white.white0' : 'layout.black.black850'}
@@ -88,12 +98,6 @@ const PinFormComponent = ({
             Resend PIN in {timeLeft} seconds
           </Text>
         )}
-        <Button
-          onClick={handleResend}
-          {...(isTimerActive ? ButtonDisableTheme : ButtonSecondaryTheme)}
-        >
-          {timerConfig.resendLabel}
-        </Button>
       </HStack>
     </div>
   )

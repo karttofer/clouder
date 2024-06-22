@@ -124,6 +124,13 @@ const DynamicFormComponent = ({
     flow: 'auth-code',
   })
 
+  const validatePin = async (pin) => {
+    // Replace with actual API call
+    // TODO: here we should call the API to validate the PIN
+
+    return false
+  }
+
   return (
     <Container w="100%" as="form" onSubmit={handleSubmit} maxW={maxW}>
       <motion.div
@@ -257,6 +264,8 @@ const DynamicFormComponent = ({
                     name={field.name}
                     length={field.length}
                     timerConfig={field.timer}
+                    validatePin={validatePin}
+                    fieldHint={field.hint}
                   />
                   {hasError && (
                     <Text color="red.500" fontSize="sm">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { HStack, Input, Button, Text } from '@chakra-ui/react'
+import { HStack, Input, Button, Text, Container } from '@chakra-ui/react'
 import {
   ButtonDisableTheme,
   ButtonSecondaryTheme,
@@ -11,10 +11,12 @@ const PinFormComponent = ({
   darkTheme,
   handleChange,
   timerConfig,
+  validatePin,
 }) => {
   const [pin, setPin] = useState(new Array(length).fill(''))
   const [timeLeft, setTimeLeft] = useState(timerConfig.duration)
   const [isTimerActive, setIsTimerActive] = useState(true)
+  const [errorMessage, setErrorMessage] = useState('')
 
   useEffect(() => {
     if (isTimerActive && timeLeft > 0) {
@@ -25,7 +27,7 @@ const PinFormComponent = ({
     }
   }, [timeLeft, isTimerActive])
 
-  const handlePinChange = (element, index) => {
+  const handlePinChange = async (element, index) => {
     if (isNaN(element.value)) return false
 
     const newPin = [...pin.map((d, idx) => (idx === index ? element.value : d))]
@@ -34,6 +36,19 @@ const PinFormComponent = ({
 
     if (element.nextSibling) {
       element.nextSibling.focus()
+    }
+
+    // Check if pin is complete and correct
+    if (newPin.join('').length === length) {
+      const isValid = await validatePin(newPin.join(''))
+      if (!isValid) {
+        setErrorMessage('Invalid PIN, please try again.')
+        setPin(new Array(length).fill(''))
+      } else {
+        setErrorMessage('')
+        // Handle successful validation (e.g., redirect)
+        console.log('PIN is correct. Redirecting...')
+      }
     }
   }
 
@@ -45,17 +60,12 @@ const PinFormComponent = ({
   }
 
   const handleResend = () => {
-    const emptyPin = new Array(length).fill('')
-    setPin(emptyPin)
-    handleChange({ target: { name, value: '' } }) // Ensure form validation updates
     setTimeLeft(timerConfig.duration)
     setIsTimerActive(true)
-    // Trigger resend PIN logic here
-    console.log('Resend PIN')
   }
 
   return (
-    <div>
+    <Container>
       <HStack spacing={2} display="flex" justify="center">
         {pin.map((data, index) => (
           <Input
@@ -82,6 +92,11 @@ const PinFormComponent = ({
           onChange={handleChange}
         />
       </HStack>
+      {errorMessage && (
+        <Text color="red.500" textAlign="center" mt={2}>
+          {errorMessage}
+        </Text>
+      )}
       <HStack spacing={2} justify="center" mt={4}>
         <Button
           onClick={handleResend}
@@ -99,7 +114,7 @@ const PinFormComponent = ({
           </Text>
         )}
       </HStack>
-    </div>
+    </Container>
   )
 }
 

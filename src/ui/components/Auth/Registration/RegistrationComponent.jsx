@@ -116,7 +116,7 @@ const formPinConfig = [
     type: 'pin',
     name: 'pin',
     length: 4,
-    hint: "In case the pin dind't arrive, you will need to waint until the timer ends to request a new one.",
+    hint: "Sometimes PIN email can take a few minutes to arrive. If you don't receive it, please wait until the timer ends to request a new one.",
     validation: {
       required: true,
       errorEmptyMessage: `Ups! PIN field are required and can't be empty`,
@@ -189,7 +189,7 @@ const stepConfig = [
     },
   },
   {
-    title: 'Done! 🎉',
+    title: 'PIN Confirmation',
     component: ({ onComplete }) => {
       const handleSubmit = (formData) => {
         console.log('Form Data:', formData)
@@ -201,7 +201,6 @@ const stepConfig = [
           animationType={topBottomAnim}
           onSubmit={handleSubmit}
           showLogo
-          enableSubmit
           submitText={t('next')}
           title={`${t('registration_select_pin_field_title')}`}
           subtitle={t('registration_select_pin_field_subtitle')}

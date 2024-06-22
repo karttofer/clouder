@@ -54,5 +54,6 @@
   "registration_select_pin_field_title": "Let's confirm your account",
   "registration_select_pin_field_subtitle": "PIN are better than confirmation emails, right?",
   "resend_pin_button_label": "Resend PIN",
-  "next": "Next"
+  "next": "Next",
+  "resend_pin": "Resend PIN in {{timeLeft}} seconds"
 }

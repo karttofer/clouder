@@ -52,5 +52,6 @@
   "registration_select_avatar_field_title": "¿Luce como tu? (Opcional)",
   "registration_select_avatar_field_title_hint": "¡Por ahora solo tenemos unas pocas opciones, pero el futuro podras generarlo a tu gusto!",
   "resend_pin_button_label": "Reenviar PIN",
-  "next": "Siguiente"
+  "next": "Siguiente",
+  "resend_pin": "Reenviar PIN en {{timeLeft}} segundos"
 }

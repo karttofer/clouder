@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { HStack, Input, Button, Text, Container } from '@chakra-ui/react'
+import {
+  HStack,
+  Input,
+  Button,
+  Text,
+  Container,
+  FormHelperText,
+} from '@chakra-ui/react'
 import {
   ButtonDisableTheme,
   ButtonSecondaryTheme,
 } from '../../../assets/chakra/appStyle' // adjust the import path as needed
+import { t } from 'i18next'
 
 const PinFormComponent = ({
   name,
@@ -12,11 +20,13 @@ const PinFormComponent = ({
   handleChange,
   timerConfig,
   validatePin,
+  fieldHint,
 }) => {
   const [pin, setPin] = useState(new Array(length).fill(''))
   const [timeLeft, setTimeLeft] = useState(timerConfig.duration)
   const [isTimerActive, setIsTimerActive] = useState(true)
   const [errorMessage, setErrorMessage] = useState('')
+  const [isPinValid, setIsPinValid] = useState(false)
 
   useEffect(() => {
     if (isTimerActive && timeLeft > 0) {
@@ -38,16 +48,16 @@ const PinFormComponent = ({
       element.nextSibling.focus()
     }
 
-    // Check if pin is complete and correct
-    if (newPin.join('').length === length) {
+    if (newPin.every((digit) => digit !== '')) {
       const isValid = await validatePin(newPin.join(''))
       if (!isValid) {
         setErrorMessage('Invalid PIN, please try again.')
+        setIsPinValid(false)
         setPin(new Array(length).fill(''))
       } else {
         setErrorMessage('')
-        // Handle successful validation (e.g., redirect)
-        console.log('PIN is correct. Redirecting...')
+        setIsPinValid(true)
+        document.activeElement.blur()
       }
     }
   }
@@ -78,11 +88,12 @@ const PinFormComponent = ({
             onFocus={(e) => e.target.select()}
             textAlign="center"
             w="100%"
+            maxW="90px"
             height="95px"
             fontSize="3em"
             color={!darkTheme ? 'layout.white.white0' : 'layout.black.black850'}
             border="2px solid"
-            borderColor="layout.black.black700"
+            borderColor={isPinValid ? 'green.500' : 'layout.black.black700'}
           />
         ))}
         <input
@@ -92,12 +103,33 @@ const PinFormComponent = ({
           onChange={handleChange}
         />
       </HStack>
+      <FormHelperText
+        textAlign="center"
+        marginTop="10px"
+        marginBlock="10px"
+        color={!darkTheme ? 'layout.white.white0' : 'layout.black.black0'}
+        fontWeight="300"
+      >
+        {fieldHint}
+      </FormHelperText>
       {errorMessage && (
-        <Text color="red.500" textAlign="center" mt={2}>
+        <Text
+          color="layout.darkRed.darkRed400"
+          textAlign="center"
+          mt={2}
+          w="100%"
+        >
           {errorMessage}
         </Text>
       )}
-      <HStack spacing={2} justify="center" mt={4}>
+      <HStack spacing={2} justify="end" mt={4}>
+        {isTimerActive && (
+          <Text
+            color={!darkTheme ? 'layout.white.white0' : 'layout.black.black850'}
+          >
+            {t('resend_pin', { timeLeft })}
+          </Text>
+        )}
         <Button
           onClick={handleResend}
           disabled={isTimerActive}
@@ -106,13 +138,6 @@ const PinFormComponent = ({
         >
           {timerConfig.resendLabel}
         </Button>
-        {isTimerActive && (
-          <Text
-            color={!darkTheme ? 'layout.white.white0' : 'layout.black.black850'}
-          >
-            Resend PIN in {timeLeft} seconds
-          </Text>
-        )}
       </HStack>
     </Container>
   )

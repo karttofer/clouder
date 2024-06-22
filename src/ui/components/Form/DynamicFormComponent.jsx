@@ -128,7 +128,7 @@ const DynamicFormComponent = ({
     // Replace with actual API call
     // TODO: here we should call the API to validate the PIN
 
-    return false
+    return true
   }
 
   return (
@@ -199,7 +199,7 @@ const DynamicFormComponent = ({
                     {field.hint}
                   </FormHelperText>
                   {hasError && (
-                    <Text color="red.500" fontSize="sm">
+                    <Text color="layout.darkRed.darkRed400" fontSize="sm">
                       {errors[field.name]}
                     </Text>
                   )}
@@ -239,7 +239,7 @@ const DynamicFormComponent = ({
                     {field.hint}
                   </FormHelperText>
                   {hasError && (
-                    <Text color="red.500" fontSize="sm">
+                    <Text color="layout.darkRed.darkRed400" fontSize="sm">
                       {errors[field.name]}
                     </Text>
                   )}
@@ -267,11 +267,6 @@ const DynamicFormComponent = ({
                     validatePin={validatePin}
                     fieldHint={field.hint}
                   />
-                  {hasError && (
-                    <Text color="red.500" fontSize="sm">
-                      {errors[field.name]}
-                    </Text>
-                  )}
                 </FormControl>
               )
             case 'avatar':
@@ -318,7 +313,7 @@ const DynamicFormComponent = ({
                     {field.hint}
                   </FormHelperText>
                   {hasError && (
-                    <Text color="red.500" fontSize="sm">
+                    <Text color="layout.darkRed.darkRed400" fontSize="sm">
                       {errors[field.name]}
                     </Text>
                   )}

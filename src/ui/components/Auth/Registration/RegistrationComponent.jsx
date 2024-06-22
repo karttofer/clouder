@@ -10,7 +10,7 @@ import avatarThree from '../../../../assets/images/avatars/avatar_03.png'
 import avatarFouth from '../../../../assets/images/avatars/avatar_04.png'
 
 // Components
-import DynamicFormComponent from '../../DynamicFormComponent.jsx'
+import DynamicFormComponent from '../../Form/DynamicFormComponent.jsx'
 import RegistrationMessageComponent from './RegistrationMessageComponent.jsx'
 
 // Anims
@@ -109,9 +109,35 @@ const formConfigAvatarSelect = [
       },
     ],
   },
-  // Otros campos del formulario
 ]
 
+const formPinConfig = [
+  {
+    type: 'pin',
+    name: 'pin',
+    length: 4,
+    hint: "In case the pin dind't arrive, you will need to waint until the timer ends to request a new one.",
+    validation: {
+      required: true,
+      errorEmptyMessage: `Ups! PIN field are required and can't be empty`,
+      errorPatternMessage: 'PIN must be exactly 4 digits',
+      pattern: /^\d{4}$/,
+    },
+    timer: {
+      duration: 3,
+      resendLabel: t('resend_pin_button_label'),
+    },
+  },
+  {
+    type: 'links',
+    links: [
+      {
+        label: t('back_to_login'),
+        path: '/login',
+      },
+    ],
+  },
+]
 const stepConfig = [
   {
     title: 'Registration',
@@ -164,7 +190,27 @@ const stepConfig = [
   },
   {
     title: 'Done! 🎉',
-    component: () => <p>asdas</p>,
+    component: ({ onComplete }) => {
+      const handleSubmit = (formData) => {
+        console.log('Form Data:', formData)
+        onComplete()
+      }
+      return (
+        <DynamicFormComponent
+          darkTheme
+          animationType={topBottomAnim}
+          onSubmit={handleSubmit}
+          showLogo
+          enableSubmit
+          submitText={t('next')}
+          title={`${t('registration_select_pin_field_title')}`}
+          subtitle={t('registration_select_pin_field_subtitle')}
+          margin={5}
+          maxW="500px"
+          formConfig={formPinConfig}
+        />
+      )
+    },
   },
 ]
 

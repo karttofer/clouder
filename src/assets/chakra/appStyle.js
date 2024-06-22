@@ -4,6 +4,21 @@
  * This is the default button style, please use it if you want to
  * create a new button, also... I think there is a problema with !important since
  * don't know why it is needed
+ *
+ */
+
+// FIXME: There is a lot of style that are not being taked from the root theme
+// TODO: Some styles are repeated so we need this to be fixed
+// TODO: Check styles to see if they are well designed or working well
+/**
+  background: 'layout.saffron.saffron400', <- this one will works
+
+  _css: {
+    background: 'layout.saffron.saffron400', <  this another one will no work
+    transition: 'background .3s',
+    borderWidth: '2px',
+    borderColor: 'transparent',
+  },
  */
 export const ButtonThemePrimary = {
   css: {
@@ -83,6 +98,37 @@ export const IconButtonTheme = (color, hoverColor, hoverBg) => ({
     background: 'transparent',
   },
 })
+
+export const ButtonSecondaryTheme = {
+  background: 'layout.saffron.saffron50',
+  borderWidth: '2px',
+  borderColor: 'transparent',
+  transition: 'background .3s',
+  _hover: {
+    background: 'layout.saffron.saffron100',
+    cursor: 'pointer',
+  },
+  _active: {
+    background: 'layout.saffron.saffron200',
+  },
+  _focus: {
+    borderColor: 'layout.saffron.saffron400',
+  },
+}
+
+export const ButtonDisableTheme = {
+  color: '#808080',
+  background: '#e7e7e7',
+  cursor: 'default',
+  _hover: {
+    background: '#e7e7e7',
+    cursor: 'default',
+  },
+  _active: {
+    background: '#e7e7e7',
+    cursor: 'default',
+  },
+}
 
 /**
  * Popover

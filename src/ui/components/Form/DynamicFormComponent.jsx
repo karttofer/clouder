@@ -24,10 +24,11 @@ import {
   ButtonThemePrimary,
   InputThemePrimary,
   centerAnim,
-} from '../../assets/chakra/appStyle'
+} from '../../../assets/chakra/appStyle.js'
 
 // Components
-import NavbarComponent from './Navbar/NavbarComponent.jsx'
+import NavbarComponent from '../Navbar/NavbarComponent.jsx'
+import PinFormComponent from './PinFormComponent.jsx'
 
 const DynamicFormComponent = ({
   title,
@@ -79,13 +80,10 @@ const DynamicFormComponent = ({
           newErrors[field.name] = error
         }
 
-        /**
-         * Check if password and repeated_password match
-         * This is an special one since it requires to check two fields
-         * Also, I wanted to use the errorPatternMessage for this case
-         * to not create a new key in the validation object
-         */
-        if (formData.password !== formData.repeated_password) {
+        if (
+          field.name === 'repeated_password' &&
+          formData.password !== formData.repeated_password
+        ) {
           isValid = false
           newErrors.repeated_password = field.validation.errorPatternMessage
         }
@@ -103,8 +101,6 @@ const DynamicFormComponent = ({
     setSelectedAvatar(value)
   }
 
-  // TODO: Take a look to the google documentation to see if that flow is needed
-  // Also, we need to get credentials from codeResponse
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => console.log(codeResponse),
     flow: 'auth-code',
@@ -220,6 +216,37 @@ const DynamicFormComponent = ({
                   >
                     {field.hint}
                   </FormHelperText>
+                  {errors[field.name] && (
+                    <Text color="red.500" fontSize="sm">
+                      {errors[field.name]}
+                    </Text>
+                  )}
+                </FormControl>
+              )
+            case 'pin':
+              return (
+                <FormControl
+                  key={index}
+                  isInvalid={errors[field.name]}
+                  w="100%"
+                >
+                  <FormLabel
+                    textAlign="center"
+                    marginTop="10px"
+                    marginBottom="10px"
+                    color={
+                      !darkTheme ? 'layout.white.white0' : 'layout.black.black0'
+                    }
+                  >
+                    {field.label}
+                  </FormLabel>
+                  <PinFormComponent
+                    darkTheme={darkTheme}
+                    handleChange={handleChange}
+                    name={field.name}
+                    length={field.length}
+                    timerConfig={field.timer}
+                  />
                   {errors[field.name] && (
                     <Text color="red.500" fontSize="sm">
                       {errors[field.name]}

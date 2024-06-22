@@ -4,7 +4,7 @@ import { Box } from '@chakra-ui/react'
 import { t } from 'i18next'
 
 // Components
-import DynamicFormComponent from '../../DynamicFormComponent.jsx'
+import DynamicFormComponent from '../../Form/DynamicFormComponent.jsx'
 
 const formConfig = [
   {

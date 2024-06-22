@@ -51,5 +51,8 @@
   "registration_select_avatar_subtitle": "Choose an avatar that best represents you. You can change it later.",
   "registration_select_avatar_field_title": "It looks like you? (Optional)",
   "registration_select_avatar_field_title_hint": "Choose an avatar that best represents you, in the future you will be able to create your own avatar",
+  "registration_select_pin_field_title": "Let's confirm your account",
+  "registration_select_pin_field_subtitle": "PIN are better than confirmation emails, right?",
+  "resend_pin_button_label": "Resend PIN",
   "next": "Next"
 }

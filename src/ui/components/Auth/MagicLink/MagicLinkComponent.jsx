@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { Container, Box } from '@chakra-ui/react'
 
 // Components
-import DynamicFormComponent from '../../DynamicFormComponent.jsx'
+import DynamicFormComponent from '../../Form/DynamicFormComponent.jsx'
 import MagicLinkSentMessageComponent from './MagicLinkSentMessageComponent.jsx'
 
 // Background

@@ -83,11 +83,11 @@ const theme = extendBaseTheme({
         feldgaru50: '#708D81',
       },
       saffron: {
-        saffron400: '#F4D58D',
-        saffron300: '#F2CF7D',
+        saffron50: '#F4D58D',
+        saffron100: '#F2CF7D',
         saffron200: '#F0C86A',
-        saffron100: '#EEC158',
-        saffron50: '#495B52',
+        saffron300: '#EEC158',
+        saffron400: '#e7b43b',
       },
       darkRed: {
         darkRed400: '#BF0603',

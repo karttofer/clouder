@@ -44,9 +44,9 @@ const PinFormComponent = ({
             maxLength="1"
             value={data}
             name={`${name}-${index}`}
-            onChange={(e) => handlePinChange(e.target, index)}
+            onChange={(event) => handlePinChange(event.target, index)}
             onPaste={handlePaste}
-            onFocus={(e) => e.target.select()}
+            onFocus={(event) => event.target.select()}
             textAlign="center"
             w="100%"
             maxW="90px"

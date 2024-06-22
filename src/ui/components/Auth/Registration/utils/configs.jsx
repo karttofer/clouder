@@ -44,7 +44,7 @@ const regisStepOneConfig = [
     label: t('registration_password'),
     placeholder: t('registration_password_placeholder'),
     required: true,
-    hint: 'Password must be 12+ chars, include upper & lower case letters, a number, and a special character (e.g., P@ssw0rd123!).',
+    hint: 'Password must be 12+ chars, include upper & lower case letters, a number, and a special character (event.g., P@ssw0rd123!).',
     validation: {
       required: true,
       errorEmptyMessage: `Ups! You need to enter a password`,

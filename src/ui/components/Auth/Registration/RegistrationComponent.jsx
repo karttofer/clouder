@@ -11,7 +11,7 @@ const RegistrationComponent = () => {
   return (
     <DynamicStepperContainer
       stepConfig={stepConfig}
-      stepChange={(e) => console.log(e)}
+      stepChange={(event) => console.log(event)}
     />
   )
 }

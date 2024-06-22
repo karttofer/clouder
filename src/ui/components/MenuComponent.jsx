@@ -33,11 +33,11 @@ const MenuComponent = ({ placeholder, items, initialValue }) => {
     }
   }, [initialValue])
 
-  const handleSwitchChange = (e, itemFor) => {
-    e.preventDefault()
+  const handleSwitchChange = (event, itemFor) => {
+    event.preventDefault()
     setSwitchValues({
       ...switchValues,
-      [itemFor]: e.target.checked,
+      [itemFor]: event.target.checked,
     })
 
     return switchValues
@@ -90,7 +90,7 @@ const MenuComponent = ({ placeholder, items, initialValue }) => {
                 display="flex"
                 alignItems="center"
                 width="100%"
-                onChange={(e) => handleSwitchChange(e, item.for)}
+                onChange={(event) => handleSwitchChange(event, item.for)}
               >
                 <Flex
                   maxWidth="253px"

@@ -33,11 +33,13 @@ const usePinValidation = (length, validatePin, handleChange) => {
     }
   }
 
-  const handlePaste = (e) => {
-    const paste = e.clipboardData.getData('text')
+  const handlePaste = (event) => {
+    const paste = event.clipboardData.getData('text')
     const pinArray = paste.split('').slice(0, length)
     setPin(pinArray)
-    handleChange({ target: { name: e.target.name, value: pinArray.join('') } })
+    handleChange({
+      target: { name: event.target.name, value: pinArray.join('') },
+    })
   }
 
   return {

@@ -8,10 +8,6 @@ import { Container, Box } from '@chakra-ui/react'
 import DynamicFormComponent from '../../Form/DynamicFormComponent.jsx'
 import MagicLinkSentMessageComponent from './MagicLinkSentMessageComponent.jsx'
 
-// Background
-import noiseBg from '../../../../assets/images/noise_bg_two.svg'
-import noiseBgSuccess from '../../../../assets/images/nouse_bg_success.svg'
-
 // Anims
 import { topBottomAnim } from '../../../../assets/chakra/appStyle.js'
 
@@ -52,11 +48,11 @@ const MagicLinkComponent = () => {
       justifyContent="center"
       flexDir="column"
       backgroundSize="cover"
-      backgroundImage={!magicLinkSent ? noiseBg : noiseBgSuccess}
     >
       <Box>
         {!magicLinkSent ? (
           <DynamicFormComponent
+            darkTheme
             animationType={topBottomAnim}
             showLogo
             enableSubmit

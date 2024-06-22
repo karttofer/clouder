@@ -125,10 +125,8 @@ const DynamicFormComponent = ({
   })
 
   const validatePin = async (pin) => {
-    // Replace with actual API call
-    // TODO: here we should call the API to validate the PIN
-
-    return true
+    // FIXME: Delete this thing all validations will occur in the usePinValidation hook
+    return false
   }
 
   return (
@@ -216,7 +214,7 @@ const DynamicFormComponent = ({
                     }
                   >
                     <Flex>
-                      {field.validation.required && (
+                      {field.validation?.required && (
                         <Text color="layout.orange.orange500">*</Text>
                       )}
                       <Flex>{field.label}</Flex>
@@ -336,13 +334,7 @@ const DynamicFormComponent = ({
                           borderColor="layout.black.black700"
                           _hover={{ background: 'layout.black.black800' }}
                         >
-                          <Text
-                            color={
-                              !darkTheme
-                                ? 'layout.white.white0'
-                                : 'layout.black.black0'
-                            }
-                          >
+                          <Text color={'layout.white.white0'}>
                             {t('login_google_quicklink_label')} 🚀
                           </Text>
                         </Button>

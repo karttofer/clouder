@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import {
   FormControl,
   FormLabel,
-  Select,
   Input,
   Button,
   Container,
@@ -12,10 +11,13 @@ import {
   Text,
   Image,
   Box,
+  HStack,
+  Flex,
 } from '@chakra-ui/react'
 import { useGoogleLogin } from '@react-oauth/google'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { t } from 'i18next'
 
 // Styles
 import {
@@ -23,9 +25,6 @@ import {
   InputThemePrimary,
   centerAnim,
 } from '../../assets/chakra/appStyle'
-
-// Translation
-import { t } from 'i18next'
 
 // Components
 import NavbarComponent from './Navbar/NavbarComponent.jsx'
@@ -35,7 +34,6 @@ const DynamicFormComponent = ({
   subtitle,
   formConfig,
   onSubmit,
-  margin,
   maxW,
   submitText,
   enableSubmit,
@@ -44,51 +42,83 @@ const DynamicFormComponent = ({
   animationType,
 }) => {
   const [formData, setFormData] = useState({})
+  const [selectedAvatar, setSelectedAvatar] = useState(null)
+  const [errors, setErrors] = useState({})
   const navigate = useNavigate()
 
   const handleChange = (event) => {
     const { name, value } = event.target
     setFormData((prevData) => ({ ...prevData, [name]: value }))
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: null }))
+  }
+
+  const validateField = (name, value, validation) => {
+    if (validation.required && !value) {
+      return validation.errorEmptyMessage || 'This field is required'
+    }
+    if (validation.pattern && !validation.pattern.test(value)) {
+      return validation.errorPatternMessage || 'Invalid value'
+    }
+    return null
   }
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    onSubmit(formData)
+    let isValid = true
+    const newErrors = {}
+
+    formConfig.forEach((field) => {
+      if (field.validation) {
+        const error = validateField(
+          field.name,
+          formData[field.name],
+          field.validation
+        )
+        if (error) {
+          isValid = false
+          newErrors[field.name] = error
+        }
+
+        /**
+         * Check if password and repeated_password match
+         * This is an special one since it requires to check two fields
+         * Also, I wanted to use the errorPatternMessage for this case
+         * to not create a new key in the validation object
+         */
+        if (formData.password !== formData.repeated_password) {
+          isValid = false
+          newErrors.repeated_password = field.validation.errorPatternMessage
+        }
+      }
+    })
+
+    if (isValid) {
+      onSubmit({ ...formData, avatar: selectedAvatar })
+    } else {
+      setErrors(newErrors)
+    }
   }
 
-  const handleNavigation = (path) => {
-    navigate(path)
+  const handleAvatarChange = (value) => {
+    setSelectedAvatar(value)
   }
 
+  // TODO: Take a look to the google documentation to see if that flow is needed
+  // Also, we need to get credentials from codeResponse
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => console.log(codeResponse),
     flow: 'auth-code',
   })
 
   return (
-    <motion.div
-      style={{
-        ...centerAnim,
-      }}
-      {...animationType}
-      transition={{ duration: '0.3' }}
-      w="100%"
-    >
-      <Container
+    <Container w="100%" as="form" onSubmit={handleSubmit} maxW={maxW}>
+      <motion.div
+        style={{ ...centerAnim, display: 'flex', flexDirection: 'column' }}
+        {...animationType}
+        transition={{ duration: '0.3' }}
         w="100%"
-        display="flex"
-        flexDir="column"
-        as="form"
-        onSubmit={handleSubmit}
-        m={margin}
-        maxW={maxW}
       >
-        {showLogo && (
-          <Box>
-            <NavbarComponent navbarType="logo" isDark={darkTheme} />
-          </Box>
-        )}
-
+        {showLogo && <NavbarComponent navbarType="logo" isDark={darkTheme} />}
         <Box>
           {title && (
             <Text
@@ -116,7 +146,7 @@ const DynamicFormComponent = ({
           switch (field.type) {
             case 'select':
               return (
-                <FormControl key={index}>
+                <FormControl key={index} isInvalid={errors[field.name]}>
                   <FormLabel
                     marginTop="10px"
                     marginBottom="5px"
@@ -131,7 +161,6 @@ const DynamicFormComponent = ({
                     name={field.name}
                     placeholder={field.placeholder}
                     onChange={handleChange}
-                    className="select-option-bg-color-primary"
                   >
                     {field.options.map((option, idx) => (
                       <option key={idx} value={option.value}>
@@ -147,11 +176,20 @@ const DynamicFormComponent = ({
                   >
                     {field.hint}
                   </FormHelperText>
+                  {errors[field.name] && (
+                    <Text color="red.500" fontSize="sm">
+                      {errors[field.name]}
+                    </Text>
+                  )}
                 </FormControl>
               )
             case 'text':
               return (
-                <FormControl key={index}>
+                <FormControl
+                  key={index}
+                  isInvalid={errors[field.name]}
+                  w="100%"
+                >
                   <FormLabel
                     marginTop="10px"
                     marginBottom="5px"
@@ -159,7 +197,12 @@ const DynamicFormComponent = ({
                       !darkTheme ? 'layout.white.white0' : 'layout.black.black0'
                     }
                   >
-                    {field.label}
+                    <Flex>
+                      {field.validation.required && (
+                        <Text color="layout.orange.orange500">*</Text>
+                      )}
+                      <Flex>{field.label}</Flex>
+                    </Flex>
                   </FormLabel>
                   <Input
                     {...InputThemePrimary}
@@ -177,6 +220,65 @@ const DynamicFormComponent = ({
                   >
                     {field.hint}
                   </FormHelperText>
+                  {errors[field.name] && (
+                    <Text color="red.500" fontSize="sm">
+                      {errors[field.name]}
+                    </Text>
+                  )}
+                </FormControl>
+              )
+            case 'avatar':
+              return (
+                <FormControl
+                  key={index}
+                  isInvalid={errors[field.name]}
+                  w="100%"
+                >
+                  <FormLabel
+                    marginTop="10px"
+                    marginBottom="5px"
+                    color={
+                      !darkTheme ? 'layout.white.white0' : 'layout.black.black0'
+                    }
+                  >
+                    {field.label}
+                  </FormLabel>
+                  <HStack spacing="24px" marginTop="15px" marginBottom="15px">
+                    {field.options.map((avatar, idx) => (
+                      <Box
+                        key={idx}
+                        onClick={() => handleAvatarChange(avatar.value)}
+                        border={
+                          selectedAvatar === avatar.value
+                            ? '2px solid #ff6000'
+                            : '2px solid transparent'
+                        }
+                        borderRadius="full"
+                        cursor="pointer"
+                        padding="2px"
+                      >
+                        <Image
+                          src={avatar.src}
+                          alt={avatar.alt}
+                          boxSize="50px"
+                          borderRadius="full"
+                        />
+                      </Box>
+                    ))}
+                  </HStack>
+                  <FormHelperText
+                    color={
+                      !darkTheme ? 'layout.white.white0' : 'layout.black.black0'
+                    }
+                    fontWeight="300"
+                  >
+                    {field.hint}
+                  </FormHelperText>
+                  {errors[field.name] && (
+                    <Text color="red.500" fontSize="sm">
+                      {errors[field.name]}
+                    </Text>
+                  )}
                 </FormControl>
               )
             case 'button':
@@ -194,9 +296,7 @@ const DynamicFormComponent = ({
                           background="layout.black.black850"
                           border="2px"
                           borderColor="layout.black.black700"
-                          _hover={{
-                            background: 'layout.black.black800',
-                          }}
+                          _hover={{ background: 'layout.black.black800' }}
                         >
                           <Text
                             color={
@@ -220,9 +320,7 @@ const DynamicFormComponent = ({
                         background="layout.black.black850"
                         border="2px"
                         borderColor="layout.black.black700"
-                        _hover={{
-                          background: 'layout.black.black800',
-                        }}
+                        _hover={{ background: 'layout.black.black800' }}
                       >
                         <Image
                           src={button.imgIcon}
@@ -266,7 +364,7 @@ const DynamicFormComponent = ({
                     textDecorationStyle: 'wavy',
                     textUnderlineOffset: '5px',
                   }}
-                  onClick={() => handleNavigation(link.path)}
+                  onClick={() => navigate(link.path)}
                 >
                   <Text
                     color={
@@ -281,8 +379,8 @@ const DynamicFormComponent = ({
             return null
           })}
         </VStack>
-      </Container>
-    </motion.div>
+      </motion.div>
+    </Container>
   )
 }
 

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const LogoNavbarComponent = ({ urlImg, altImage }) => {
   return (
     <Flex w="100%" justify="center">
-      <Box transform="translateY(-100px)">
+      <Box>
         <Link to="/login">
           <Image src={urlImg} alt={altImage} w={20} h={20} cursor="pointer" />
         </Link>

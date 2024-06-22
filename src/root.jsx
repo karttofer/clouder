@@ -32,6 +32,7 @@ const {
   Switch,
   Input,
   Tooltip,
+  Stepper,
 } = chakraTheme.components
 
 const theme = extendBaseTheme({
@@ -49,6 +50,7 @@ const theme = extendBaseTheme({
     Radio,
     Input,
     Tooltip,
+    Stepper,
   },
   colors: {
     button: {

@@ -8,7 +8,7 @@ import { Box } from '@chakra-ui/react'
 const NavbarComponent = ({ navbarType, isDark }) => {
   return (
     <nav role="navigation" aria-label="Main Navigation">
-      <Box>
+      <Box margin="10px">
         {navbarType === 'logo' ? (
           <LogoNavbarComponent
             urlImg={isDark ? clouderLogoDark : clouderLogoWhite}

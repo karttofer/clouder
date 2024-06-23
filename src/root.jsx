@@ -9,11 +9,16 @@ import {
 import { Toaster } from 'react-hot-toast'
 import './utils/i18n/index.js'
 import { GoogleOAuthProvider } from '@react-oauth/google'
+import { Provider } from 'react-redux'
+
 // Routes
 import { AppRoutes } from './utils/router/routes.jsx'
 
-//Style
-import './assets/main.scss'
+// State
+import store from 'Utils/store/state.js'
+
+// Assets
+import 'Assets/main.scss'
 
 // Enviroments
 import { GOOGLE_CLIENT_ID } from '../enviroment.js'
@@ -128,10 +133,12 @@ const theme = extendBaseTheme({
 ReactDom.createRoot(document.querySelector('#root')).render(
   <React.StrictMode>
     <Toaster position="bottom-right" reverseOrder={false} />
-    <ChakraBaseProvider theme={theme}>
-      <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-        <AppRoutes />
-      </GoogleOAuthProvider>
-    </ChakraBaseProvider>
+    <Provider store={store}>
+      <ChakraBaseProvider theme={theme}>
+        <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+          <AppRoutes />
+        </GoogleOAuthProvider>
+      </ChakraBaseProvider>
+    </Provider>
   </React.StrictMode>
 )

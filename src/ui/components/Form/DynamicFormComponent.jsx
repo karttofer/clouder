@@ -13,11 +13,14 @@ import {
   Box,
   HStack,
   Flex,
+  Divider,
+  AbsoluteCenter,
 } from '@chakra-ui/react'
 import { useGoogleLogin } from '@react-oauth/google'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { t } from 'i18next'
+import { GoogleLogin } from '@react-oauth/google'
 
 // Assets
 import {
@@ -137,11 +140,6 @@ const DynamicFormComponent = ({
     setSelectedAvatar(value)
   }
 
-  const login = useGoogleLogin({
-    onSuccess: (codeResponse) => console.log(codeResponse),
-    flow: 'auth-code',
-  })
-
   const validatePin = async (pin) => {
     // FIXME: Delete this thing all validations will occur in the usePinValidation hook
     return false
@@ -149,45 +147,77 @@ const DynamicFormComponent = ({
 
   return (
     <Container w="100%" as="form" onSubmit={handleSubmit} maxW={maxW}>
-      <motion.div
-        style={{ ...centerAnim, display: 'flex', flexDirection: 'column' }}
-        {...animationType}
-        transition={{ duration: '0.3' }}
-        w="100%"
-      >
+      <Box margin="55px 0 055px 0">
         {showLogo && <NavbarComponent navbarType="logo" isDark={darkTheme} />}
-        <Box>
-          {title && (
-            <Text
-              textAlign="center"
-              color={!darkTheme ? 'layout.white.white0' : 'layout.black.black0'}
-              marginBottom="10px"
-              fontSize="2xl"
-              fontWeight="bold"
-            >
-              {title}
-            </Text>
-          )}
-          {subtitle && (
-            <Text
-              textAlign="center"
-              opacity=".7"
-              color={!darkTheme ? 'layout.white.white0' : 'layout.black.black0'}
-              marginBottom="10px"
-            >
-              {subtitle}
-            </Text>
-          )}
-        </Box>
+        {title && (
+          <Text
+            textAlign="center"
+            color={!darkTheme ? 'layout.white.white0' : 'layout.black.black0'}
+            marginBottom="10px"
+            fontSize="2xl"
+            fontWeight="bold"
+          >
+            {title}
+          </Text>
+        )}
+        {subtitle && (
+          <Text
+            textAlign="center"
+            opacity=".7"
+            color={!darkTheme ? 'layout.white.white0' : 'layout.black.black0'}
+            marginBottom="10px"
+          >
+            {subtitle}
+          </Text>
+        )}
+      </Box>
+      <Box>
         {formConfig.map((field, index) => {
           const hasError = touched[field.name] && errors[field.name]
           switch (field.type) {
+            case 'google':
+              return (
+                <Flex flexDir="column" justify="center" align="center">
+                  <Box>
+                    <GoogleLogin
+                      onSuccess={(credentialResponse) => {
+                        console.log(credentialResponse)
+                      }}
+                      onError={() => {
+                        console.log('Login Failed')
+                      }}
+                      theme={!darkTheme ? 'filled_black' : 'filled_blue'}
+                      text="continue_with"
+                      width="500px"
+                    />
+                  </Box>
+                  <Box width="100%" position="relative" padding="10">
+                    <Divider />
+                    <AbsoluteCenter
+                      background={
+                        !darkTheme
+                          ? 'layout.black.black800'
+                          : 'layout.white.white0'
+                      }
+                      px="4"
+                    >
+                      <Text
+                        color={
+                          !darkTheme
+                            ? 'layout.white.white0'
+                            : 'layout.black.black0'
+                        }
+                      >
+                        {t('or')}
+                      </Text>
+                    </AbsoluteCenter>
+                  </Box>
+                </Flex>
+              )
             case 'select':
               return (
                 <FormControl key={index} isInvalid={hasError}>
                   <FormLabel
-                    marginTop="10px"
-                    marginBottom="5px"
                     color={
                       !darkTheme ? 'layout.white.white0' : 'layout.black.black0'
                     }
@@ -195,6 +225,7 @@ const DynamicFormComponent = ({
                     {field.label}
                   </FormLabel>
                   <Select
+                    marginBottom="10px"
                     {...InputThemePrimary}
                     name={field.name}
                     placeholder={field.placeholder}
@@ -225,8 +256,6 @@ const DynamicFormComponent = ({
               return (
                 <FormControl key={index} isInvalid={hasError} w="100%">
                   <FormLabel
-                    marginTop="10px"
-                    marginBottom="5px"
                     color={
                       !darkTheme ? 'layout.white.white0' : 'layout.black.black0'
                     }
@@ -239,6 +268,8 @@ const DynamicFormComponent = ({
                     </Flex>
                   </FormLabel>
                   <Input
+                    marginBottom="10px"
+                    marginTop="10px"
                     {...InputThemePrimary}
                     _placeholder={{ color: 'white', opacity: 0.3 }}
                     type={field.inputType}
@@ -263,11 +294,14 @@ const DynamicFormComponent = ({
               )
             case 'pin':
               return (
-                <FormControl key={index} isInvalid={hasError} w="100%">
+                <FormControl
+                  key={index}
+                  isInvalid={hasError}
+                  w="100%"
+                  marginBottom="10px"
+                >
                   <FormLabel
                     textAlign="center"
-                    marginTop="10px"
-                    marginBottom="10px"
                     color={
                       !darkTheme ? 'layout.white.white0' : 'layout.black.black0'
                     }
@@ -287,10 +321,13 @@ const DynamicFormComponent = ({
               )
             case 'avatar':
               return (
-                <FormControl key={index} isInvalid={hasError} w="100%">
+                <FormControl
+                  key={index}
+                  isInvalid={hasError}
+                  w="100%"
+                  marginBottom="10px"
+                >
                   <FormLabel
-                    marginTop="10px"
-                    marginBottom="5px"
                     color={
                       !darkTheme ? 'layout.white.white0' : 'layout.black.black0'
                     }
@@ -339,25 +376,6 @@ const DynamicFormComponent = ({
               return (
                 <VStack key={index} spacing={4} mt={4} w="100%">
                   {field.buttons.map((button, idx) => {
-                    if (button.type === 'google') {
-                      return (
-                        <Button
-                          key={idx}
-                          aria-label="Google Login"
-                          onClick={() => login()}
-                          {...button.colorScheme}
-                          w="100%"
-                          background="layout.black.black850"
-                          border="2px"
-                          borderColor="layout.black.black700"
-                          _hover={{ background: 'layout.black.black800' }}
-                        >
-                          <Text color={'layout.white.white0'}>
-                            {t('login_google_quicklink_label')} 🚀
-                          </Text>
-                        </Button>
-                      )
-                    }
                     return (
                       <Button
                         key={idx}
@@ -429,7 +447,7 @@ const DynamicFormComponent = ({
             return null
           })}
         </VStack>
-      </motion.div>
+      </Box>
     </Container>
   )
 }

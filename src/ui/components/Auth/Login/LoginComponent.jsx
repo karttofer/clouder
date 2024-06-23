@@ -9,6 +9,9 @@ import DynamicFormComponent from 'Components/Form/DynamicFormComponent.jsx'
 
 const formConfig = [
   {
+    type: 'google',
+  },
+  {
     type: 'text',
     label: t('login_form_username'),
     name: 'name',
@@ -20,14 +23,6 @@ const formConfig = [
     label: t('login_form_password'),
     name: 'password',
     placeholder: t('login_form_password_placeholder'),
-  },
-  {
-    type: 'button',
-    buttons: [
-      {
-        type: 'google',
-      },
-    ],
   },
   {
     type: 'links',

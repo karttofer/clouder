@@ -1,4 +1,3 @@
-// Dependencies
 import React, { useState } from 'react'
 import {
   Container,
@@ -12,38 +11,41 @@ import {
   StepDescription,
   StepSeparator,
 } from '@chakra-ui/react'
-
-// Assets
 import {
   CustomWandBadgeCheckIcon,
   CustomCircleXIcon,
   CustomPencilIcon,
 } from 'Assets/chakra/icons'
+import ShowAnimationComponent from 'Components/Globals/ShowAnimationComponent.jsx'
 
 const CustomStepper = ({ config, activeStep, setActiveStep }) => {
   return (
-    <Stepper index={activeStep} margin="50px">
-      {config.map((step, index) => (
-        <Step key={index} onClick={() => setActiveStep(index)}>
-          <StepIndicator>
-            <StepStatus
-              complete={
-                index < activeStep ? <CustomWandBadgeCheckIcon /> : null
-              }
-              incomplete={index > activeStep ? <CustomCircleXIcon /> : null}
-              active={index === activeStep ? <CustomPencilIcon /> : null}
-            />
-          </StepIndicator>
+    <ShowAnimationComponent
+      jsx={
+        <Stepper w="90vh" colorScheme="red" index={activeStep} marginTop="50px">
+          {config.map((step, index) => (
+            <Step key={index}>
+              <StepIndicator>
+                <StepStatus
+                  complete={
+                    index < activeStep ? <CustomWandBadgeCheckIcon /> : null
+                  }
+                  incomplete={index > activeStep ? <CustomCircleXIcon /> : null}
+                  active={index === activeStep ? <CustomPencilIcon /> : null}
+                />
+              </StepIndicator>
 
-          <Box flexShrink="0">
-            <StepTitle>{step.title}</StepTitle>
-            <StepDescription>{step.description}</StepDescription>
-          </Box>
+              <Box flexShrink="0">
+                <StepTitle>{step.title}</StepTitle>
+                <StepDescription>{step.description}</StepDescription>
+              </Box>
 
-          <StepSeparator />
-        </Step>
-      ))}
-    </Stepper>
+              <StepSeparator />
+            </Step>
+          ))}
+        </Stepper>
+      }
+    />
   )
 }
 
@@ -87,10 +89,14 @@ const DynamicStepperContainer = ({ stepConfig, lineBg }) => {
         </Box>
 
         <Box w="100%" display="flex" justifyContent="center" flexGrow={1}>
-          <CurrentComponent
-            onComplete={handleStepCompletion}
-            stepChange={() => activeStep}
-          />
+          <ShowAnimationComponent
+            jsx={
+              <CurrentComponent
+                onComplete={handleStepCompletion}
+                stepChange={() => activeStep}
+              />
+            }
+          ></ShowAnimationComponent>
         </Box>
       </Flex>
     </Container>

@@ -6,6 +6,7 @@ import { Container, Box } from '@chakra-ui/react'
 // Components
 import DynamicFormComponent from 'Components/Form/DynamicFormComponent.jsx'
 import MagicLinkSentMessageComponent from 'Components/Auth/MagicLink/MagicLinkSentMessageComponent.jsx'
+import ShowAnimationComponent from 'Components/Globals/ShowAnimationComponent.jsx'
 
 // Assets
 import { topBottomAnim } from 'Assets/chakra/appStyle.js'
@@ -51,25 +52,29 @@ const MagicLinkComponent = () => {
       flexDir="column"
       backgroundSize="cover"
     >
-      <Box>
-        {!magicLinkSent ? (
-          <DynamicFormComponent
-            darkTheme
-            animationType={topBottomAnim}
-            showLogo
-            enableSubmit
-            title={t('recovery_title_message')}
-            subtitle={t('recovery_subtitle')}
-            margin={5}
-            maxW="500px"
-            formConfig={formConfig}
-            onSubmit={handleSubmit}
-            submitText={t('recivery_submit_text')}
-          />
-        ) : (
-          <MagicLinkSentMessageComponent userEmail={userEmail} />
-        )}
-      </Box>
+      <ShowAnimationComponent
+        jsx={
+          <Box>
+            {!magicLinkSent ? (
+              <DynamicFormComponent
+                darkTheme
+                animationType={topBottomAnim}
+                showLogo
+                enableSubmit
+                title={t('recovery_title_message')}
+                subtitle={t('recovery_subtitle')}
+                margin={5}
+                maxW="500px"
+                formConfig={formConfig}
+                onSubmit={handleSubmit}
+                submitText={t('recivery_submit_text')}
+              />
+            ) : (
+              <MagicLinkSentMessageComponent userEmail={userEmail} />
+            )}
+          </Box>
+        }
+      ></ShowAnimationComponent>
     </Container>
   )
 }

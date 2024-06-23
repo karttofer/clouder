@@ -15,6 +15,9 @@ import { topBottomAnim } from '../../../../../assets/chakra/appStyle.js'
 
 const regisStepOneConfig = [
   {
+    type: 'google',
+  },
+  {
     type: 'text',
     inputType: 'text',
     name: 'nickname',
@@ -53,31 +56,13 @@ const regisStepOneConfig = [
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+\[\]{}|;:,.<>?/~]).{12,}$/,
     },
   },
-  {
-    type: 'text',
-    inputType: 'password',
-    name: 'repeated_password',
-    label: t('registration_repeat_password'),
-    placeholder: t('registration_repeat_password_placeholder'),
-    validation: {
-      required: true,
-      errorEmptyMessage: `Ups! You need to enter a password`,
-    },
-  },
+
   {
     type: 'links',
     links: [
       {
         label: t('back_to_login'),
         path: '/login',
-      },
-    ],
-  },
-  {
-    type: 'button',
-    buttons: [
-      {
-        type: 'google',
       },
     ],
   },

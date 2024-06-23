@@ -4,6 +4,7 @@ import { t } from 'i18next'
 
 // Components
 import DynamicFormComponent from 'Components/Form/DynamicFormComponent.jsx'
+import ShowAnimationComponent from 'Components/Globals/ShowAnimationComponent.jsx'
 
 const formConfig = [
   {
@@ -19,14 +20,18 @@ const formConfig = [
 
 const MagicLinkSentMessageComponent = ({ userEmail }) => {
   return (
-    <DynamicFormComponent
-      darkTheme
-      title={`${t('email_just_sent_title')} ${userEmail}`}
-      subtitle={t('email_just_sent_subtitle')}
-      margin={5}
-      maxW="500px"
-      formConfig={formConfig}
-    />
+    <ShowAnimationComponent
+      jsx={
+        <DynamicFormComponent
+          darkTheme
+          title={`${t('email_just_sent_title')} ${userEmail}`}
+          subtitle={t('email_just_sent_subtitle')}
+          margin={5}
+          maxW="500px"
+          formConfig={formConfig}
+        />
+      }
+    ></ShowAnimationComponent>
   )
 }
 export default MagicLinkSentMessageComponent

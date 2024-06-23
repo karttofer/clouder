@@ -1,10 +1,21 @@
 const { app, BrowserWindow, session } = require('electron')
 const path = require('path')
+const os = require('node:os')
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit()
 }
+
+const reactDevToolsPath = path.join(
+  os.homedir(),
+  '.config/google-chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/5.2.0_0'
+)
+
+const reduxDevTools = path.join(
+  os.homedir(),
+  '.config/google-chrome/Default/Extensions/lmhkpmbekcpmknklioeibfkpmmfibljd/3.1.6_0'
+)
 
 const createWindow = () => {
   // Create the browser window.
@@ -23,8 +34,8 @@ const createWindow = () => {
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
 
-  // // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  // Open the DevTools.
+  mainWindow.webContents.openDevTools()
 }
 
 app.on('ready', () => {
@@ -42,6 +53,11 @@ app.on('ready', () => {
   )
 
   createWindow()
+})
+
+app.whenReady().then(async () => {
+  await session.defaultSession.loadExtension(reactDevToolsPath)
+  await session.defaultSession.loadExtension(reduxDevTools)
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common

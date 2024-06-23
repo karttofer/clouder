@@ -57,5 +57,6 @@
   "next": "Next",
   "resend_pin": "Resend PIN in {{timeLeft}} seconds",
   "error_empty_field_default_message": "Input the PIN we sent to your email",
-  "error_regex_field_default_message": "This value in input is invalid"
+  "error_regex_field_default_message": "This value in input is invalid",
+  "or": "Or"
 }

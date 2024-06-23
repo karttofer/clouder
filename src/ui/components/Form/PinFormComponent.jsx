@@ -12,8 +12,8 @@ import {
   ButtonSecondaryTheme,
 } from '../../../assets/chakra/appStyle'
 import { t } from 'i18next'
-import useTimer from './utils/hooks/useTimer.jsx'
-import usePinValidation from './utils/hooks/usePinValidation.jsx'
+import useTimer from '../../../utils/hooks/useTimer.jsx'
+import usePinValidation from '../../../utils/hooks/usePinValidation.jsx'
 
 const PinFormComponent = ({
   name,

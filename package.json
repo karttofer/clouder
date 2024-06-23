@@ -2,7 +2,7 @@
   "name": "clouder",
   "productName": "clouder",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Clouder is a universe of differents apps, where you can store your files, your notes, your tasks, and more. Powered by ChatGPT.",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",

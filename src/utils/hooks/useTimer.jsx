@@ -1,3 +1,7 @@
+/**
+ * This hook will return the time left and if the timer is active,
+ * common used in the dynamic forms more specific in the PIN Component
+ */
 import { useState, useEffect } from 'react'
 
 const useTimer = (initialTime, isActive) => {

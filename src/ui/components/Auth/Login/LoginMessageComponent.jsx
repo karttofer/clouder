@@ -14,7 +14,7 @@ import {
 import noiseBg from '../../../../assets/images/noise_bg_one.svg'
 
 // Components
-import LogoComponent from '../../General/LogoComponent.jsx'
+import LogoComponent from '../../Globals/LogoComponent.jsx'
 
 const LoginMessageComponent = () => {
   return (

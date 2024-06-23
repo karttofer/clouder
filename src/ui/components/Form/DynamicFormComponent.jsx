@@ -31,6 +31,20 @@ import {
 import NavbarComponent from '../Navbar/NavbarComponent.jsx'
 import PinFormComponent from './PinFormComponent.jsx'
 
+/**
+ * @param {String} title
+ * @param {String} subtitle
+ * @param {Array} formConfig
+ * @param {Function} onSubmit
+ * @param {String} maxW
+ * @param {String} submitText
+ * @param {Boolean} enableSubmit
+ * @param {Boolean} darkTheme
+ * @param {Boolean} showLogo
+ * @param {Object} animationType
+ *
+ * @returns
+ */
 const DynamicFormComponent = ({
   title,
   subtitle,
@@ -59,15 +73,19 @@ const DynamicFormComponent = ({
     setFormData((prevData) => ({ ...prevData, [name]: value }))
     setTouched((prevTouched) => ({ ...prevTouched, [name]: true }))
     setErrors((prevErrors) => ({ ...prevErrors, [name]: null }))
-    validateForm() // Ensure validation is triggered after changes
+    validateForm()
   }
 
   const validateField = (name, value, validation) => {
     if (validation.required && !value) {
-      return validation.errorEmptyMessage || 'This field is required'
+      return (
+        validation.errorEmptyMessage || t('error_empty_field_default_message')
+      )
     }
     if (validation.pattern && !validation.pattern.test(value)) {
-      return validation.errorPatternMessage || 'Invalid value'
+      return (
+        validation.errorPatternMessage || t('error_regex_field_default_message')
+      )
     }
     return null
   }

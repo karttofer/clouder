@@ -18,6 +18,9 @@ const formConfig = [
     inputType: 'email',
     name: 'email',
     placeholder: t('recovery_input_placeholder'),
+    validation: {
+      required: true,
+    },
   },
   {
     type: 'links',

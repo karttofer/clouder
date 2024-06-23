@@ -1,3 +1,4 @@
+// Dependencies
 import React from 'react'
 import { motion } from 'framer-motion'
 import { Box, Container } from '@chakra-ui/react'

@@ -19,17 +19,17 @@ import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { t } from 'i18next'
 
-// Styles
+// Assets
 import {
   ButtonThemePrimary,
   ButtonDisableTheme,
   InputThemePrimary,
   centerAnim,
-} from '../../../assets/chakra/appStyle.js'
+} from 'Assets/chakra/appStyle.js'
 
 // Components
-import NavbarComponent from '../Navbar/NavbarComponent.jsx'
-import PinFormComponent from './PinFormComponent.jsx'
+import NavbarComponent from 'Components/Navbar/NavbarComponent.jsx'
+import PinFormComponent from 'Components/Form/PinFormComponent.jsx'
 
 /**
  * @param {String} title

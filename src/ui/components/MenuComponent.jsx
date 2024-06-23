@@ -17,8 +17,9 @@ import {
   FormHelperText,
 } from '@chakra-ui/react'
 import { ChevronDownIcon } from '@chakra-ui/icons'
-// Themes
-import { SelectTheme } from '../../assets/chakra/appStyle'
+
+// Assets
+import { SelectTheme } from 'Assets/chakra/appStyle'
 import { t } from 'i18next'
 
 const MenuComponent = ({ placeholder, items, initialValue }) => {

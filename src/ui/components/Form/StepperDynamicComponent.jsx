@@ -1,3 +1,4 @@
+// Dependencies
 import React, { useState } from 'react'
 import {
   Container,
@@ -11,11 +12,13 @@ import {
   StepDescription,
   StepSeparator,
 } from '@chakra-ui/react'
+
+// Assets
 import {
   CustomWandBadgeCheckIcon,
   CustomCircleXIcon,
   CustomPencilIcon,
-} from '../../assets/chakra/icons'
+} from 'Assets/chakra/icons'
 
 const CustomStepper = ({ config, activeStep, setActiveStep }) => {
   return (
@@ -52,7 +55,6 @@ const DynamicStepperContainer = ({ stepConfig, lineBg }) => {
       setActiveStep((prevStep) => prevStep + 1)
     } else {
       console.log('All steps completed')
-      // Aquí puedes agregar la lógica para cuando todos los pasos se completen
     }
   }
 

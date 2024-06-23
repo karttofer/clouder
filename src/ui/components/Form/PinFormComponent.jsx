@@ -1,3 +1,4 @@
+// Dependencies
 import React from 'react'
 import {
   HStack,
@@ -7,13 +8,17 @@ import {
   Container,
   FormHelperText,
 } from '@chakra-ui/react'
+import { t } from 'i18next'
+
+// Assets
 import {
   ButtonDisableTheme,
   ButtonSecondaryTheme,
-} from '../../../assets/chakra/appStyle'
-import { t } from 'i18next'
-import useTimer from '../../../utils/hooks/useTimer.jsx'
-import usePinValidation from '../../../utils/hooks/usePinValidation.jsx'
+} from 'Assets/chakra/appStyle'
+
+// Hooks
+import useTimer from 'Utils/hooks/useTimer.jsx'
+import usePinValidation from 'Utils/hooks/usePinValidation.jsx'
 
 const PinFormComponent = ({
   name,

@@ -4,8 +4,8 @@ import { Container, Grid, GridItem, Flex } from '@chakra-ui/layout'
 import { t } from 'i18next'
 
 // Components
-import LoginMessageComponent from './LoginMessageComponent.jsx'
-import DynamicFormComponent from '../../Form/DynamicFormComponent.jsx'
+import LoginMessageComponent from 'Components/Auth/Login/LoginMessageComponent.jsx'
+import DynamicFormComponent from 'Components/Form/DynamicFormComponent.jsx'
 
 const formConfig = [
   {

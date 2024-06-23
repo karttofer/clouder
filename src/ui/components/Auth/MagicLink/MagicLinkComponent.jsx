@@ -1,15 +1,14 @@
 // Dependencies
 import React, { useState } from 'react'
 import { t } from 'i18next'
-import { motion } from 'framer-motion'
 import { Container, Box } from '@chakra-ui/react'
 
 // Components
-import DynamicFormComponent from '../../Form/DynamicFormComponent.jsx'
-import MagicLinkSentMessageComponent from './MagicLinkSentMessageComponent.jsx'
+import DynamicFormComponent from 'Components/Form/DynamicFormComponent.jsx'
+import MagicLinkSentMessageComponent from 'Components/Auth/MagicLink/MagicLinkSentMessageComponent.jsx'
 
-// Anims
-import { topBottomAnim } from '../../../../assets/chakra/appStyle.js'
+// Assets
+import { topBottomAnim } from 'Assets/chakra/appStyle.js'
 
 const formConfig = [
   {

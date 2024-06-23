@@ -14,14 +14,11 @@ import toast from 'react-hot-toast'
 import { t } from 'i18next'
 
 // Components
-import TooltipComponent from '../../TooltipComponent.jsx'
+import TooltipComponent from 'Components/Globals/TooltipComponent.jsx'
 
-// Images/Icons
-import {
-  CustomCopyIcon,
-  CustomRefreshCcwIcon,
-} from '../../../assets/chakra/icons'
-import AIAvatar from '../../../assets/images/logo.png'
+// Assets
+import { CustomCopyIcon, CustomRefreshCcwIcon } from 'Assets/chakra/icons'
+import AIAvatar from 'Assets/images/logo.png'
 
 const ChatBubbleComponent = ({ type, message }) => {
   const { onCopy, value, setValue, hasCopied } = useClipboard('')

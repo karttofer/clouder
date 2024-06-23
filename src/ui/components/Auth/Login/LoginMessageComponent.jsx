@@ -4,17 +4,14 @@ import { Container, Flex, Text, Button, Box } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import { t } from 'i18next'
 
-// Dependencies
-import {
-  ButtonThemePrimary,
-  topBottomAnim,
-} from '../../../../assets/chakra/appStyle'
+// Styles
+import { ButtonThemePrimary, topBottomAnim } from 'Assets/chakra/appStyle'
 
-// Backgrounds
-import noiseBg from '../../../../assets/images/noise_bg_one.svg'
+// Assets
+import noiseBg from 'Assets/images/noise_bg_one.svg'
 
 // Components
-import LogoComponent from '../../Globals/LogoComponent.jsx'
+import LogoComponent from 'Components/Globals/LogoComponent.jsx'
 
 const LoginMessageComponent = () => {
   return (

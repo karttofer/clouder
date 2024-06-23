@@ -2,7 +2,7 @@
 import React from 'react'
 
 // Components
-import DynamicStepperContainer from '../../StepperDynamicComponent.jsx'
+import DynamicStepperContainer from 'Components/Form/StepperDynamicComponent.jsx'
 
 // Configs
 import { stepConfig } from './utils/configs.jsx'

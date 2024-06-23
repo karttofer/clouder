@@ -1,3 +1,4 @@
+// Dependencies
 import React from 'react'
 import { Box, Image, Flex } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'

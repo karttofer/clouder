@@ -16,13 +16,13 @@ import {
   CustomCircleXIcon,
   CustomPencilIcon,
 } from 'Assets/chakra/icons'
-import ShowAnimationComponent from 'Components/Globals/ShowAnimationComponent.jsx'
+import ShowAnimationComponent from 'Components/Globals/animations/ShowAnimationComponent.jsx'
 
 const CustomStepper = ({ config, activeStep, setActiveStep }) => {
   return (
     <ShowAnimationComponent
       jsx={
-        <Stepper w="90vh" colorScheme="red" index={activeStep} marginTop="50px">
+        <Stepper w="90vh" index={activeStep} marginTop="50px">
           {config.map((step, index) => (
             <Step key={index}>
               <StepIndicator>

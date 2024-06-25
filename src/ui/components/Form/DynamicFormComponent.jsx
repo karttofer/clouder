@@ -1,4 +1,3 @@
-// Dependencies
 import React, { useState, useEffect } from 'react'
 import {
   FormControl,
@@ -34,20 +33,9 @@ import {
 import NavbarComponent from 'Components/Navbar/NavbarComponent.jsx'
 import PinFormComponent from 'Components/Form/PinFormComponent.jsx'
 
-/**
- * @param {String} title
- * @param {String} subtitle
- * @param {Array} formConfig
- * @param {Function} onSubmit
- * @param {String} maxW
- * @param {String} submitText
- * @param {Boolean} enableSubmit
- * @param {Boolean} darkTheme
- * @param {Boolean} showLogo
- * @param {Object} animationType
- *
- * @returns
- */
+// Hook
+import useTimer from 'Utils/hooks/useTimer.jsx'
+
 const DynamicFormComponent = ({
   title,
   subtitle,
@@ -65,6 +53,9 @@ const DynamicFormComponent = ({
   const [errors, setErrors] = useState({})
   const [touched, setTouched] = useState({})
   const [isFormValid, setIsFormValid] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [clickCount, setClickCount] = useState(0)
+  const [timeLeft, isTimerActive, resetTimer] = useTimer(10, false)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -76,7 +67,6 @@ const DynamicFormComponent = ({
     setFormData((prevData) => ({ ...prevData, [name]: value }))
     setTouched((prevTouched) => ({ ...prevTouched, [name]: true }))
     setErrors((prevErrors) => ({ ...prevErrors, [name]: null }))
-    validateForm()
   }
 
   const validateField = (name, value, validation) => {
@@ -123,8 +113,10 @@ const DynamicFormComponent = ({
     setIsFormValid(isValid)
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
+    if (isSubmitting || isTimerActive) return // Prevent multiple submissions and check if timer is active
+
     const newTouched = {}
     formConfig.forEach((field) => {
       newTouched[field.name] = true
@@ -132,7 +124,16 @@ const DynamicFormComponent = ({
     setTouched(newTouched)
     validateForm()
     if (isFormValid) {
-      onSubmit({ ...formData, avatar: selectedAvatar })
+      setIsSubmitting(true) // Disable the submit button
+      try {
+        await onSubmit({ ...formData, avatar: selectedAvatar })
+      } finally {
+        setIsSubmitting(false) // Re-enable the submit button
+        setClickCount((prevCount) => prevCount + 1)
+        if (clickCount + 1 >= 5) {
+          resetTimer(10) // Start the timer for 10 seconds
+        }
+      }
     }
   }
 
@@ -141,13 +142,12 @@ const DynamicFormComponent = ({
   }
 
   const validatePin = async (pin) => {
-    // FIXME: Delete this thing all validations will occur in the usePinValidation hook
     return false
   }
 
   return (
     <Container w="100%" as="form" onSubmit={handleSubmit} maxW={maxW}>
-      <Box margin="55px 0 055px 0">
+      <Box margin="55px 0 55px 0">
         {showLogo && <NavbarComponent navbarType="logo" isDark={darkTheme} />}
         {title && (
           <Text
@@ -411,11 +411,12 @@ const DynamicFormComponent = ({
             marginTop="20px"
             {...ButtonThemePrimary}
             type="submit"
-            colorScheme="blue"
-            isDisabled={!isFormValid}
+            isDisabled={!isFormValid || isSubmitting || isTimerActive}
             _disabled={ButtonDisableTheme}
           >
-            {submitText || t('login_submit_button')}
+            {isTimerActive
+              ? t('login_submit_button_timer_block', { timeLeft })
+              : submitText || t('login_submit_button')}
           </Button>
         )}
         <VStack spacing={2} mt={4} w="100%">
@@ -424,7 +425,6 @@ const DynamicFormComponent = ({
               return field.links.map((link, idx) => (
                 <Button
                   key={idx}
-                  colorScheme="teal"
                   variant="link"
                   _hover={{
                     textDecoration: 'underline',

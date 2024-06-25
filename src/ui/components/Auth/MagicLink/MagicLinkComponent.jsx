@@ -6,7 +6,7 @@ import { Container, Box } from '@chakra-ui/react'
 // Components
 import DynamicFormComponent from 'Components/Form/DynamicFormComponent.jsx'
 import MagicLinkSentMessageComponent from 'Components/Auth/MagicLink/MagicLinkSentMessageComponent.jsx'
-import ShowAnimationComponent from 'Components/Globals/ShowAnimationComponent.jsx'
+import ShowAnimationComponent from 'Components/Globals/animations/ShowAnimationComponent.jsx'
 
 // Assets
 import { topBottomAnim } from 'Assets/chakra/appStyle.js'

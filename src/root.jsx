@@ -38,10 +38,12 @@ const {
   Input,
   Tooltip,
   Stepper,
+  Alert,
 } = chakraTheme.components
 
 const theme = extendBaseTheme({
   components: {
+    Alert,
     Switch,
     Stack,
     Select,

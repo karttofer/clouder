@@ -1,17 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { t } from 'i18next'
+import toast from 'react-hot-toast'
 
 // Background
-import avatarOne from '../../../../../assets/images/avatars/avatar_01.png'
-import avatarTwo from '../../../../../assets/images/avatars/avatar_02.png'
-import avatarThree from '../../../../../assets/images/avatars/avatar_03.png'
-import avatarFouth from '../../../../../assets/images/avatars/avatar_04.png'
+import avatarOne from 'Assets/images/avatars/avatar_01.png'
+import avatarTwo from 'Assets/images/avatars/avatar_02.png'
+import avatarThree from 'Assets/images/avatars/avatar_03.png'
+import avatarFouth from 'Assets/images/avatars/avatar_04.png'
 
 // Configs
-import DynamicFormComponent from '../../../Form/DynamicFormComponent.jsx'
+import DynamicFormComponent from 'Components/Form/DynamicFormComponent.jsx'
 
 // Anims
-import { topBottomAnim } from '../../../../../assets/chakra/appStyle.js'
+import { topBottomAnim } from 'Assets/chakra/appStyle.js'
+import { LOCAL_BASE_URL } from '../../../../../../enviroment.js'
+
+// Components
+import showErrorToast from 'Utils/hooks/userErrorAlertHandler.jsx'
 
 const regisStepOneConfig = [
   {
@@ -68,36 +73,6 @@ const regisStepOneConfig = [
   },
 ]
 
-const regisStepTwoConfig = [
-  {
-    type: 'avatar',
-    label: t('registration_select_avatar_field_title'),
-    hint: t('registration_select_avatar_field_title_hint'),
-    options: [
-      {
-        value: 'avatar1',
-        src: avatarOne,
-        alt: 'Avatar 1',
-      },
-      {
-        value: 'avatar2',
-        src: avatarTwo,
-        alt: 'Avatar 2',
-      },
-      {
-        value: 'avatar3',
-        src: avatarThree,
-        alt: 'Avatar 3',
-      },
-      {
-        value: 'avatar4',
-        src: avatarFouth,
-        alt: 'Avatar 4',
-      },
-    ],
-  },
-]
-
 const regisStepThreeConfig = [
   {
     type: 'pin',
@@ -130,9 +105,48 @@ export const stepConfig = [
   {
     title: 'Registration',
     component: ({ onComplete }) => {
-      const handleSubmit = (formData) => {
-        console.log('Form Data:', formData)
-        onComplete()
+      const [errorCode, setErrorCode] = useState(null)
+
+      const handleSubmit = async (formData) => {
+        const { email, nickname, password } = formData
+
+        if (!email || !nickname || !password)
+          return console.log('Ups! You need to fill all the fields')
+
+        try {
+          const res = await fetch(`${LOCAL_BASE_URL}/auth/register`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              email,
+              nickname,
+              password,
+            }),
+          })
+
+          if (!res.ok) {
+            // Handle HTTP errors
+            const errorText = await res.json()
+            console.error('Error:', errorText)
+            setErrorCode(errorText.status)
+            return
+          }
+
+          const responseBody = await res.json()
+          setErrorCode(responseBody.status)
+
+          showErrorToast(responseBody.status)
+
+          if (responseBody.status === 200) {
+            onComplete()
+            return
+          }
+        } catch (error) {
+          console.error('Fetch error:', error)
+          setErrorCode(500)
+        }
       }
 
       return (
@@ -148,30 +162,6 @@ export const stepConfig = [
           margin={5}
           maxW="500px"
           formConfig={regisStepOneConfig}
-        />
-      )
-    },
-  },
-  {
-    title: 'Profile image',
-    component: ({ onComplete }) => {
-      const handleSubmit = (formData) => {
-        console.log('Form Data:', formData)
-        onComplete()
-      }
-      return (
-        <DynamicFormComponent
-          darkTheme
-          animationType={topBottomAnim}
-          onSubmit={handleSubmit}
-          showLogo
-          enableSubmit
-          submitText={t('next')}
-          title={`${t('registration_select_avatar_title')}`}
-          subtitle={t('registration_select_avatar_subtitle')}
-          margin={5}
-          maxW="500px"
-          formConfig={regisStepTwoConfig}
         />
       )
     },

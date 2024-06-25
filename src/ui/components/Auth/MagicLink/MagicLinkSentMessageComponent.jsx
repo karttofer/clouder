@@ -4,7 +4,7 @@ import { t } from 'i18next'
 
 // Components
 import DynamicFormComponent from 'Components/Form/DynamicFormComponent.jsx'
-import ShowAnimationComponent from 'Components/Globals/ShowAnimationComponent.jsx'
+import ShowAnimationComponent from 'Components/Globals/animations/ShowAnimationComponent.jsx'
 
 const formConfig = [
   {

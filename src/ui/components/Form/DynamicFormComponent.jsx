@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import {
   FormControl,
   FormLabel,
@@ -46,7 +46,6 @@ const DynamicFormComponent = ({
   enableSubmit,
   darkTheme,
   showLogo,
-  animationType,
 }) => {
   const [formData, setFormData] = useState({})
   const [selectedAvatar, setSelectedAvatar] = useState(null)
@@ -57,39 +56,67 @@ const DynamicFormComponent = ({
   const [clickCount, setClickCount] = useState(0)
   const [timeLeft, isTimerActive, resetTimer] = useTimer(10, false)
   const navigate = useNavigate()
+  const debounceTimeoutRef = useRef({})
 
   useEffect(() => {
-    validateForm()
+    handleValidationForm()
   }, [formData])
 
-  const handleChange = (event) => {
+  const handleUpdateForm = (event, fieldConfig) => {
     const { name, value } = event.target
+
     setFormData((prevData) => ({ ...prevData, [name]: value }))
     setTouched((prevTouched) => ({ ...prevTouched, [name]: true }))
     setErrors((prevErrors) => ({ ...prevErrors, [name]: null }))
+    handleValidationField(name, value, fieldConfig.validation)
   }
 
-  const validateField = (name, value, validation) => {
+  const handleChange = (event) => {
+    const { name, value } = event.target
+    const fieldConfig = formConfig.find((field) => field.name === name)
+    const debounceTime = fieldConfig?.debounce || 0
+
+    if (debounceTimeoutRef.current[name]) {
+      clearTimeout(debounceTimeoutRef.current[name])
+    }
+
+    if (!value) {
+      handleUpdateForm(event, fieldConfig)
+    }
+
+    return debounceTime
+      ? (debounceTimeoutRef.current[name] = setTimeout(() => {
+          handleUpdateForm(event, fieldConfig)
+        }, debounceTime))
+      : handleUpdateForm(event, fieldConfig)
+  }
+
+  const handleValidationField = (name, value, validation) => {
+    let error = null
+
     if (validation.required && !value) {
-      return (
+      error =
         validation.errorEmptyMessage || t('error_empty_field_default_message')
-      )
-    }
-    if (validation.pattern && !validation.pattern.test(value)) {
-      return (
+    } else if (validation.pattern && !validation.pattern.test(value)) {
+      error =
         validation.errorPatternMessage || t('error_regex_field_default_message')
-      )
     }
-    return null
+
+    if (name === 'repeated_password' && formData.password !== value) {
+      error = validation.errorPatternMessage || t('error_password_match')
+    }
+
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: error }))
+    return error
   }
 
-  const validateForm = () => {
+  const handleValidationForm = () => {
     let isValid = true
     const newErrors = {}
 
     formConfig.forEach((field) => {
       if (field.validation) {
-        const error = validateField(
+        const error = handleValidationField(
           field.name,
           formData[field.name],
           field.validation
@@ -115,23 +142,27 @@ const DynamicFormComponent = ({
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    if (isSubmitting || isTimerActive) return // Prevent multiple submissions and check if timer is active
+
+    if (isSubmitting || isTimerActive) return
 
     const newTouched = {}
+
     formConfig.forEach((field) => {
       newTouched[field.name] = true
     })
+
     setTouched(newTouched)
-    validateForm()
+    handleValidationForm()
+
     if (isFormValid) {
-      setIsSubmitting(true) // Disable the submit button
+      setIsSubmitting(true)
       try {
         await onSubmit({ ...formData, avatar: selectedAvatar })
       } finally {
-        setIsSubmitting(false) // Re-enable the submit button
+        setIsSubmitting(false)
         setClickCount((prevCount) => prevCount + 1)
         if (clickCount + 1 >= 5) {
-          resetTimer(10) // Start the timer for 10 seconds
+          resetTimer(10)
         }
       }
     }
@@ -141,7 +172,7 @@ const DynamicFormComponent = ({
     setSelectedAvatar(value)
   }
 
-  const validatePin = async (pin) => {
+  const handleValidatePIN = async (pin) => {
     return false
   }
 
@@ -314,7 +345,7 @@ const DynamicFormComponent = ({
                     name={field.name}
                     length={field.length}
                     timerConfig={field.timer}
-                    validatePin={validatePin}
+                    validatePin={handleValidatePIN}
                     fieldHint={field.hint}
                   />
                 </FormControl>

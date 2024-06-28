@@ -1,22 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { t } from 'i18next'
-import toast from 'react-hot-toast'
 
-// Background
-import avatarOne from 'Assets/images/avatars/avatar_01.png'
-import avatarTwo from 'Assets/images/avatars/avatar_02.png'
-import avatarThree from 'Assets/images/avatars/avatar_03.png'
-import avatarFouth from 'Assets/images/avatars/avatar_04.png'
-
-// Configs
+// Components
 import DynamicFormComponent from 'Components/Form/DynamicFormComponent.jsx'
 
 // Anims
 import { topBottomAnim } from 'Assets/chakra/appStyle.js'
 import { LOCAL_BASE_URL } from '../../../../../../enviroment.js'
 
-// Components
+// Utils
 import showErrorToast from 'Utils/hooks/userErrorAlertHandler.jsx'
+import { CONFIRM_EMAIL } from 'Utils/constants/store.js'
+
+// Store
+import store from 'Utils/store/state.js'
+import { SAVE_USER_REGISTRATION_INFORMATION } from 'Utils/constants/store.js'
 
 const regisStepOneConfig = [
   {
@@ -106,8 +105,6 @@ export const stepConfig = [
   {
     title: 'Registration',
     component: ({ onComplete }) => {
-      const [errorCode, setErrorCode] = useState(null)
-
       const handleSubmit = async (formData) => {
         const { email, nickname, password } = formData
 
@@ -131,25 +128,30 @@ export const stepConfig = [
             // Handle HTTP errors
             const errorText = await res.json()
             console.error('Error:', errorText)
-            setErrorCode(errorText.status)
             return
           }
 
-          const responseBody = await res.json()
-          setErrorCode(responseBody.status)
+          const { status, payload } = await res.json()
 
-          showErrorToast(responseBody.status)
+          showErrorToast(status)
 
-          if (responseBody.status === 200) {
+          if (status === 200) {
+            store.dispatch({
+              type: SAVE_USER_REGISTRATION_INFORMATION,
+              payload: {
+                nickname: payload.user_nickname,
+                email: payload.user_email,
+                user_token: payload.user_id,
+              },
+            })
+
             onComplete()
             return
           }
         } catch (error) {
           console.error('Fetch error:', error)
-          setErrorCode(500)
         }
       }
-
       return (
         <DynamicFormComponent
           animationType={topBottomAnim}
@@ -170,6 +172,32 @@ export const stepConfig = [
   {
     title: 'PIN Confirmation',
     component: ({ onComplete }) => {
+      const userEmail = useSelector((store) => store.state.user.email)
+
+      useEffect(() => {
+        createMagicLink()
+      }, [])
+
+      const createMagicLink = async () => {
+        try {
+          const res = await fetch(`${LOCAL_BASE_URL}/auth/magic-link`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              email: userEmail,
+              verification_type: CONFIRM_EMAIL,
+            }),
+          })
+
+          console.log(res.json())
+        } catch (error) {
+          console.error('Fetch error:', error)
+          showErrorToast(500)
+        }
+      }
+
       const handleSubmit = (formData) => {
         console.log('Form Data:', formData)
         onComplete()

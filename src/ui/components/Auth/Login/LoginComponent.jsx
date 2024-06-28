@@ -1,50 +1,69 @@
 // Dependencies
-import React from 'react'
-import { Container, Grid, GridItem, Flex } from '@chakra-ui/layout'
+import React, { useEffect, useState } from 'react'
+import { Container, Grid, GridItem, Flex, Text } from '@chakra-ui/layout'
+import { Button } from '@chakra-ui/react'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { t } from 'i18next'
+
+// Assets
+import { ButtonSecondaryTheme } from 'Assets/chakra/appStyle'
 
 // Components
 import LoginMessageComponent from 'Components/Auth/Login/LoginMessageComponent.jsx'
 import DynamicFormComponent from 'Components/Form/DynamicFormComponent.jsx'
+import ModalComponent from 'Components/Globals/ModalComponent.jsx'
 
-const formConfig = [
-  {
-    type: 'google',
-  },
-  {
-    type: 'text',
-    label: t('login_form_username'),
-    name: 'name',
-    placeholder: t('login_form_username_placeholder'),
-  },
-  {
-    type: 'text',
-    inputType: 'password',
-    label: t('login_form_password'),
-    name: 'password',
-    placeholder: t('login_form_password_placeholder'),
-  },
-  {
-    type: 'links',
-    links: [
-      {
-        label: t('login_forgot_password'),
-        path: '/magic-link',
-      },
-      {
-        label: t('login_signup'),
-        path: '/sign-up',
-      },
-    ],
-  },
-]
+// Hooks
+import useTimer from 'Utils/hooks/useTimer.jsx'
+
+// Utils
+import { formConfig } from 'Components/Auth/Login/utils/config.js'
 
 const LoginComponent = () => {
+  const [showContinueRegisModal, setThowContinueRegisModal] = useState(false)
+  const navigate = useNavigate()
+  const regis_last_step = useSelector(
+    (store) => store.state.user.regis_last_step
+  )
+
+  useEffect(() => {
+    if (regis_last_step) {
+      setThowContinueRegisModal(true)
+    }
+  }, [regis_last_step])
+
   const handleSubmit = (data) => {
     console.log('Form Data:', data)
   }
+
+  const handleTimerEnd = () => {
+    navigate('/sign-up', { replace: true })
+  }
+
+  const [timeLeft] = useTimer(5, true, handleTimerEnd)
+
   return (
     <Container>
+      <ModalComponent
+        autoOpen={showContinueRegisModal}
+        modalTitle="Continue Registration"
+        jsxContent={
+          <Text>
+            We detected that you already have an account. Please complete the
+            registration process. Confirm your email address to gain access.
+          </Text>
+        }
+        jsxBottom={
+          <Button
+            isLoading
+            {...ButtonSecondaryTheme}
+            color="layout.black.black0"
+            width="100%"
+            loadingText={t('redirect_counter', { timeLeft })}
+          ></Button>
+        }
+      />
       <Grid
         templateAreas={'msg log'}
         h="100%"

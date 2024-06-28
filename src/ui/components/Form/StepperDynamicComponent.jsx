@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Container,
   Flex,
@@ -17,6 +17,9 @@ import {
   CustomPencilIcon,
 } from 'Assets/chakra/icons'
 import ShowAnimationComponent from 'Components/Globals/animations/ShowAnimationComponent.jsx'
+
+import { useDispatch, useSelector } from 'react-redux'
+import { saveRegistrationStep } from 'Utils/store/action.js'
 
 const CustomStepper = ({ config, activeStep, setActiveStep }) => {
   return (
@@ -51,12 +54,21 @@ const CustomStepper = ({ config, activeStep, setActiveStep }) => {
 
 const DynamicStepperContainer = ({ stepConfig, lineBg }) => {
   const [activeStep, setActiveStep] = useState(0)
+  const dispatch = useDispatch()
+
+  const regis_last_step = useSelector(
+    (store) => store.state.user.regis_last_step
+  )
+
+  useEffect(() => {
+    setActiveStep(regis_last_step || activeStep)
+  }, [])
 
   const handleStepCompletion = () => {
     if (activeStep < stepConfig.length - 1) {
       setActiveStep((prevStep) => prevStep + 1)
-    } else {
-      console.log('All steps completed')
+
+      dispatch(saveRegistrationStep(activeStep + 1))
     }
   }
 

@@ -54,6 +54,7 @@
   "resend_pin_button_label": "Reenviar PIN",
   "next": "Siguiente",
   "resend_pin": "Reenviar PIN en {{timeLeft}} segundos",
+  "redirect_counter": "Seras redireccionado en {{timeLeft}} segundos",
   "error_empty_field_default_message": "Este campo no puede estar vacio",
   "error_regex_field_default_message": "Este campo no cumple con el formato requerido",
   "or": "O"

@@ -39,6 +39,7 @@ const {
   Tooltip,
   Stepper,
   Alert,
+  Modal,
 } = chakraTheme.components
 
 const theme = extendBaseTheme({
@@ -58,6 +59,7 @@ const theme = extendBaseTheme({
     Input,
     Tooltip,
     Stepper,
+    Modal,
   },
   colors: {
     button: {

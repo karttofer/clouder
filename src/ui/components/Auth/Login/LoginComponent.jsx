@@ -26,7 +26,10 @@ import useTimer from 'Utils/hooks/useTimer.jsx'
 
 // Utils
 import { formConfig } from 'Components/Auth/Login/utils/config.js'
-import { saveRegistrationStep } from 'Utils/store/action.js'
+import {
+  saveRegistrationStep,
+  isThirdPartyRegisAction,
+} from 'Utils/store/action.js'
 
 const LoginComponent = () => {
   const [showContinueRegisModal, setThowContinueRegisModal] = useState(false)
@@ -53,6 +56,7 @@ const LoginComponent = () => {
   const handleCancelTimer = () => {
     setThowContinueRegisModal(false)
     dispatch(saveRegistrationStep(0))
+    dispatch(isThirdPartyRegisAction(false))
     cancelTimer()
   }
 

@@ -35,6 +35,12 @@ import PinFormComponent from 'Components/Form/PinFormComponent.jsx'
 
 // Hook
 import useTimer from 'Utils/hooks/useTimer.jsx'
+import userErrorAlertHandler from 'Utils/hooks/userErrorAlertHandler.jsx'
+
+// Env
+import { LOCAL_BASE_URL } from 'Env'
+import { useDispatch } from 'react-redux'
+import { isThirdPartyRegisAction } from 'Utils/store/action.js'
 
 const DynamicFormComponent = ({
   title,
@@ -57,6 +63,8 @@ const DynamicFormComponent = ({
   const [timeLeft, isTimerActive, resetTimer] = useTimer(10, false)
   const navigate = useNavigate()
   const debounceTimeoutRef = useRef({})
+  const isGoogleLoginRef = useRef(false)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     handleValidationForm()
@@ -140,8 +148,10 @@ const DynamicFormComponent = ({
     setIsFormValid(isValid)
   }
 
-  const handleSubmit = async (event) => {
-    event.preventDefault()
+  const handleSubmit = async (event, isGoogleLogin = false) => {
+    if (event) {
+      event.preventDefault()
+    }
 
     if (isSubmitting || isTimerActive) return
 
@@ -208,11 +218,37 @@ const DynamicFormComponent = ({
           switch (field.type) {
             case 'google':
               return (
-                <Flex flexDir="column" justify="center" align="center">
+                <Flex
+                  flexDir="column"
+                  justify="center"
+                  align="center"
+                  key={index}
+                >
                   <Box>
                     <GoogleLogin
-                      onSuccess={(credentialResponse) => {
-                        console.log(credentialResponse)
+                      onSuccess={async (credentialResponse) => {
+                        const { credential } = credentialResponse
+
+                        const jwtRegis = await fetch(
+                          `${LOCAL_BASE_URL}/auth/jwt-auth-registration`,
+                          {
+                            method: 'HEAD',
+                            headers: {
+                              'Content-Type': 'application/json',
+                              Authorization: `${credential}`,
+                            },
+                          }
+                        )
+
+                        const status = jwtRegis.status
+                        userErrorAlertHandler(status)
+
+                        // Is exist or its new we will complete this step
+                        dispatch(
+                          isThirdPartyRegisAction(
+                            status === 200 || status === 409
+                          )
+                        )
                       }}
                       onError={() => {
                         console.log('Login Failed')

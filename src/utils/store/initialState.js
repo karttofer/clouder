@@ -11,6 +11,7 @@ const initialState = {
     user_token: '',
     nickname: '',
     regis_last_step: 0,
+    is_third_party_login: false,
   },
 }
 

@@ -3,6 +3,7 @@ import initialState from 'Utils/store/initialState.js'
 import {
   SAVE_USER_REGISTRATION_INFORMATION,
   SAVE_REGISTRATION_STEP,
+  IS_THIRD_PARTY_REGIS,
 } from 'Utils/constants/store.js'
 
 const userReducers = (state = initialState, action) => {
@@ -28,6 +29,16 @@ const userReducers = (state = initialState, action) => {
         user: {
           ...state.user,
           regis_last_step,
+        },
+      }
+
+    case IS_THIRD_PARTY_REGIS:
+      const { is_third_party_login } = action.payload
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          is_third_party_login,
         },
       }
     default:

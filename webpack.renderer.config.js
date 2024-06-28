@@ -28,6 +28,7 @@ module.exports = {
       Components: path.resolve(__dirname, 'src/ui/components'),
       Assets: path.resolve(__dirname, 'src/assets'),
       Utils: path.resolve(__dirname, 'src/utils'),
+      Env: path.resolve(__dirname, 'enviroment.js'),
     },
   },
 }

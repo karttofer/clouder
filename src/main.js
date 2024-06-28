@@ -57,6 +57,14 @@ app.on('ready', () => {
     }
   )
 
+  session.defaultSession.webRequest.onHeadersReceived(
+    filter,
+    (details, callback) => {
+      console.log('Response Headers:', details.responseHeaders)
+      callback({ responseHeaders: details.responseHeaders })
+    }
+  )
+
   createWindow()
 })
 

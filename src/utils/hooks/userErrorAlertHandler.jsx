@@ -23,7 +23,7 @@ export const translateErrorCode = (errorCode) => {
   return errorByCode[errorCode]
 }
 
-const showErrorToast = (errorCode) => {
+const userErrorAlertHandler = (errorCode) => {
   const errorAlert = translateErrorCode(errorCode)
   if (errorAlert) {
     toast.custom(
@@ -71,4 +71,4 @@ const showErrorToast = (errorCode) => {
   }
 }
 
-export default showErrorToast
+export default userErrorAlertHandler

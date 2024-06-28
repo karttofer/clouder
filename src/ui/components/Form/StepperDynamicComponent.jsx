@@ -60,9 +60,17 @@ const DynamicStepperContainer = ({ stepConfig, lineBg }) => {
     (store) => store.state.user.regis_last_step
   )
 
+  const isThirdPartyRegis = useSelector(
+    (store) => store.state.user.is_third_party_login
+  )
+
   useEffect(() => {
     setActiveStep(regis_last_step || activeStep)
   }, [])
+
+  useEffect(() => {
+    isThirdPartyRegis && handleStepCompletion()
+  }, [isThirdPartyRegis])
 
   const handleStepCompletion = () => {
     if (activeStep < stepConfig.length - 1) {
@@ -73,6 +81,8 @@ const DynamicStepperContainer = ({ stepConfig, lineBg }) => {
   }
 
   const CurrentComponent = stepConfig[activeStep].component
+
+  // For special purposes like third parties in registration
 
   return (
     <Container
@@ -104,6 +114,7 @@ const DynamicStepperContainer = ({ stepConfig, lineBg }) => {
           <ShowAnimationComponent
             jsx={
               <CurrentComponent
+                successThirdPartySubmit={handleStepCompletion}
                 onComplete={handleStepCompletion}
                 stepChange={() => activeStep}
               />

@@ -1,13 +1,20 @@
 // Dependencies
 import React, { useEffect, useState } from 'react'
-import { Container, Grid, GridItem, Flex, Text } from '@chakra-ui/layout'
+import {
+  Container,
+  Grid,
+  GridItem,
+  Flex,
+  Text,
+  VStack,
+} from '@chakra-ui/layout'
 import { Button } from '@chakra-ui/react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { t } from 'i18next'
 
 // Assets
-import { ButtonSecondaryTheme } from 'Assets/chakra/appStyle'
+import { ButtonDisableTheme, ButtonCancelTheme } from 'Assets/chakra/appStyle'
 
 // Components
 import LoginMessageComponent from 'Components/Auth/Login/LoginMessageComponent.jsx'
@@ -19,9 +26,11 @@ import useTimer from 'Utils/hooks/useTimer.jsx'
 
 // Utils
 import { formConfig } from 'Components/Auth/Login/utils/config.js'
+import { saveRegistrationStep } from 'Utils/store/action.js'
 
 const LoginComponent = () => {
   const [showContinueRegisModal, setThowContinueRegisModal] = useState(false)
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const regis_last_step = useSelector(
     (store) => store.state.user.regis_last_step
@@ -38,30 +47,46 @@ const LoginComponent = () => {
   }
 
   const handleTimerEnd = () => {
-    navigate('/sign-up', { replace: true })
+    navigate('/sign-up')
   }
 
-  const [timeLeft] = useTimer(5, true, handleTimerEnd)
+  const handleCancelTimer = () => {
+    setThowContinueRegisModal(false)
+    dispatch(saveRegistrationStep(0))
+    cancelTimer()
+  }
+
+  const [timeLeft, isTimerActive, resetTimer, cancelTimer] = useTimer(
+    200,
+    true,
+    handleTimerEnd
+  )
 
   return (
     <Container>
       <ModalComponent
         autoOpen={showContinueRegisModal}
-        modalTitle="Continue Registration"
-        jsxContent={
-          <Text>
-            We detected that you already have an account. Please complete the
-            registration process. Confirm your email address to gain access.
-          </Text>
-        }
+        modalTitle={t('incomplete_registration_modal_title')}
+        jsxContent={<Text>{t('incomplete_registration_modal_message')}</Text>}
         jsxBottom={
-          <Button
-            isLoading
-            {...ButtonSecondaryTheme}
-            color="layout.black.black0"
-            width="100%"
-            loadingText={t('redirect_counter', { timeLeft })}
-          ></Button>
+          <VStack width="100%">
+            <Button
+              isLoading
+              {...ButtonDisableTheme}
+              color="layout.black.black0"
+              width="100%"
+              loadingText={t('redirect_counter', { timeLeft })}
+            ></Button>
+            <Button
+              width="100%"
+              {...ButtonCancelTheme}
+              onClick={handleCancelTimer}
+            >
+              <Text color="layout.white.white0">
+                {t('use_another_account_to_login')}
+              </Text>
+            </Button>
+          </VStack>
         }
       />
       <Grid

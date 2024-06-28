@@ -21,12 +21,17 @@ const useTimer = (initialTime, isActive, onTimerEnd) => {
     }
   }, [timeLeft, isTimerActive, onTimerEnd])
 
-  const resetTimer = (newTime) => {
+  const resetTimer = (newTime = initialTime) => {
     setTimeLeft(newTime)
     setIsTimerActive(true)
   }
 
-  return [timeLeft, isTimerActive, resetTimer]
+  const cancelTimer = (resetTime = initialTime) => {
+    setTimeLeft(resetTime)
+    setIsTimerActive(false)
+  }
+
+  return [timeLeft, isTimerActive, resetTimer, cancelTimer]
 }
 
 export default useTimer

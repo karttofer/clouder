@@ -106,13 +106,29 @@ export const ButtonSecondaryTheme = {
   transition: 'background .3s',
   _hover: {
     background: 'layout.saffron.saffron100',
-    cursor: 'pointer',
   },
   _active: {
     background: 'layout.saffron.saffron200',
   },
   _focus: {
     borderColor: 'layout.saffron.saffron400',
+  },
+}
+
+export const ButtonCancelTheme = {
+  background: 'layout.darkRed.darkRed400',
+  borderWidth: '2px',
+  borderColor: 'transparent',
+  transition: 'background .3s',
+  color: 'layout.whjite.white0',
+  _hover: {
+    background: 'layout.darkRed.darkRed200',
+  },
+  _active: {
+    background: 'layout.darkRed.darkRed100',
+  },
+  _focus: {
+    borderColor: 'layout.orange.orange500',
   },
 }
 

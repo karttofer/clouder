@@ -60,5 +60,8 @@
   "login_submit_button_timer_block": "You're being blocked for {{timeLeft}} seconds, try again later",
   "error_empty_field_default_message": "Input the PIN we sent to your email",
   "error_regex_field_default_message": "This value in input is invalid",
-  "or": "Or"
+  "or": "Or",
+  "incomplete_registration_modal_message": "We detected that you already have an account. Please complete the registration process. Confirm your email address to gain access.",
+  "incomplete_registration_modal_title": "Complete your registration",
+  "use_another_account_to_login": "Use another account to login"
 }

@@ -16,7 +16,9 @@ const ModalComponent = ({ autoOpen, modalTitle, jsxContent, jsxBottom }) => {
   useEffect(() => {
     if (autoOpen) {
       OpenModal()
+      return
     }
+    onClose()
   })
 
   const OpenModal = () => {
@@ -30,10 +32,7 @@ const ModalComponent = ({ autoOpen, modalTitle, jsxContent, jsxBottom }) => {
       isOpen={isOpen}
       motionPreset="slideInBottom"
     >
-      <ModalOverlay
-        bg="blackAlpha.300"
-        backdropFilter="blur(10px) hue-rotate(90deg)"
-      />
+      <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
       <ModalContent>
         <ModalHeader>{modalTitle}</ModalHeader>
         <ModalCloseButton />

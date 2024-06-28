@@ -20,7 +20,7 @@ const userReducers = (state = initialState, action) => {
           nickname,
         },
       }
-    case 'SAVE_REGISTRATION_STEP':
+    case SAVE_REGISTRATION_STEP:
       const { regis_last_step } = action.payload
       console.log('regis_last_step', regis_last_step)
       return {

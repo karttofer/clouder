@@ -57,5 +57,8 @@
   "redirect_counter": "Seras redireccionado en {{timeLeft}} segundos",
   "error_empty_field_default_message": "Este campo no puede estar vacio",
   "error_regex_field_default_message": "Este campo no cumple con el formato requerido",
-  "or": "O"
+  "or": "O",
+  "incomplete_registration_modal_message": "Detectamos que ya tienes una cuenta. Por favor completa el proceso de registro. Confirma tu dirección de correo electrónico para obtener acceso.",
+  "incomplete_registration_modal_title": "Completa tu registro",
+  "use_another_account_to_login": "Usa otra cuenta para iniciar sesion"
 }

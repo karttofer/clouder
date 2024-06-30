@@ -31,6 +31,7 @@ const PinFormComponent = ({
 }) => {
   const { pin, errorMessage, isPinValid, handlePinChange, handlePaste } =
     usePinValidation(length, validatePin, handleChange)
+
   const [timeLeft, isTimerActive, resetTimer] = useTimer(
     timerConfig.duration,
     true

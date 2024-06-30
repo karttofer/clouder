@@ -82,8 +82,6 @@ const DynamicStepperContainer = ({ stepConfig, lineBg }) => {
 
   const CurrentComponent = stepConfig[activeStep].component
 
-  // For special purposes like third parties in registration
-
   return (
     <Container
       w="100%"
@@ -114,7 +112,6 @@ const DynamicStepperContainer = ({ stepConfig, lineBg }) => {
           <ShowAnimationComponent
             jsx={
               <CurrentComponent
-                successThirdPartySubmit={handleStepCompletion}
                 onComplete={handleStepCompletion}
                 stepChange={() => activeStep}
               />

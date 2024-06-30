@@ -7,7 +7,6 @@ import {
 } from 'Utils/constants/store.js'
 
 const userReducers = (state = initialState, action) => {
-  console.log(action.type, 'action.type')
   switch (action.type) {
     case SAVE_USER_REGISTRATION_INFORMATION:
       const { email, user_token, nickname } = action.payload

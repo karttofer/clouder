@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { t } from 'i18next'
 
 // Components
@@ -79,12 +79,6 @@ const regisStepThreeConfig = [
     name: 'pin',
     length: 4,
     hint: "Sometimes PIN email can take a few minutes to arrive. If you don't receive it, please wait until the timer ends to request a new one.",
-    validation: {
-      required: true,
-      errorEmptyMessage: `Ups! PIN field are required and can't be empty`,
-      errorPatternMessage: 'PIN must be exactly 4 digits',
-      pattern: /^\d{4}$/,
-    },
     timer: {
       duration: 3,
       resendLabel: t('resend_pin_button_label'),
@@ -106,6 +100,7 @@ export const stepConfig = [
     title: 'Registration',
     component: ({ onComplete }) => {
       const handleSubmit = async (formData) => {
+        const dispatch = useDispatch()
         const { email, nickname, password } = formData
 
         if (!email || !nickname || !password)
@@ -136,15 +131,13 @@ export const stepConfig = [
           showErrorToast(status)
 
           if (status === 200) {
-            store.dispatch({
-              type: SAVE_USER_REGISTRATION_INFORMATION,
-              payload: {
+            dispatch(
+              save_user_registration({
                 nickname: payload.user_nickname,
                 email: payload.user_email,
                 user_token: payload.user_id,
-              },
-            })
-
+              })
+            )
             onComplete()
             return
           }

@@ -39,8 +39,11 @@ import userErrorAlertHandler from 'Utils/hooks/userErrorAlertHandler.jsx'
 
 // Env
 import { LOCAL_BASE_URL } from 'Env'
-import { useDispatch } from 'react-redux'
-import { isThirdPartyRegisAction } from 'Utils/store/action.js'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  isThirdPartyRegisAction,
+  saveUserRegistrationAction,
+} from 'Utils/store/action.js'
 
 const DynamicFormComponent = ({
   title,
@@ -63,8 +66,8 @@ const DynamicFormComponent = ({
   const [timeLeft, isTimerActive, resetTimer] = useTimer(10, false)
   const navigate = useNavigate()
   const debounceTimeoutRef = useRef({})
-  const isGoogleLoginRef = useRef(false)
   const dispatch = useDispatch()
+  const userEmail = useSelector((store) => store.state.user.email)
 
   useEffect(() => {
     handleValidationForm()
@@ -76,7 +79,10 @@ const DynamicFormComponent = ({
     setFormData((prevData) => ({ ...prevData, [name]: value }))
     setTouched((prevTouched) => ({ ...prevTouched, [name]: true }))
     setErrors((prevErrors) => ({ ...prevErrors, [name]: null }))
-    handleValidationField(name, value, fieldConfig.validation)
+
+    if (fieldConfig && fieldConfig.validation) {
+      handleValidationField(name, value, fieldConfig.validation)
+    }
   }
 
   const handleChange = (event) => {
@@ -148,7 +154,7 @@ const DynamicFormComponent = ({
     setIsFormValid(isValid)
   }
 
-  const handleSubmit = async (event, isGoogleLogin = false) => {
+  const handleSubmit = async (event) => {
     if (event) {
       event.preventDefault()
     }
@@ -183,7 +189,21 @@ const DynamicFormComponent = ({
   }
 
   const handleValidatePIN = async (pin) => {
-    return false
+    console.log(JSON.stringify({ user_pin: pin, email: formData.email }))
+    const pinValidation = await fetch(
+      `${LOCAL_BASE_URL}/auth/pin-verification`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ user_pin: pin, email: userEmail }),
+      }
+    )
+
+    const { is_valid_pin } = await pinValidation.json()
+
+    return is_valid_pin
   }
 
   return (
@@ -232,23 +252,27 @@ const DynamicFormComponent = ({
                         const jwtRegis = await fetch(
                           `${LOCAL_BASE_URL}/auth/jwt-auth-registration`,
                           {
-                            method: 'HEAD',
+                            method: 'GET',
                             headers: {
                               'Content-Type': 'application/json',
                               Authorization: `${credential}`,
                             },
                           }
                         )
+                        const { status, payload } = await jwtRegis.json()
 
-                        const status = jwtRegis.status
-                        userErrorAlertHandler(status)
-
-                        // Is exist or its new we will complete this step
-                        dispatch(
-                          isThirdPartyRegisAction(
-                            status === 200 || status === 409
+                        if (status === 200 || status === 409) {
+                          dispatch(
+                            isThirdPartyRegisAction(
+                              (status === 200) | (status === 409)
+                            )
                           )
-                        )
+                          dispatch(
+                            saveUserRegistrationAction({
+                              email: payload.user_email,
+                            })
+                          )
+                        }
                       }}
                       onError={() => {
                         console.log('Login Failed')

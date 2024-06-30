@@ -3,7 +3,7 @@ import { useState } from 'react'
 const usePinValidation = (length, validatePin, handleChange) => {
   const [pin, setPin] = useState(new Array(length).fill(''))
   const [errorMessage, setErrorMessage] = useState('')
-  const [isPinValid, setIsPinValid] = useState(false)
+  const [isPinValid, setIsPinValid] = useState(null)
 
   const handlePinChange = async (element, index) => {
     if (isNaN(element.value)) return false
@@ -23,7 +23,6 @@ const usePinValidation = (length, validatePin, handleChange) => {
       if (!isValid) {
         setErrorMessage('Invalid PIN, please try again.')
         setIsPinValid(false)
-        setPin(new Array(length).fill(''))
       } else {
         setErrorMessage('')
         setIsPinValid(true)

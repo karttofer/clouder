@@ -60,7 +60,13 @@ const PinFormComponent = ({
             fontSize="3em"
             color={!darkTheme ? 'layout.white.white0' : 'layout.black.black850'}
             border="2px solid"
-            borderColor={isPinValid ? 'green.500' : 'layout.black.black700'}
+            borderColor={
+              isPinValid === null
+                ? 'layout.black.black0'
+                : isPinValid
+                  ? 'green.500'
+                  : 'layout.darkRed.darkRed400'
+            }
           />
         ))}
         <input

@@ -60,5 +60,7 @@
   "or": "O",
   "incomplete_registration_modal_message": "Detectamos que ya tienes una cuenta. Por favor completa el proceso de registro. Confirma tu dirección de correo electrónico para obtener acceso.",
   "incomplete_registration_modal_title": "Completa tu registro",
-  "use_another_account_to_login": "Usa otra cuenta para iniciar sesion"
+  "use_another_account_to_login": "Usa otra cuenta para iniciar sesion",
+  "want_to_crate_account_by_google_auth": "Tu cuenta de Google no existe en esta application, pero puedes crear una rapidamente",
+  "want_to_crate_account_by_google_auth_title": "¿Quieres crear una cuenta con tu cuenta de Google?"
 }

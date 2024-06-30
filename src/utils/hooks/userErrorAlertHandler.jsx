@@ -17,6 +17,11 @@ const errorByCode = {
     errMessage: `The information was successfully uploaded.`,
     alertType: 'success',
   },
+  404: {
+    errTitle: 'Information does no exist',
+    errMessage: `The information you are trying to access does not exist.`,
+    alertType: 'error',
+  },
 }
 
 export const translateErrorCode = (errorCode) => {

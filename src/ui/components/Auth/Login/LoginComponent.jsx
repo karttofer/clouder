@@ -12,26 +12,29 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { t } from 'i18next'
 
-// Assets
-import { ButtonDisableTheme, ButtonCancelTheme } from 'Assets/chakra/appStyle'
-
 // Components
 import LoginMessageComponent from 'Components/Auth/Login/LoginMessageComponent.jsx'
 import DynamicFormComponent from 'Components/Form/DynamicFormComponent.jsx'
-import ModalComponent from 'Components/Globals/ModalComponent.jsx'
 
 // Hooks
 import useTimer from 'Utils/hooks/useTimer.jsx'
 
 // Utils
-import { formConfig } from 'Components/Auth/Login/utils/config.js'
+import { formConfig } from 'Components/Auth/Login/utils/config.jsx'
 import {
   saveRegistrationStep,
   isThirdPartyRegisAction,
 } from 'Utils/store/action.js'
+import {
+  ContinueRegisModal,
+  CreateAccountByGoogleAuth,
+} from 'Components/Auth/Login/utils/config.jsx'
 
 const LoginComponent = () => {
   const [showContinueRegisModal, setThowContinueRegisModal] = useState(false)
+  const [showQuickCreateAccountModal, setShowQuickCreateAccountModal] =
+    useState(false)
+  const [triggerGoogleAuth, setTriggerGoogleAuth] = useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const regis_last_step = useSelector(
@@ -59,6 +62,14 @@ const LoginComponent = () => {
     cancelTimer()
   }
 
+  const handleQuickGoogleLogin = () => {
+    setTriggerGoogleAuth((prevState) => !prevState)
+  }
+
+  const handleEmailRegister = () => {
+    navigate('/sign-up')
+  }
+
   const [timeLeft, isTimerActive, resetTimer, cancelTimer] = useTimer(
     200,
     true,
@@ -67,30 +78,15 @@ const LoginComponent = () => {
 
   return (
     <Container maxW="100vw" h="100vh" p={0}>
-      <ModalComponent
-        autoOpen={showContinueRegisModal}
-        modalTitle={t('incomplete_registration_modal_title')}
-        jsxContent={<Text>{t('incomplete_registration_modal_message')}</Text>}
-        jsxBottom={
-          <VStack width="100%">
-            <Button
-              isLoading
-              {...ButtonDisableTheme}
-              color="layout.black.black0"
-              width="100%"
-              loadingText={t('redirect_counter', { timeLeft })}
-            ></Button>
-            <Button
-              width="100%"
-              {...ButtonCancelTheme}
-              onClick={handleCancelTimer}
-            >
-              <Text color="layout.white.white0">
-                {t('use_another_account_to_login')}
-              </Text>
-            </Button>
-          </VStack>
-        }
+      <CreateAccountByGoogleAuth
+        handleOpenModal={showQuickCreateAccountModal}
+        handleAccept={handleQuickGoogleLogin}
+        handleCancel={handleEmailRegister}
+      />
+      <ContinueRegisModal
+        handleOpenModal={showContinueRegisModal}
+        handleCancel={handleCancelTimer}
+        timeLeft={timeLeft}
       />
       <Grid
         templateAreas={{
@@ -133,11 +129,16 @@ const LoginComponent = () => {
             w="100%"
           >
             <DynamicFormComponent
+              handleThirdPartyChange={(value) => {
+                setShowQuickCreateAccountModal(true)
+              }}
+              triggerGoogleAuth={triggerGoogleAuth}
               enableSubmit
               margin={5}
               maxW="500px"
               formConfig={formConfig}
               onSubmit={handleSubmit}
+              authMethod="login"
             />
           </Flex>
         </GridItem>

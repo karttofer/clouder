@@ -160,6 +160,7 @@ export const stepConfig = [
           formConfig={regisStepOneConfig}
           marginTop="55px"
           marginBottom="20px"
+          authMethod="register"
         />
       )
     },

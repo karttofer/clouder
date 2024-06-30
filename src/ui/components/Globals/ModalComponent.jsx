@@ -15,15 +15,11 @@ const ModalComponent = ({ autoOpen, modalTitle, jsxContent, jsxBottom }) => {
 
   useEffect(() => {
     if (autoOpen) {
-      OpenModal()
+      onOpen()
       return
     }
     onClose()
-  })
-
-  const OpenModal = () => {
-    onOpen()
-  }
+  }, [autoOpen, onOpen, onClose])
 
   return (
     <Modal

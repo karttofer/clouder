@@ -65,5 +65,9 @@
   "or": "Or",
   "incomplete_registration_modal_message": "We detected that you already have an account. Please complete the registration process. Confirm your email address to gain access.",
   "incomplete_registration_modal_title": "Complete your registration",
-  "use_another_account_to_login": "Use another account to login"
+  "use_another_account_to_login": "Use another account to login",
+  "want_to_crate_account_by_google_auth": "Your Google account does no exist in this app, but you can create it quickly",
+  "want_to_crate_account_by_google_auth_title": "Do you want to create an account?",
+  "want_to_crate_account_by_google_auth_acccept_button": "Yes, create my account with Google",
+  "want_to_crate_account_by_google_auth_denied_button": "No, let me use my email"
 }

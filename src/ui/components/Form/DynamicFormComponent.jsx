@@ -17,17 +17,17 @@ import {
 } from '@chakra-ui/react'
 import { useGoogleLogin } from '@react-oauth/google'
 import { useNavigate } from 'react-router-dom'
-import { motion } from 'framer-motion'
 import { t } from 'i18next'
-import { GoogleLogin } from '@react-oauth/google'
 
 // Assets
 import {
+  ButtonSecondaryTheme,
   ButtonThemePrimary,
   ButtonDisableTheme,
   InputThemePrimary,
   centerAnim,
 } from 'Assets/chakra/appStyle.js'
+import googleIcon from 'Assets/images/google_logo.svg'
 
 // Components
 import NavbarComponent from 'Components/Navbar/NavbarComponent.jsx'
@@ -57,6 +57,9 @@ const DynamicFormComponent = ({
   showLogo,
   marginTop,
   marginBottom,
+  authMethod,
+  handleThirdPartyChange,
+  triggerGoogleAuth,
 }) => {
   const [formData, setFormData] = useState({})
   const [selectedAvatar, setSelectedAvatar] = useState(null)
@@ -74,6 +77,10 @@ const DynamicFormComponent = ({
   useEffect(() => {
     handleValidationForm()
   }, [formData])
+
+  useEffect(() => {
+    triggerGoogleAuth && googleLogin()
+  }, [triggerGoogleAuth])
 
   const handleUpdateForm = (event, fieldConfig) => {
     const { name, value } = event.target
@@ -191,7 +198,6 @@ const DynamicFormComponent = ({
   }
 
   const handleValidatePIN = async (pin) => {
-    console.log(JSON.stringify({ user_pin: pin, email: formData.email }))
     const pinValidation = await fetch(
       `${LOCAL_BASE_URL}/auth/pin-verification`,
       {
@@ -207,6 +213,79 @@ const DynamicFormComponent = ({
 
     return is_valid_pin
   }
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: async (credentialResponse) => {
+      try {
+        const { access_token } = credentialResponse
+
+        const googleInfo = await fetch(
+          'https://www.googleapis.com/oauth2/v3/userinfo',
+          {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+            },
+          }
+        )
+
+        if (!googleInfo.ok) {
+          throw new Error(
+            `Google API returned an error: ${googleInfo.statusText}`
+          )
+        }
+
+        const googleUser = await googleInfo.json()
+
+        const jwtRegis = await fetch(`${LOCAL_BASE_URL}/auth/google-auth`, {
+          method: 'POST',
+          body: JSON.stringify({
+            name: googleUser.name,
+            email: googleUser.email,
+            picture: googleUser.picture,
+            email_verified: googleUser.email_verified,
+            auth_method: authMethod,
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+
+        if (!jwtRegis.ok) {
+          throw new Error(`Local API returned an error: ${jwtRegis.statusText}`)
+        }
+
+        const responseText = await jwtRegis.json()
+        const googleAuthStatus = responseText.status
+
+        userErrorAlertHandler(googleAuthStatus)
+
+        if (googleAuthStatus === 200 || googleAuthStatus === 409) {
+          dispatch(
+            isThirdPartyRegisAction(
+              googleAuthStatus === 200 || googleAuthStatus === 409
+            )
+          )
+          dispatch(
+            saveUserRegistrationAction({
+              email: googleUser.email,
+            })
+          )
+        }
+
+        handleThirdPartyChange({
+          authMethod: 'google',
+          status: googleAuthStatus,
+        })
+      } catch (error) {}
+    },
+    onError: () => {
+      handleThirdPartyChange({ authMethod: 'google', status: 500 })
+    },
+    text: 'continue_with',
+    width: '500px',
+    flow: 'implicit',
+  })
 
   return (
     <Container
@@ -253,44 +332,14 @@ const DynamicFormComponent = ({
                   align="center"
                   key={index}
                 >
-                  <Box>
-                    <GoogleLogin
-                      onSuccess={async (credentialResponse) => {
-                        const { credential } = credentialResponse
-
-                        const jwtRegis = await fetch(
-                          `${LOCAL_BASE_URL}/auth/jwt-auth-registration`,
-                          {
-                            method: 'GET',
-                            headers: {
-                              'Content-Type': 'application/json',
-                              Authorization: `${credential}`,
-                            },
-                          }
-                        )
-                        const { status, payload } = await jwtRegis.json()
-
-                        if (status === 200 || status === 409) {
-                          dispatch(
-                            isThirdPartyRegisAction(
-                              (status === 200) | (status === 409)
-                            )
-                          )
-                          dispatch(
-                            saveUserRegistrationAction({
-                              email: payload.user_email,
-                            })
-                          )
-                        }
-                      }}
-                      onError={() => {
-                        console.log('Login Failed')
-                      }}
-                      theme={!darkTheme ? 'filled_black' : 'filled_blue'}
-                      text="continue_with"
-                      width="500px"
-                    />
-                  </Box>
+                  <Button
+                    w="100%"
+                    {...ButtonSecondaryTheme}
+                    onClick={() => googleLogin()}
+                  >
+                    <Image src={googleIcon} alt="google icon" margin="10px" />
+                    {t('login_google_quicklink_label')}
+                  </Button>
                   <Box width="100%" position="relative" padding="10">
                     <Divider opacity=".3" />
                     <AbsoluteCenter
@@ -508,7 +557,7 @@ const DynamicFormComponent = ({
           <Button
             w="100%"
             marginTop="20px"
-            {...ButtonThemePrimary}
+            {...ButtonThemePrimary(darkTheme)}
             type="submit"
             isDisabled={!isFormValid || isSubmitting || isTimerActive}
             _disabled={ButtonDisableTheme}

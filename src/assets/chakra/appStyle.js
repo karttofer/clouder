@@ -20,26 +20,23 @@
     borderColor: 'transparent',
   },
  */
-export const ButtonThemePrimary = {
-  css: {
-    background: '#ff6000',
-    transition: 'background .3s',
-    borderWidth: '2px',
-    borderColor: 'transparent',
-  },
+export const ButtonThemePrimary = (isDarkTheme) => ({
+  color: !isDarkTheme ? 'layout.white.white0' : 'layout.black.black0',
+  background: 'transparent',
+  transition: 'background .3s',
+  borderWidth: '2px',
+  borderColor: 'layout.orange.orange500',
   _hover: {
-    background: '#F0C86A',
-    color: '#000000',
+    background: 'layout.orange.orange500',
     cursor: 'pointer',
   },
   _active: {
-    background: '#b14605 !important',
-    color: '#ffffff',
+    background: 'layout.orange.orange400',
   },
   _focus: {
-    borderColor: '#b14605',
+    borderColor: 'layout.orange.orange400',
   },
-}
+})
 
 export const InputThemePrimary = (isDarkTheme) => ({
   cursor: 'text',
@@ -58,7 +55,8 @@ export const InputThemePrimary = (isDarkTheme) => ({
     cursor: 'text',
   },
   _focusVisible: {
-    borderColor: 'layout.orange.orange400',
+    transition: 'all .3s',
+    borderColor: 'layout.black.black700',
     borderWidth: '2px',
   },
 })
@@ -129,6 +127,18 @@ export const ButtonCancelTheme = {
   },
   _focus: {
     borderColor: 'layout.orange.orange500',
+  },
+}
+
+export const ButtonAcceptTheme = {
+  color: '#808080',
+  background: 'green.300',
+  cursor: 'pointer',
+  _hover: {
+    background: 'green.600',
+  },
+  _active: {
+    background: 'green.900',
   },
 }
 

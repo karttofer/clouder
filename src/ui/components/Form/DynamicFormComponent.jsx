@@ -55,6 +55,8 @@ const DynamicFormComponent = ({
   enableSubmit,
   darkTheme,
   showLogo,
+  marginTop,
+  marginBottom,
 }) => {
   const [formData, setFormData] = useState({})
   const [selectedAvatar, setSelectedAvatar] = useState(null)
@@ -207,8 +209,15 @@ const DynamicFormComponent = ({
   }
 
   return (
-    <Container w="100%" as="form" onSubmit={handleSubmit} maxW={maxW}>
-      <Box margin="55px 0 55px 0">
+    <Container
+      marginTop={marginTop}
+      marginBottom={marginBottom}
+      w="100%"
+      as="form"
+      onSubmit={handleSubmit}
+      maxW={maxW}
+    >
+      <Box>
         {showLogo && <NavbarComponent navbarType="logo" isDark={darkTheme} />}
         {title && (
           <Text
@@ -283,7 +292,7 @@ const DynamicFormComponent = ({
                     />
                   </Box>
                   <Box width="100%" position="relative" padding="10">
-                    <Divider />
+                    <Divider opacity=".3" />
                     <AbsoluteCenter
                       background={
                         !darkTheme
@@ -317,7 +326,7 @@ const DynamicFormComponent = ({
                   </FormLabel>
                   <Select
                     marginBottom="10px"
-                    {...InputThemePrimary}
+                    {...InputThemePrimary(!darkTheme)}
                     name={field.name}
                     placeholder={field.placeholder}
                     onChange={handleChange}
@@ -361,8 +370,7 @@ const DynamicFormComponent = ({
                   <Input
                     marginBottom="10px"
                     marginTop="10px"
-                    {...InputThemePrimary}
-                    _placeholder={{ color: 'white', opacity: 0.3 }}
+                    {...InputThemePrimary(!darkTheme)}
                     type={field.inputType}
                     name={field.name}
                     placeholder={field.placeholder}
@@ -476,7 +484,7 @@ const DynamicFormComponent = ({
                         w="100%"
                         background="layout.black.black850"
                         border="2px"
-                        borderColor="layout.black.black700"
+                        borderColor="layout.black.black600"
                         _hover={{ background: 'layout.black.black800' }}
                       >
                         <Image

@@ -1,4 +1,3 @@
-// Dependencies
 import React, { useEffect, useState } from 'react'
 import {
   Container,
@@ -67,7 +66,7 @@ const LoginComponent = () => {
   )
 
   return (
-    <Container>
+    <Container maxW="100vw" h="100vh" p={0}>
       <ModalComponent
         autoOpen={showContinueRegisModal}
         modalTitle={t('incomplete_registration_modal_title')}
@@ -94,14 +93,24 @@ const LoginComponent = () => {
         }
       />
       <Grid
-        templateAreas={'msg log'}
+        templateAreas={{
+          base: `"msg" "log"`,
+          md: `"msg log"`,
+        }}
         h="100%"
-        gridTemplateRows={'100vh '}
-        gridTemplateColumns={'50% 50%'}
+        gridTemplateRows={{
+          base: '1fr 1fr',
+          md: '1fr',
+        }}
+        gridTemplateColumns={{
+          base: '1fr',
+          md: '1fr 1fr',
+        }}
         color="blackAlpha.700"
         fontWeight="bold"
       >
         <GridItem
+          minW={{ base: '100%', md: '450px' }}
           rowSpan={1}
           colSpan={1}
           bg="layout.saffron.saffron100"
@@ -110,6 +119,7 @@ const LoginComponent = () => {
           <LoginMessageComponent />
         </GridItem>
         <GridItem
+          minW={{ base: '100%', md: '800px' }}
           rowSpan={1}
           colSpan={1}
           bg="layout.black.black800"
@@ -135,4 +145,5 @@ const LoginComponent = () => {
     </Container>
   )
 }
+
 export default LoginComponent

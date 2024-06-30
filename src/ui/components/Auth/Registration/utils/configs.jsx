@@ -158,6 +158,8 @@ export const stepConfig = [
           margin={5}
           maxW="500px"
           formConfig={regisStepOneConfig}
+          marginTop="55px"
+          marginBottom="20px"
         />
       )
     },

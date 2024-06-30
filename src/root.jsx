@@ -117,7 +117,8 @@ const theme = extendBaseTheme({
         black900: '#101010',
         black850: '#161616',
         black800: '#1c1c1c',
-        black700: '#616161',
+        black700: '#3b3b3b',
+        black600: '#616161',
       },
       white: {
         white0: '#ffffff',

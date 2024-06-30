@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import {
   Container,
+  Grid,
+  GridItem,
   Flex,
   Box,
   Stepper,
@@ -21,11 +23,11 @@ import ShowAnimationComponent from 'Components/Globals/animations/ShowAnimationC
 import { useDispatch, useSelector } from 'react-redux'
 import { saveRegistrationStep } from 'Utils/store/action.js'
 
-const CustomStepper = ({ config, activeStep, setActiveStep }) => {
+const CustomStepper = ({ config, activeStep }) => {
   return (
     <ShowAnimationComponent
       jsx={
-        <Stepper w="90vh" index={activeStep} marginTop="50px">
+        <Stepper w="90vw" index={activeStep} marginTop="50px">
           {config.map((step, index) => (
             <Step key={index}>
               <StepIndicator>
@@ -65,50 +67,53 @@ const DynamicStepperContainer = ({ stepConfig, lineBg }) => {
   )
 
   useEffect(() => {
-    setActiveStep(regis_last_step || activeStep)
-  }, [])
+    setActiveStep(regis_last_step || 0)
+  }, [regis_last_step])
 
   useEffect(() => {
-    isThirdPartyRegis && handleStepCompletion()
+    if (isThirdPartyRegis) {
+      handleStepCompletion()
+    }
   }, [isThirdPartyRegis])
 
   const handleStepCompletion = () => {
     if (activeStep < stepConfig.length - 1) {
-      setActiveStep((prevStep) => prevStep + 1)
-
-      dispatch(saveRegistrationStep(activeStep + 1))
+      const nextStep = activeStep + 1
+      setActiveStep(nextStep)
+      dispatch(saveRegistrationStep(nextStep))
     }
   }
 
-  const CurrentComponent = stepConfig[activeStep].component
+  const CurrentComponent = stepConfig[activeStep]?.component || null
+
+  if (!CurrentComponent) {
+    console.error('No component found for the current step')
+    return null
+  }
 
   return (
-    <Container
-      w="100%"
-      h="100vh"
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      flexDir="column"
-      backgroundImage={lineBg}
-      backgroundSize="cover"
-    >
-      <Flex
-        direction="column"
-        align="center"
-        justify="center"
-        w="100%"
+    <Container maxW="100vw" h="100vh" p={0}>
+      <Grid
+        templateAreas={{
+          base: `"step" "component"`,
+          md: `"step" "component"`,
+        }}
         h="100%"
+        gridTemplateRows={{
+          base: 'auto 1fr',
+          md: 'auto 1fr',
+        }}
+        gridTemplateColumns={{
+          base: '1fr',
+          md: '1fr',
+        }}
+        gap={4}
+        p={4}
       >
-        <Box w="100%" display="flex" justifyContent="center">
-          <CustomStepper
-            config={stepConfig}
-            activeStep={activeStep}
-            setActiveStep={setActiveStep}
-          />
-        </Box>
-
-        <Box w="100%" display="flex" justifyContent="center" flexGrow={1}>
+        <GridItem area="step" display="flex" justifyContent="center">
+          <CustomStepper config={stepConfig} activeStep={activeStep} />
+        </GridItem>
+        <GridItem area="component" display="flex" justifyContent="center">
           <ShowAnimationComponent
             jsx={
               <CurrentComponent
@@ -116,9 +121,9 @@ const DynamicStepperContainer = ({ stepConfig, lineBg }) => {
                 stepChange={() => activeStep}
               />
             }
-          ></ShowAnimationComponent>
-        </Box>
-      </Flex>
+          />
+        </GridItem>
+      </Grid>
     </Container>
   )
 }

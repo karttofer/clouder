@@ -41,27 +41,27 @@ export const ButtonThemePrimary = {
   },
 }
 
-export const InputThemePrimary = {
-  css: {
-    cursor: 'text',
-    color: 'white',
-    background: '#3b3b3b',
-    transition: 'background .3s',
-    borderWidth: '2px',
-    borderColor: 'transparent',
+export const InputThemePrimary = (isDarkTheme) => ({
+  cursor: 'text',
+  color: isDarkTheme ? 'layout.white.white0' : 'layout.black.black0',
+  borderColor: 'layout.black.black600',
+  _placeholder: {
+    color: isDarkTheme ? 'layout.white.white0' : 'layout.black.black0',
+    opacity: 0.3,
   },
+  transition: 'background .3s',
+  borderWidth: '2px',
   _hover: {
-    background: '#252525',
+    _placeholder: {
+      color: isDarkTheme ? 'layout.white.white0' : 'layout.black.black0',
+    },
     cursor: 'text',
-  },
-  _active: {
-    background: '#b14605 !important',
   },
   _focusVisible: {
-    borderColor: '#b14605',
+    borderColor: 'layout.orange.orange400',
     borderWidth: '2px',
   },
-}
+})
 
 /**
  * Button Transaprent Bg

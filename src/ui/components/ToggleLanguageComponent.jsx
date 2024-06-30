@@ -1,8 +1,9 @@
 // Dependencies
 import React, { useState, useEffect } from 'react'
 import { Button } from '@chakra-ui/react'
+
 // language
-import i18n from '../../utils/i18n/index'
+import i18n from 'Utils/i18n/index'
 
 const ToggleLanguageComponent = () => {
   const [currentLanguage, setCurrentLanguage] = useState(i18n.language || 'en')

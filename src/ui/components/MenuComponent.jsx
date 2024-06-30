@@ -17,11 +17,12 @@ import {
   FormHelperText,
 } from '@chakra-ui/react'
 import { ChevronDownIcon } from '@chakra-ui/icons'
-// Themes
-import { SelectTheme } from '../../assets/chakra/appStyle'
+
+// Assets
+import { SelectTheme } from 'Assets/chakra/appStyle'
 import { t } from 'i18next'
 
-const SelectComponent = ({ placeholder, items, initialValue }) => {
+const MenuComponent = ({ placeholder, items, initialValue }) => {
   const [value, setValue] = useState(initialValue?.value || '')
   const [switchValues, setSwitchValues] = useState({})
   const [buttonLabel, setButtonLabel] = useState(initialValue?.label || '')
@@ -33,11 +34,11 @@ const SelectComponent = ({ placeholder, items, initialValue }) => {
     }
   }, [initialValue])
 
-  const handleSwitchChange = (e, itemFor) => {
-    e.preventDefault()
+  const handleSwitchChange = (event, itemFor) => {
+    event.preventDefault()
     setSwitchValues({
       ...switchValues,
-      [itemFor]: e.target.checked,
+      [itemFor]: event.target.checked,
     })
 
     return switchValues
@@ -90,7 +91,7 @@ const SelectComponent = ({ placeholder, items, initialValue }) => {
                 display="flex"
                 alignItems="center"
                 width="100%"
-                onChange={(e) => handleSwitchChange(e, item.for)}
+                onChange={(event) => handleSwitchChange(event, item.for)}
               >
                 <Flex
                   maxWidth="253px"
@@ -123,4 +124,4 @@ const SelectComponent = ({ placeholder, items, initialValue }) => {
     </Menu>
   )
 }
-export default SelectComponent
+export default MenuComponent

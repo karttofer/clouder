@@ -19,6 +19,9 @@ import {
   Download,
   Copy,
   RefreshCcw,
+  WandSparkles,
+  BadgeCheck,
+  CircleX,
 } from 'lucide-react'
 
 const CustomBrainIcon = (props) => {
@@ -77,6 +80,15 @@ const CustomCopyIcon = (props) => {
 const CustomRefreshCcwIcon = (props) => {
   return <Icon {...props} as={RefreshCcw} />
 }
+const CustomWandSparklesIcon = (props) => {
+  return <Icon {...props} as={WandSparkles} />
+}
+const CustomWandBadgeCheckIcon = (props) => {
+  return <Icon {...props} as={BadgeCheck} />
+}
+const CustomCircleXIcon = (props) => {
+  return <Icon {...props} as={CircleX} />
+}
 
 export {
   CustomRefreshCcwIcon,
@@ -95,4 +107,7 @@ export {
   CustomBrainIcon,
   CustomArrowUpIcon,
   CustomDownloadIcon,
+  CustomWandSparklesIcon,
+  CustomWandBadgeCheckIcon,
+  CustomCircleXIcon,
 }

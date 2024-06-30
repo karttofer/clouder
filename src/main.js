@@ -1,28 +1,46 @@
-const { app, BrowserWindow, session } = require('electron')
+const { app, BrowserWindow, session, screen } = require('electron')
 const path = require('path')
+const os = require('node:os')
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit()
 }
 
+const reactDevToolsPath = path.join(
+  os.homedir(),
+  '.config/google-chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/5.2.0_0'
+)
+
+const reduxDevTools = path.join(
+  os.homedir(),
+  '.config/google-chrome/Default/Extensions/lmhkpmbekcpmknklioeibfkpmmfibljd/3.1.6_0'
+)
+
 const createWindow = () => {
+  const primaryDisplay = screen.getPrimaryDisplay()
+  const { width, height } = primaryDisplay.workAreaSize
+
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: width,
+    height: height,
+    minWidth: 800,
+    minHeight: 600,
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
       contextIsolation: true,
+      nodeIntegration: true,
       enableRemoteModule: false,
+      contextIsolation: false,
     },
   })
 
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
 
-  // // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  // Open the DevTools.
+  mainWindow.webContents.openDevTools()
 }
 
 app.on('ready', () => {
@@ -39,7 +57,20 @@ app.on('ready', () => {
     }
   )
 
+  session.defaultSession.webRequest.onHeadersReceived(
+    filter,
+    (details, callback) => {
+      console.log('Response Headers:', details.responseHeaders)
+      callback({ responseHeaders: details.responseHeaders })
+    }
+  )
+
   createWindow()
+})
+
+app.whenReady().then(async () => {
+  await session.defaultSession.loadExtension(reactDevToolsPath)
+  await session.defaultSession.loadExtension(reduxDevTools)
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common

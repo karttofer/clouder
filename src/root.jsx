@@ -8,11 +8,20 @@ import {
 } from '@chakra-ui/react'
 import { Toaster } from 'react-hot-toast'
 import './utils/i18n/index.js'
+import { GoogleOAuthProvider } from '@react-oauth/google'
+import { Provider } from 'react-redux'
+
 // Routes
 import { AppRoutes } from './utils/router/routes.jsx'
 
-//Style
-import './assets/main.scss'
+// State
+import store from 'Utils/store/state.js'
+
+// Assets
+import 'Assets/main.scss'
+
+// Enviroments
+import { GOOGLE_CLIENT_ID } from '../enviroment.js'
 
 const {
   Radio,
@@ -28,10 +37,14 @@ const {
   Switch,
   Input,
   Tooltip,
+  Stepper,
+  Alert,
+  Modal,
 } = chakraTheme.components
 
 const theme = extendBaseTheme({
   components: {
+    Alert,
     Switch,
     Stack,
     Select,
@@ -45,6 +58,8 @@ const theme = extendBaseTheme({
     Radio,
     Input,
     Tooltip,
+    Stepper,
+    Modal,
   },
   colors: {
     button: {
@@ -77,11 +92,11 @@ const theme = extendBaseTheme({
         feldgaru50: '#708D81',
       },
       saffron: {
-        saffron400: '#F4D58D',
-        saffron300: '#F2CF7D',
+        saffron50: '#F4D58D',
+        saffron100: '#F2CF7D',
         saffron200: '#F0C86A',
-        saffron100: '#EEC158',
-        saffron50: '#495B52',
+        saffron300: '#EEC158',
+        saffron400: '#e7b43b',
       },
       darkRed: {
         darkRed400: '#BF0603',
@@ -93,9 +108,16 @@ const theme = extendBaseTheme({
           darkRed50: '#7A0701',
         },
       },
+      orange: {
+        orange500: '#ff6000',
+        orange400: '#b14605',
+      },
       black: {
+        black0: '#000000',
         black900: '#101010',
+        black850: '#161616',
         black800: '#1c1c1c',
+        black700: '#616161',
       },
       white: {
         white0: '#ffffff',
@@ -115,8 +137,12 @@ const theme = extendBaseTheme({
 ReactDom.createRoot(document.querySelector('#root')).render(
   <React.StrictMode>
     <Toaster position="bottom-right" reverseOrder={false} />
-    <ChakraBaseProvider theme={theme}>
-      <AppRoutes />
-    </ChakraBaseProvider>
+    <Provider store={store}>
+      <ChakraBaseProvider theme={theme}>
+        <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+          <AppRoutes />
+        </GoogleOAuthProvider>
+      </ChakraBaseProvider>
+    </Provider>
   </React.StrictMode>
 )

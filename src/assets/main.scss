@@ -3,9 +3,39 @@
 html,
 body,
 main {
-  font-family: 'w-sans-regular', Lato;
+  font-family: 'Lato', sans-serif;
   font-weight: normal;
   font-style: normal;
+  width: 100%;
+  min-width: 1110px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+main {
+  width: 100%;
+  height: 100%;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 1110px) {
+  html,
+  body,
+  main {
+    min-width: 100%;
+    overflow-x: hidden;
+  }
+
 }
 
 /*
@@ -13,4 +43,11 @@ main {
 */
 .hidde_slider-bar {
   scrollbar-width: none;
+}
+
+/*
+  Select > Option Color change
+*/
+.select-option-bg-color-primary > option {
+  background-color: #101010 !important;
 }

@@ -25,7 +25,6 @@ import {
   ButtonThemePrimary,
   ButtonDisableTheme,
   InputThemePrimary,
-  centerAnim,
 } from 'Assets/chakra/appStyle.js'
 import googleIcon from 'Assets/images/google_logo.svg'
 
@@ -43,7 +42,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   isThirdPartyRegisAction,
   saveUserRegistrationAction,
+  saveGoogleTempInformationAction,
 } from 'Utils/store/action.js'
+
+// Utils
+import { googleAuthService } from 'Utils/services/auth.js'
 
 const DynamicFormComponent = ({
   title,
@@ -236,42 +239,26 @@ const DynamicFormComponent = ({
         }
 
         const googleUser = await googleInfo.json()
+        dispatch(saveGoogleTempInformationAction(googleUser))
 
-        const jwtRegis = await fetch(`${LOCAL_BASE_URL}/auth/google-auth`, {
-          method: 'POST',
-          body: JSON.stringify({
-            name: googleUser.name,
-            email: googleUser.email,
-            picture: googleUser.picture,
-            email_verified: googleUser.email_verified,
-            auth_method: authMethod,
-          }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
+        const googleAuthCall = await googleAuthService(googleUser, authMethod)
 
-        if (!jwtRegis.ok) {
-          throw new Error(`Local API returned an error: ${jwtRegis.statusText}`)
-        }
+        const googleAuthCallRes = await googleAuthCall.json()
+        const googleAuthStatus = googleAuthCallRes.status
 
-        const responseText = await jwtRegis.json()
-        const googleAuthStatus = responseText.status
-
-        userErrorAlertHandler(googleAuthStatus)
-
-        if (googleAuthStatus === 200 || googleAuthStatus === 409) {
-          dispatch(
-            isThirdPartyRegisAction(
-              googleAuthStatus === 200 || googleAuthStatus === 409
-            )
-          )
-          dispatch(
-            saveUserRegistrationAction({
-              email: googleUser.email,
-            })
-          )
-        }
+        // TODO: Review this one
+        // if (googleAuthStatus === 200 || googleAuthStatus === 409) {
+        //   dispatch(
+        //     isThirdPartyRegisAction(
+        //       googleAuthStatus === 200 || googleAuthStatus === 409
+        //     )
+        //   )
+        //   dispatch(
+        //     saveUserRegistrationAction({
+        //       email: googleUser.email,
+        //     })
+        //   )
+        // }
 
         handleThirdPartyChange({
           authMethod: 'google',
@@ -324,45 +311,6 @@ const DynamicFormComponent = ({
         {formConfig.map((field, index) => {
           const hasError = touched[field.name] && errors[field.name]
           switch (field.type) {
-            case 'google':
-              return (
-                <Flex
-                  flexDir="column"
-                  justify="center"
-                  align="center"
-                  key={index}
-                >
-                  <Button
-                    w="100%"
-                    {...ButtonSecondaryTheme}
-                    onClick={() => googleLogin()}
-                  >
-                    <Image src={googleIcon} alt="google icon" margin="10px" />
-                    {t('login_google_quicklink_label')}
-                  </Button>
-                  <Box width="100%" position="relative" padding="10">
-                    <Divider opacity=".3" />
-                    <AbsoluteCenter
-                      background={
-                        !darkTheme
-                          ? 'layout.black.black800'
-                          : 'layout.white.white0'
-                      }
-                      px="4"
-                    >
-                      <Text
-                        color={
-                          !darkTheme
-                            ? 'layout.white.white0'
-                            : 'layout.black.black0'
-                        }
-                      >
-                        {t('or')}
-                      </Text>
-                    </AbsoluteCenter>
-                  </Box>
-                </Flex>
-              )
             case 'select':
               return (
                 <FormControl key={index} isInvalid={hasError}>
@@ -410,7 +358,7 @@ const DynamicFormComponent = ({
                     }
                   >
                     <Flex>
-                      {field.validation?.required && (
+                      {field.validation?.required && field.label && (
                         <Text color="layout.orange.orange500">*</Text>
                       )}
                       <Flex>{field.label}</Flex>
@@ -556,8 +504,10 @@ const DynamicFormComponent = ({
         {enableSubmit && (
           <Button
             w="100%"
-            marginTop="20px"
-            {...ButtonThemePrimary(darkTheme)}
+            marginTop="10px"
+            {...(!isFormValid || isSubmitting || isTimerActive
+              ? ButtonDisableTheme
+              : ButtonThemePrimary(darkTheme))}
             type="submit"
             isDisabled={!isFormValid || isSubmitting || isTimerActive}
             _disabled={ButtonDisableTheme}
@@ -567,29 +517,67 @@ const DynamicFormComponent = ({
               : submitText || t('login_submit_button')}
           </Button>
         )}
+
+        <Flex flexDir="column" justify="center" align="center">
+          <Box width="100%" position="relative" padding="10">
+            <Divider opacity=".7" />
+            <AbsoluteCenter
+              background={
+                !darkTheme ? 'layout.black.black800' : 'layout.white.white0'
+              }
+              px="4"
+            >
+              <Text
+                color={
+                  !darkTheme ? 'layout.white.white0' : 'layout.black.black0'
+                }
+              >
+                {t('or')}
+              </Text>
+            </AbsoluteCenter>
+          </Box>
+          <Button
+            w="100%"
+            {...ButtonSecondaryTheme}
+            onClick={() => googleLogin()}
+          >
+            <Image src={googleIcon} alt="google icon" margin="10px" />
+            {t('login_google_quicklink_label')}
+          </Button>
+        </Flex>
         <VStack spacing={2} mt={4} w="100%">
           {formConfig.map((field) => {
             if (field.type === 'links') {
               return field.links.map((link, idx) => (
-                <Button
-                  key={idx}
-                  variant="link"
-                  _hover={{
-                    textDecoration: 'underline',
-                    textDecorationColor: 'layout.orange.orange500',
-                    textDecorationStyle: 'wavy',
-                    textUnderlineOffset: '5px',
-                  }}
-                  onClick={() => navigate(link.path)}
-                >
-                  <Text
-                    color={
-                      !darkTheme ? 'layout.white.white0' : 'layout.black.black0'
-                    }
+                <Flex justify="center" flexDir="column" align="center">
+                  {link.parentLabel && (
+                    <Text opacity=".6" marginBlock="5px">
+                      {t(link.parentLabel)}
+                    </Text>
+                  )}
+
+                  <Button
+                    key={idx}
+                    variant="link"
+                    _hover={{
+                      textDecoration: 'underline',
+                      textDecorationColor: 'layout.orange.orange500',
+                      textDecorationStyle: 'wavy',
+                      textUnderlineOffset: '5px',
+                    }}
+                    onClick={() => navigate(link.path)}
                   >
-                    {link.label}
-                  </Text>
-                </Button>
+                    <Text
+                      color={
+                        !darkTheme
+                          ? 'layout.white.white0'
+                          : 'layout.black.black0'
+                      }
+                    >
+                      {link.label}
+                    </Text>
+                  </Button>
+                </Flex>
               ))
             }
             return null

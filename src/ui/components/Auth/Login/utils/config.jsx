@@ -22,15 +22,15 @@ export const formConfig = [
     label: '',
     name: 'name',
     placeholder: t('login_form_username_placeholder'),
+    validation: {
+      required: true,
+    },
   },
   {
     type: 'links',
     links: [
       {
-        label: t('login_forgot_password'),
-        path: '/magic-link',
-      },
-      {
+        parentLabel: t('login_signup_title'),
         label: t('login_signup'),
         path: '/sign-up',
       },

@@ -58,7 +58,7 @@ const LoginMessageComponent = () => {
         {clouderArray.map((text, index) => (
           <motion.div key={index} variants={staggerItem(index)}>
             <Text
-              fontSize="7.5em"
+              fontSize="6.7em"
               color="layout.black.black900"
               fontWeight="bold"
             >

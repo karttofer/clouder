@@ -7,6 +7,8 @@
  *
  */
 
+import { border } from '@chakra-ui/react'
+
 // FIXME: There is a lot of style that are not being taked from the root theme
 // TODO: Some styles are repeated so we need this to be fixed
 // TODO: Check styles to see if they are well designed or working well
@@ -21,6 +23,7 @@
   },
  */
 export const ButtonThemePrimary = (isDarkTheme) => ({
+  height: '43.99px',
   color: !isDarkTheme ? 'layout.white.white0' : 'layout.black.black0',
   background: 'transparent',
   transition: 'background .3s',
@@ -39,6 +42,7 @@ export const ButtonThemePrimary = (isDarkTheme) => ({
 })
 
 export const InputThemePrimary = (isDarkTheme) => ({
+  height: '43.99px',
   cursor: 'text',
   color: isDarkTheme ? 'layout.white.white0' : 'layout.black.black0',
   borderColor: 'layout.black.black600',
@@ -65,12 +69,11 @@ export const InputThemePrimary = (isDarkTheme) => ({
  * Button Transaprent Bg
  */
 export const ButtonTheme = {
-  css: {
-    background: 'transparent',
-    transition: 'background .3s',
-    borderWidth: '2px',
-    borderColor: 'transparent',
-  },
+  height: '43.99px',
+  background: 'transparent',
+  transition: 'background .3s',
+  borderWidth: '2px',
+  borderColor: 'transparent',
   _hover: {
     background: 'layout.white.white5',
     cursor: 'pointer',
@@ -98,6 +101,7 @@ export const IconButtonTheme = (color, hoverColor, hoverBg) => ({
 })
 
 export const ButtonSecondaryTheme = {
+  height: '43.99px',
   background: 'layout.saffron.saffron50',
   borderWidth: '2px',
   borderColor: 'transparent',
@@ -114,6 +118,7 @@ export const ButtonSecondaryTheme = {
 }
 
 export const ButtonCancelTheme = {
+  height: '43.99px',
   background: 'layout.darkRed.darkRed400',
   borderWidth: '2px',
   borderColor: 'transparent',
@@ -131,6 +136,7 @@ export const ButtonCancelTheme = {
 }
 
 export const ButtonAcceptTheme = {
+  height: '43.99px',
   color: '#808080',
   background: 'green.300',
   cursor: 'pointer',
@@ -143,6 +149,7 @@ export const ButtonAcceptTheme = {
 }
 
 export const ButtonDisableTheme = {
+  height: '43.99px',
   color: '#808080',
   background: '#e7e7e7',
   cursor: 'default',

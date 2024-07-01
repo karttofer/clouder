@@ -15,10 +15,11 @@ import { t } from 'i18next'
 // Components
 import LoginMessageComponent from 'Components/Auth/Login/LoginMessageComponent.jsx'
 import DynamicFormComponent from 'Components/Form/DynamicFormComponent.jsx'
+import LoadingScreenComponent from 'Components/Globals/LoadingScreenComponent.jsx'
 
 // Hooks
 import useTimer from 'Utils/hooks/useTimer.jsx'
-
+import userErrorAlertHandler from 'Utils/hooks/userErrorAlertHandler.jsx'
 // Utils
 import { formConfig } from 'Components/Auth/Login/utils/config.jsx'
 import {
@@ -29,23 +30,27 @@ import {
   ContinueRegisModal,
   CreateAccountByGoogleAuth,
 } from 'Components/Auth/Login/utils/config.jsx'
+import { googleAuthService } from 'Utils/services/auth.js'
 
 const LoginComponent = () => {
   const [showContinueRegisModal, setThowContinueRegisModal] = useState(false)
   const [showQuickCreateAccountModal, setShowQuickCreateAccountModal] =
     useState(false)
-  const [triggerGoogleAuth, setTriggerGoogleAuth] = useState(false)
+  const [showLoading, setShowLoading] = useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const regis_last_step = useSelector(
+  const RegisterLastStep = useSelector(
     (store) => store.state.user.regis_last_step
+  )
+  const googleUserStored = useSelector(
+    (store) => store.state.user.googleTempInformation
   )
 
   useEffect(() => {
-    if (regis_last_step) {
+    if (RegisterLastStep) {
       setThowContinueRegisModal(true)
     }
-  }, [regis_last_step])
+  }, [RegisterLastStep])
 
   const handleSubmit = (data) => {
     console.log('Form Data:', data)
@@ -62,8 +67,20 @@ const LoginComponent = () => {
     cancelTimer()
   }
 
-  const handleQuickGoogleLogin = () => {
-    setTriggerGoogleAuth((prevState) => !prevState)
+  // Here we handle the quick login with Google
+  const handleQuickGoogleLogin = async () => {
+    setShowQuickCreateAccountModal(false)
+    setShowLoading(true)
+    const req = await googleAuthService(googleUserStored, 'register')
+
+    const response = await req.json()
+
+    setShowLoading(false)
+    userErrorAlertHandler(response.status)
+
+    if (response.user_created) {
+      console.log('redirect to dashboard')
+    }
   }
 
   const handleEmailRegister = () => {
@@ -78,6 +95,7 @@ const LoginComponent = () => {
 
   return (
     <Container maxW="100vw" h="100vh" p={0}>
+      {showLoading && <LoadingScreenComponent />}
       <CreateAccountByGoogleAuth
         handleOpenModal={showQuickCreateAccountModal}
         handleAccept={handleQuickGoogleLogin}
@@ -118,7 +136,7 @@ const LoginComponent = () => {
           minW={{ base: '100%', md: '800px' }}
           rowSpan={1}
           colSpan={1}
-          bg="layout.black.black800"
+          bg="layout.white.white0"
           area={'log'}
         >
           <Flex
@@ -129,16 +147,22 @@ const LoginComponent = () => {
             w="100%"
           >
             <DynamicFormComponent
+              darkTheme
+              showLogo
               handleThirdPartyChange={(value) => {
-                setShowQuickCreateAccountModal(true)
+                const { user_exist } = value
+
+                setShowQuickCreateAccountModal(!user_exist)
+                setThirdPartyResponse(value)
               }}
-              triggerGoogleAuth={triggerGoogleAuth}
               enableSubmit
               margin={5}
               maxW="500px"
               formConfig={formConfig}
               onSubmit={handleSubmit}
               authMethod="login"
+              title={`${t('login_select_pin_field_title')}`}
+              subtitle={t('login_select_pin_field_subtitle')}
             />
           </Flex>
         </GridItem>

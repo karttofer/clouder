@@ -12,6 +12,7 @@ const initialState = {
     nickname: '',
     regis_last_step: 0,
     is_third_party_login: false,
+    googleTempInformation: {},
   },
 }
 

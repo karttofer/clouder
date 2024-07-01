@@ -40,6 +40,7 @@ const {
   Stepper,
   Alert,
   Modal,
+  Spinner,
 } = chakraTheme.components
 
 const theme = extendBaseTheme({
@@ -60,6 +61,7 @@ const theme = extendBaseTheme({
     Tooltip,
     Stepper,
     Modal,
+    Spinner,
   },
   colors: {
     button: {

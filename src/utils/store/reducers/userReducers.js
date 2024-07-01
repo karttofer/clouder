@@ -4,11 +4,12 @@ import {
   SAVE_USER_REGISTRATION_INFORMATION,
   SAVE_REGISTRATION_STEP,
   IS_THIRD_PARTY_REGIS,
+  SAVE_GOOGLE_TEMP_INFORMATION,
 } from 'Utils/constants/store.js'
 
 const userReducers = (state = initialState, action) => {
   switch (action.type) {
-    case SAVE_USER_REGISTRATION_INFORMATION:
+    case SAVE_USER_REGISTRATION_INFORMATION: {
       const { email, user_token, nickname } = action.payload
 
       return {
@@ -20,9 +21,9 @@ const userReducers = (state = initialState, action) => {
           nickname,
         },
       }
-    case SAVE_REGISTRATION_STEP:
+    }
+    case SAVE_REGISTRATION_STEP: {
       const { regis_last_step } = action.payload
-      console.log('regis_last_step', regis_last_step)
       return {
         ...state,
         user: {
@@ -30,8 +31,8 @@ const userReducers = (state = initialState, action) => {
           regis_last_step,
         },
       }
-
-    case IS_THIRD_PARTY_REGIS:
+    }
+    case IS_THIRD_PARTY_REGIS: {
       const { is_third_party_login } = action.payload
       return {
         ...state,
@@ -40,6 +41,26 @@ const userReducers = (state = initialState, action) => {
           is_third_party_login,
         },
       }
+    }
+    case SAVE_GOOGLE_TEMP_INFORMATION: {
+      const { email, email_verified, family_name, given_name, name, picture } =
+        action.payload
+      const googleTempInformation = {
+        email,
+        email_verified,
+        family_name,
+        given_name,
+        name,
+        picture,
+      }
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          googleTempInformation,
+        },
+      }
+    }
     default:
       return state
   }

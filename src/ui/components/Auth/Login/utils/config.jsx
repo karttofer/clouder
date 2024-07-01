@@ -1,5 +1,5 @@
 // Dependencies
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button, Text, VStack } from '@chakra-ui/react'
 import { t } from 'i18next'
 
@@ -12,6 +12,9 @@ import {
   ButtonDisableTheme,
   ButtonCancelTheme,
 } from 'Assets/chakra/appStyle'
+
+// Hooks
+import useTimer from 'Utils/hooks/useTimer.jsx'
 
 export const formConfig = [
   {
@@ -42,8 +45,14 @@ export const formConfig = [
 export const ContinueRegisModal = ({
   handleOpenModal,
   handleCancel,
-  timeLeft,
+  handleTimerEnd,
 }) => {
+  const [timeLeft, isTimerActive, resetTimer, cancelTimer] = useTimer(
+    600,
+    true,
+    handleTimerEnd
+  )
+
   return (
     <ModalComponent
       autoOpen={handleOpenModal}

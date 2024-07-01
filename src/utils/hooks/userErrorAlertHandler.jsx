@@ -24,12 +24,20 @@ const errorByCode = {
   },
 }
 
-export const translateErrorCode = (errorCode) => {
-  return errorByCode[errorCode]
+export const translateErrorCode = (error) => {
+  return errorByCode[error]
 }
 
-const userErrorAlertHandler = (errorCode) => {
-  const errorAlert = translateErrorCode(errorCode)
+const userErrorAlertHandler = (error) => {
+  const errorAlert =
+    typeof errorCode === 'number'
+      ? translateErrorCode(error)
+      : {
+          errTitle: error.errTitle,
+          errMessage: error.errMessage,
+          alertType: error.alertType,
+        }
+  console.log(error)
   if (errorAlert) {
     toast.custom(
       (t) => (

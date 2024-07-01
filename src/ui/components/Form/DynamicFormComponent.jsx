@@ -262,7 +262,7 @@ const DynamicFormComponent = ({
 
         handleThirdPartyChange({
           authMethod: 'google',
-          status: googleAuthStatus,
+          payload: googleAuthCallRes,
         })
       } catch (error) {}
     },

@@ -12,6 +12,7 @@ import { LOCAL_BASE_URL } from '../../../../../../enviroment.js'
 // Utils
 import showErrorToast from 'Utils/hooks/userErrorAlertHandler.jsx'
 import { CONFIRM_EMAIL } from 'Utils/constants/store.js'
+import userErrorAlertHandler from 'Utils/hooks/userErrorAlertHandler.jsx'
 
 // Store
 import store from 'Utils/store/state.js'
@@ -127,7 +128,6 @@ export const stepConfig = [
           }
 
           const { status, payload } = await res.json()
-
           showErrorToast(status)
 
           if (status === 200) {
@@ -161,6 +161,21 @@ export const stepConfig = [
           marginTop="55px"
           marginBottom="20px"
           authMethod="register"
+          handleThirdPartyChange={(value) => {
+            const {
+              messageType,
+              message,
+              status,
+              user_exist,
+              user_completed_registration,
+            } = value.payload
+
+            userErrorAlertHandler({
+              errTitle: messageType,
+              errMessage: t(message),
+              alertType: status,
+            })
+          }}
         />
       )
     },

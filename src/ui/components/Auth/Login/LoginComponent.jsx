@@ -18,7 +18,6 @@ import DynamicFormComponent from 'Components/Form/DynamicFormComponent.jsx'
 import LoadingScreenComponent from 'Components/Globals/LoadingScreenComponent.jsx'
 
 // Hooks
-import useTimer from 'Utils/hooks/useTimer.jsx'
 import userErrorAlertHandler from 'Utils/hooks/userErrorAlertHandler.jsx'
 // Utils
 import { formConfig } from 'Components/Auth/Login/utils/config.jsx'
@@ -68,6 +67,9 @@ const LoginComponent = () => {
   }
 
   // Here we handle the quick login with Google
+  // Should we redirect to the PIN SECTION and validate
+  // Using the prop to know if the user finished the registration
+  // we can know if the user is already registered if not send it to PIN VALIDATION
   const handleQuickGoogleLogin = async () => {
     setShowQuickCreateAccountModal(false)
     setShowLoading(true)
@@ -87,25 +89,25 @@ const LoginComponent = () => {
     navigate('/sign-up')
   }
 
-  const [timeLeft, isTimerActive, resetTimer, cancelTimer] = useTimer(
-    200,
-    true,
-    handleTimerEnd
-  )
-
   return (
     <Container maxW="100vw" h="100vh" p={0}>
       {showLoading && <LoadingScreenComponent />}
-      <CreateAccountByGoogleAuth
-        handleOpenModal={showQuickCreateAccountModal}
-        handleAccept={handleQuickGoogleLogin}
-        handleCancel={handleEmailRegister}
-      />
-      <ContinueRegisModal
-        handleOpenModal={showContinueRegisModal}
-        handleCancel={handleCancelTimer}
-        timeLeft={timeLeft}
-      />
+      {showQuickCreateAccountModal && (
+        <CreateAccountByGoogleAuth
+          handleOpenModal={showQuickCreateAccountModal}
+          handleAccept={handleQuickGoogleLogin}
+          handleCancel={handleEmailRegister}
+        />
+      )}
+
+      {showContinueRegisModal && (
+        <ContinueRegisModal
+          handleOpenModal={showContinueRegisModal}
+          handleCancel={handleCancelTimer}
+          handleTimerEnd={handleTimerEnd}
+        />
+      )}
+
       <Grid
         templateAreas={{
           base: `"msg" "log"`,
@@ -124,7 +126,7 @@ const LoginComponent = () => {
         fontWeight="bold"
       >
         <GridItem
-          minW={{ base: '100%', md: '450px' }}
+          minW={{ base: '100%', md: '550px' }}
           rowSpan={1}
           colSpan={1}
           bg="layout.saffron.saffron100"
@@ -147,10 +149,12 @@ const LoginComponent = () => {
             w="100%"
           >
             <DynamicFormComponent
+              marginBottom="20px"
+              marginTop="10px"
               darkTheme
               showLogo
               handleThirdPartyChange={(value) => {
-                const { user_exist } = value
+                const { user_exist } = value.payload
 
                 setShowQuickCreateAccountModal(!user_exist)
                 setThirdPartyResponse(value)

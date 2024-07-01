@@ -30,7 +30,7 @@ const LoginMessageComponent = () => {
       y: 0,
       transition: {
         duration: 0.5,
-        ease: [0.42, 0, 0.58, 1], // Custom cubic-bezier for smooth animation
+        ease: [0.42, 0, 0.58, 1],
       },
     },
   })

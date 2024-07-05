@@ -59,11 +59,10 @@ const LoginComponent = () => {
     navigate('/sign-up')
   }
 
-  const handleCancelTimer = () => {
+  const handleCancelTimer = (el) => {
     setThowContinueRegisModal(false)
     dispatch(saveRegistrationStep(0))
     dispatch(isThirdPartyRegisAction(false))
-    cancelTimer()
   }
 
   // Here we handle the quick login with Google

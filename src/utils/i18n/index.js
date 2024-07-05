@@ -16,14 +16,10 @@ const resources = {
 
 i18n.use(reactI18nextModule).init({
   resources,
-  lng: 'en',
   fallbackLng: 'en',
-  keySeparator: false,
+  debug: true,
   interpolation: {
     escapeValue: false,
-  },
-  react: {
-    useSuspense: false,
   },
 })
 

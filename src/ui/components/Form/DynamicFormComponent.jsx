@@ -245,20 +245,23 @@ const DynamicFormComponent = ({
 
         const googleAuthCallRes = await googleAuthCall.json()
         const googleAuthStatus = googleAuthCallRes.status
-
-        // TODO: Review this one
-        // if (googleAuthStatus === 200 || googleAuthStatus === 409) {
-        //   dispatch(
-        //     isThirdPartyRegisAction(
-        //       googleAuthStatus === 200 || googleAuthStatus === 409
-        //     )
-        //   )
-        //   dispatch(
-        //     saveUserRegistrationAction({
-        //       email: googleUser.email,
-        //     })
-        //   )
-        // }
+        /**
+         * This section of the code will save the registration step
+         * if the user don't complete the registration process
+         * and will redirect the user to the PIN Page
+         */
+        if (googleAuthStatus === 200 || googleAuthStatus === 409) {
+          dispatch(
+            isThirdPartyRegisAction(
+              googleAuthStatus === 200 || googleAuthStatus === 409
+            )
+          )
+          dispatch(
+            saveUserRegistrationAction({
+              email: googleUser.email,
+            })
+          )
+        }
 
         handleThirdPartyChange({
           authMethod: 'google',

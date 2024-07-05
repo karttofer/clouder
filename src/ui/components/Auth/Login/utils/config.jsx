@@ -41,7 +41,6 @@ export const formConfig = [
   },
 ]
 
-// Utils Components
 export const ContinueRegisModal = ({
   handleOpenModal,
   handleCancel,
@@ -50,8 +49,14 @@ export const ContinueRegisModal = ({
   const [timeLeft, isTimerActive, resetTimer, cancelTimer] = useTimer(
     600,
     true,
-    handleTimerEnd
+    () => handleTimerEnd(cancelTimer)
   )
+
+  useEffect(() => {
+    if (isTimerActive && timeLeft === 0) {
+      handleTimerEnd(cancelTimer)
+    }
+  }, [timeLeft, isTimerActive, handleTimerEnd, cancelTimer])
 
   return (
     <ModalComponent
@@ -61,13 +66,20 @@ export const ContinueRegisModal = ({
       jsxBottom={
         <VStack width="100%">
           <Button
-            isLoading
+            isLoading={isTimerActive}
             {...ButtonDisableTheme}
             color="layout.black.black0"
             width="100%"
             loadingText={t('redirect_counter', { timeLeft })}
-          ></Button>
-          <Button width="100%" {...ButtonCancelTheme} onClick={handleCancel}>
+          />
+          <Button
+            width="100%"
+            {...ButtonCancelTheme}
+            onClick={() => {
+              handleCancel()
+              cancelTimer()
+            }}
+          >
             <Text color="layout.white.white0">
               {t('use_another_account_to_login')}
             </Text>

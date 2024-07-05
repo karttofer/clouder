@@ -153,7 +153,7 @@ export const stepConfig = [
           darkTheme
           enableSubmit
           submitText={t('next')}
-          title={`${t('registration_title')}`}
+          title={`${t('registration.title')}`}
           subtitle={t('registration_subtitle')}
           margin={5}
           maxW="500px"
@@ -175,6 +175,10 @@ export const stepConfig = [
               errMessage: t(message),
               alertType: status,
             })
+
+            if (user_exist) {
+              console.log('redirect to pin section')
+            }
           }}
         />
       )

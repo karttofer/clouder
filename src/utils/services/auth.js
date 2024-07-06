@@ -1,3 +1,4 @@
+// Env
 import { LOCAL_BASE_URL } from 'Env'
 
 export const googleAuthService = (payload, auth_method) => {
@@ -10,6 +11,19 @@ export const googleAuthService = (payload, auth_method) => {
       picture,
       email_verified,
       auth_method,
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+}
+
+export const getUserService = (payload) => {
+  const { email } = payload
+  return fetch(`${LOCAL_BASE_URL}/user`, {
+    method: 'POST',
+    body: JSON.stringify({
+      email,
     }),
     headers: {
       'Content-Type': 'application/json',

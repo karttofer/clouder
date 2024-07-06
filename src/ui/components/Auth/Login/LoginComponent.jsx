@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {
-  Container,
-  Grid,
-  GridItem,
-  Flex,
-  Text,
-  VStack,
-} from '@chakra-ui/layout'
-import { Button } from '@chakra-ui/react'
+import { Container, Grid, GridItem, Flex } from '@chakra-ui/layout'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { t } from 'i18next'
@@ -19,56 +11,71 @@ import LoadingScreenComponent from 'Components/Globals/LoadingScreenComponent.js
 
 // Hooks
 import userErrorAlertHandler from 'Utils/hooks/userErrorAlertHandler.jsx'
+import useAPI from 'Utils/hooks/useAPI.jsx'
 // Utils
 import { formConfig } from 'Components/Auth/Login/utils/config.jsx'
 import {
   saveRegistrationStep,
   isThirdPartyRegisAction,
+  deleteAllUnserInformationFromStoreAction,
 } from 'Utils/store/action.js'
 import {
   ContinueRegisModal,
   CreateAccountByGoogleAuth,
 } from 'Components/Auth/Login/utils/config.jsx'
-import { googleAuthService } from 'Utils/services/auth.js'
+import { googleAuthService, getUserService } from 'Utils/services/auth.js'
 
 const LoginComponent = () => {
   const [showContinueRegisModal, setThowContinueRegisModal] = useState(false)
   const [showQuickCreateAccountModal, setShowQuickCreateAccountModal] =
     useState(false)
   const [showLoading, setShowLoading] = useState(false)
+  const { data, error, loading, setNewPayload } = useAPI(getUserService)
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const RegisterLastStep = useSelector(
-    (store) => store.state.user.regis_last_step
+
+  const userEmail = useSelector((store) => store.state.user.email)
+  const userGoogleEmail = useSelector(
+    (store) => store.state.user.googleTempInformation.email
   )
   const googleUserStored = useSelector(
     (store) => store.state.user.googleTempInformation
   )
 
   useEffect(() => {
-    if (RegisterLastStep) {
+    if (userEmail || userGoogleEmail) {
+      setNewPayload({ email: userEmail || userGoogleEmail })
+    }
+  }, [userEmail, userGoogleEmail])
+
+  useEffect(() => {
+    if (data && data.user_exist && !data.user_completed_registration) {
       setThowContinueRegisModal(true)
     }
-  }, [RegisterLastStep])
+    // FIXME: This thing will break, I'm pretty sure
+    if (error) {
+      userErrorAlertHandler(error.code)
+    }
+  }, [data, error])
 
   const handleSubmit = (data) => {
     console.log('Form Data:', data)
   }
 
   const handleTimerEnd = () => {
+    dispatch(isThirdPartyRegisAction(true))
+    dispatch(saveRegistrationStep(1))
     navigate('/sign-up')
   }
 
-  const handleCancelTimer = (el) => {
+  const handleCancelTimer = () => {
     setThowContinueRegisModal(false)
     dispatch(saveRegistrationStep(0))
     dispatch(isThirdPartyRegisAction(false))
+    dispatch(deleteAllUnserInformationFromStoreAction())
   }
 
-  // Here we handle the quick login with Google
-  // Should we redirect to the PIN SECTION and validate
-  // Using the prop to know if the user finished the registration
-  // we can know if the user is already registered if not send it to PIN VALIDATION
   const handleQuickGoogleLogin = async () => {
     setShowQuickCreateAccountModal(false)
     setShowLoading(true)
@@ -77,11 +84,14 @@ const LoginComponent = () => {
     const response = await req.json()
 
     setShowLoading(false)
-    userErrorAlertHandler(response.status)
 
     if (response.user_created) {
-      console.log('redirect to dashboard')
+      dispatch(isThirdPartyRegisAction(true))
+      console.log('SIGN UP REDIRECT')
+      navigate('/sign-up')
     }
+
+    userErrorAlertHandler(response.status)
   }
 
   const handleEmailRegister = () => {
@@ -90,7 +100,7 @@ const LoginComponent = () => {
 
   return (
     <Container maxW="100vw" h="100vh" p={0}>
-      {showLoading && <LoadingScreenComponent />}
+      {loading || (showLoading && <LoadingScreenComponent />)}
       {showQuickCreateAccountModal && (
         <CreateAccountByGoogleAuth
           handleOpenModal={showQuickCreateAccountModal}

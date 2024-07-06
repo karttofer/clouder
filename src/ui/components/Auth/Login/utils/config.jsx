@@ -47,7 +47,7 @@ export const ContinueRegisModal = ({
   handleTimerEnd,
 }) => {
   const [timeLeft, isTimerActive, resetTimer, cancelTimer] = useTimer(
-    600,
+    3,
     true,
     () => handleTimerEnd(cancelTimer)
   )

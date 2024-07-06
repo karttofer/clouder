@@ -5,6 +5,7 @@ import {
   SAVE_REGISTRATION_STEP,
   IS_THIRD_PARTY_REGIS,
   SAVE_GOOGLE_TEMP_INFORMATION,
+  DELETE_ALL_USER_INFORMATION_FROM_STORE,
 } from 'Utils/constants/store.js'
 
 const userReducers = (state = initialState, action) => {
@@ -59,6 +60,11 @@ const userReducers = (state = initialState, action) => {
           ...state.user,
           googleTempInformation,
         },
+      }
+    }
+    case DELETE_ALL_USER_INFORMATION_FROM_STORE: {
+      return {
+        ...initialState,
       }
     }
     default:

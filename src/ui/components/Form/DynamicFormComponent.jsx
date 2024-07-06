@@ -239,6 +239,7 @@ const DynamicFormComponent = ({
         }
 
         const googleUser = await googleInfo.json()
+
         dispatch(saveGoogleTempInformationAction(googleUser))
 
         const googleAuthCall = await googleAuthService(googleUser, authMethod)

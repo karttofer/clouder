@@ -4,6 +4,7 @@ import {
   IS_THIRD_PARTY_REGIS,
   SAVE_USER_REGISTRATION_INFORMATION,
   SAVE_GOOGLE_TEMP_INFORMATION,
+  DELETE_ALL_USER_INFORMATION_FROM_STORE,
 } from 'Utils/constants/store.js'
 
 export const saveRegistrationStep = (regis_last_step) => ({
@@ -24,4 +25,8 @@ export const saveUserRegistrationAction = (payload) => ({
 export const saveGoogleTempInformationAction = (payload) => ({
   type: SAVE_GOOGLE_TEMP_INFORMATION,
   payload,
+})
+
+export const deleteAllUnserInformationFromStoreAction = () => ({
+  type: DELETE_ALL_USER_INFORMATION_FROM_STORE,
 })

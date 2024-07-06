@@ -179,6 +179,7 @@ export const stepConfig = [
             if (user_exist) {
               console.log('redirect to pin section')
             }
+            // User always will be redirect to PIN section
           }}
         />
       )
@@ -188,6 +189,9 @@ export const stepConfig = [
     title: 'PIN Confirmation',
     component: ({ onComplete }) => {
       const userEmail = useSelector((store) => store.state.user.email)
+      const useGoogleGmail = useSelector(
+        (store) => store.state.user.googleTempInformation.email
+      )
 
       useEffect(() => {
         createMagicLink()
@@ -201,7 +205,7 @@ export const stepConfig = [
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              email: userEmail,
+              email: userEmail || useGoogleGmail,
               verification_type: CONFIRM_EMAIL,
             }),
           })

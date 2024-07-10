@@ -30,34 +30,33 @@ const LoginComponent = () => {
   const [showQuickCreateAccountModal, setShowQuickCreateAccountModal] =
     useState(false)
   const [showLoading, setShowLoading] = useState(false)
-  const { data, error, loading, setNewPayload } = useAPI(getUserService)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const userEmail = useSelector((store) => store.state.user.email)
-  const userGoogleEmail = useSelector(
-    (store) => store.state.user.googleTempInformation.email
-  )
-  const googleUserStored = useSelector(
-    (store) => store.state.user.googleTempInformation
-  )
+  const { nickname, email, picture } = useSelector((store) => store.state.user)
+
+  const userValidationCall = async () => {
+    if (email) {
+      const userService = await getUserService({
+        email,
+      })
+
+      const { status, data, user_exist } = await userService.json()
+
+      if (data && user_exist && !data.user_completed_registration) {
+        setThowContinueRegisModal(true)
+      }
+
+      userErrorAlertHandler(status)
+
+      return userService
+    }
+  }
 
   useEffect(() => {
-    if (userEmail || userGoogleEmail) {
-      setNewPayload({ email: userEmail || userGoogleEmail })
-    }
-  }, [userEmail, userGoogleEmail])
-
-  useEffect(() => {
-    if (data && data.user_exist && !data.user_completed_registration) {
-      setThowContinueRegisModal(true)
-    }
-    // FIXME: This thing will break, I'm pretty sure
-    if (error) {
-      userErrorAlertHandler(error.code)
-    }
-  }, [data, error])
+    userValidationCall()
+  }, [email])
 
   const handleSubmit = (data) => {
     console.log('Form Data:', data)
@@ -79,7 +78,14 @@ const LoginComponent = () => {
   const handleQuickGoogleLogin = async () => {
     setShowQuickCreateAccountModal(false)
     setShowLoading(true)
-    const req = await googleAuthService(googleUserStored, 'register')
+    const req = await googleAuthService(
+      {
+        nickname,
+        email,
+        picture,
+      },
+      'register'
+    )
 
     const response = await req.json()
 
@@ -100,7 +106,7 @@ const LoginComponent = () => {
 
   return (
     <Container maxW="100vw" h="100vh" p={0}>
-      {loading || (showLoading && <LoadingScreenComponent />)}
+      {showLoading && <LoadingScreenComponent />}
       {showQuickCreateAccountModal && (
         <CreateAccountByGoogleAuth
           handleOpenModal={showQuickCreateAccountModal}

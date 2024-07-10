@@ -44,20 +44,18 @@ const userReducers = (state = initialState, action) => {
       }
     }
     case SAVE_GOOGLE_TEMP_INFORMATION: {
-      const { email, email_verified, family_name, given_name, name, picture } =
-        action.payload
+      const { picture, name, email, email_verified } = action.payload
+
       const googleTempInformation = {
-        email,
         email_verified,
-        family_name,
-        given_name,
-        name,
-        picture,
       }
       return {
         ...state,
         user: {
           ...state.user,
+          email,
+          nickname: name,
+          picture,
           googleTempInformation,
         },
       }

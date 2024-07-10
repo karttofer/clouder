@@ -1,9 +1,9 @@
+// Dependencies
 import React, { useState, useEffect } from 'react'
 import {
   Container,
   Grid,
   GridItem,
-  Flex,
   Box,
   Stepper,
   Step,
@@ -18,9 +18,12 @@ import {
   CustomCircleXIcon,
   CustomPencilIcon,
 } from 'Assets/chakra/icons'
+import { useDispatch, useSelector } from 'react-redux'
+
+// Components
 import ShowAnimationComponent from 'Components/Globals/animations/ShowAnimationComponent.jsx'
 
-import { useDispatch, useSelector } from 'react-redux'
+// Utils
 import { saveRegistrationStep } from 'Utils/store/action.js'
 
 const CustomStepper = ({ config, activeStep }) => {

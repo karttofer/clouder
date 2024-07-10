@@ -11,7 +11,6 @@ import LoadingScreenComponent from 'Components/Globals/LoadingScreenComponent.js
 
 // Hooks
 import userErrorAlertHandler from 'Utils/hooks/userErrorAlertHandler.jsx'
-import useAPI from 'Utils/hooks/useAPI.jsx'
 // Utils
 import { formConfig } from 'Components/Auth/Login/utils/config.jsx'
 import {
@@ -180,8 +179,8 @@ const LoginComponent = () => {
               formConfig={formConfig}
               onSubmit={handleSubmit}
               authMethod="login"
-              title={`${t('login_select_pin_field_title')}`}
-              subtitle={t('login_select_pin_field_subtitle')}
+              title={`${t('login_form.select_pin_field_title')}`}
+              subtitle={t('login_form.select_pin_field_subtitle')}
             />
           </Flex>
         </GridItem>

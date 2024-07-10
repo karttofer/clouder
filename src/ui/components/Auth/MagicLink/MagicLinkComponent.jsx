@@ -26,7 +26,7 @@ const formConfig = [
     type: 'links',
     links: [
       {
-        label: t('back_to_login'),
+        label: t('common.back_to_login'),
         path: '/login',
       },
     ],

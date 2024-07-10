@@ -33,6 +33,7 @@
   },
   "login_form": {
     "email": "",
+    "login_submit_button": "Continue to Clouder",
     "username_placeholder": "email@company.com",
     "password": "Password",
     "password_placeholder": "Any password?",
@@ -53,7 +54,6 @@
     "input_label": "Email address",
     "input_placeholder": "Input email address where you'll recieve the magic link",
     "submit_text": "Send magic link",
-    "back_to_login": "Back to login",
     "email_just_sent_title": "Knock Knock, take a look to your email, we just send a maigc link to:",
     "email_just_sent_subtitle": "If you have an account with us, you will recieve the message"
   },
@@ -81,10 +81,14 @@
   },
   "errors": {
     "empty_field_default_message": "Input the PIN we sent to your email",
-    "regex_field_default_message": "This value in input is invalid"
+    "regex_field_default_message": "This value in input is invalid",
+    "error_password_match": "Passwords don't match"
   },
   "common": {
-    "or": "Or"
+    "or": "Or",
+    "login_using_google": "Login using Google",
+    "submit": "Submit",
+    "back_to_login": "Back to login"
   },
   "modals": {
     "incomplete_registration_message": "We detected that you already have an account. Please complete the registration process. Confirm your email address to gain access.",

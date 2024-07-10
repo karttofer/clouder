@@ -1,5 +1,6 @@
 // Dependencies
 import React from 'react'
+import { Box } from '@chakra-ui/react'
 
 // Components
 import LogoNavbarComponent from 'Components/Navbar/LogoNavbarComponent.jsx'
@@ -7,8 +8,6 @@ import LogoNavbarComponent from 'Components/Navbar/LogoNavbarComponent.jsx'
 // Assets
 import clouderLogoWhite from 'Assets/images/company-logo.svg'
 import clouderLogoDark from 'Assets/images/company-logo-dark.svg'
-
-import { Box } from '@chakra-ui/react'
 
 const NavbarComponent = ({ navbarType, isDark }) => {
   return (

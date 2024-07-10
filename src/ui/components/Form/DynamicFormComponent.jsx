@@ -63,6 +63,7 @@ const DynamicFormComponent = ({
   authMethod,
   handleThirdPartyChange,
   triggerGoogleAuth,
+  submitTranslationLabel = 'common.submit',
 }) => {
   const [formData, setFormData] = useState({})
   const [selectedAvatar, setSelectedAvatar] = useState(null)
@@ -122,14 +123,15 @@ const DynamicFormComponent = ({
 
     if (validation.required && !value) {
       error =
-        validation.errorEmptyMessage || t('error_empty_field_default_message')
+        validation.errorEmptyMessage || t('errors.regex_field_default_message')
     } else if (validation.pattern && !validation.pattern.test(value)) {
       error =
-        validation.errorPatternMessage || t('error_regex_field_default_message')
+        validation.errorPatternMessage ||
+        t('errors.empty_field_default_message')
     }
 
     if (name === 'repeated_password' && formData.password !== value) {
-      error = validation.errorPatternMessage || t('error_password_match')
+      error = validation.errorPatternMessage || t('errors.error_password_match')
     }
 
     setErrors((prevErrors) => ({ ...prevErrors, [name]: error }))
@@ -286,6 +288,7 @@ const DynamicFormComponent = ({
       as="form"
       onSubmit={handleSubmit}
       maxW={maxW}
+      minW={maxW}
     >
       <Box>
         {showLogo && <NavbarComponent navbarType="logo" isDark={darkTheme} />}
@@ -517,8 +520,8 @@ const DynamicFormComponent = ({
             _disabled={ButtonDisableTheme}
           >
             {isTimerActive
-              ? t('login_submit_button_timer_block', { timeLeft })
-              : submitText || t('login_submit_button')}
+              ? t(`${submitTranslationLabel}`, { timeLeft })
+              : submitText || t(`${submitTranslationLabel}`)}
           </Button>
         )}
 
@@ -546,7 +549,7 @@ const DynamicFormComponent = ({
             onClick={() => googleLogin()}
           >
             <Image src={googleIcon} alt="google icon" margin="10px" />
-            {t('login_google_quicklink_label')}
+            {t('common.login_using_google')}
           </Button>
         </Flex>
         <VStack spacing={2} mt={4} w="100%">

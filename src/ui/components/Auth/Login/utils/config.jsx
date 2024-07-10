@@ -24,7 +24,7 @@ export const formConfig = [
     type: 'text',
     label: '',
     name: 'name',
-    placeholder: t('login_form_username_placeholder'),
+    placeholder: t('login_form.username_placeholder'),
     validation: {
       required: true,
     },
@@ -33,8 +33,8 @@ export const formConfig = [
     type: 'links',
     links: [
       {
-        parentLabel: t('login_signup_title'),
-        label: t('login_signup'),
+        parentLabel: t('login_form.signup_title'),
+        label: t('login_form.signup'),
         path: '/sign-up',
       },
     ],

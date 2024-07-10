@@ -78,7 +78,7 @@ function ChatContainer() {
               height="45px"
               color="text.hint"
               bg="layout.black.black900"
-              placeholder={t('placeholder_01')}
+              placeholder={t('placeholders.placeholder_01')}
               _focus={{ textColor: 'white' }}
               value={inputValue}
               onChange={handleInputChange}

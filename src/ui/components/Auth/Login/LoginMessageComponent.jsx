@@ -53,7 +53,7 @@ const LoginMessageComponent = () => {
         justify="center"
       >
         <Box mb="20px">
-          <LogoComponent message={t('powered_by_openai')} />
+          <LogoComponent message={t('info.powered_by_openai')} />
         </Box>
         {clouderArray.map((text, index) => (
           <motion.div key={index} variants={staggerItem(index)}>

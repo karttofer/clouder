@@ -7,16 +7,12 @@ import DynamicFormComponent from 'Components/Form/DynamicFormComponent.jsx'
 
 // Anims
 import { topBottomAnim } from 'Assets/chakra/appStyle.js'
-import { LOCAL_BASE_URL } from '../../../../../../enviroment.js'
+import { LOCAL_BASE_URL } from 'Env'
 
 // Utils
 import showErrorToast from 'Utils/hooks/userErrorAlertHandler.jsx'
 import { CONFIRM_EMAIL } from 'Utils/constants/store.js'
 import userErrorAlertHandler from 'Utils/hooks/userErrorAlertHandler.jsx'
-
-// Store
-import store from 'Utils/store/state.js'
-import { SAVE_USER_REGISTRATION_INFORMATION } from 'Utils/constants/store.js'
 
 const regisStepOneConfig = [
   {
@@ -26,8 +22,8 @@ const regisStepOneConfig = [
     type: 'text',
     inputType: 'text',
     name: 'nickname',
-    label: t('registration_nickname'),
-    placeholder: t('registration_nick_placeholder'),
+    label: t('registration.nickname'),
+    placeholder: t('registration.nick_placeholder'),
     validation: {
       required: true,
       errorEmptyMessage: 'Ups! You need to enter a nickname',
@@ -37,8 +33,8 @@ const regisStepOneConfig = [
     type: 'text',
     inputType: 'email',
     name: 'email',
-    label: t('registration_email'),
-    placeholder: t('registration_email_placeholder'),
+    label: t('registration.email'),
+    placeholder: t('registration.email_placeholder'),
     required: true,
     validation: {
       required: true,
@@ -46,28 +42,10 @@ const regisStepOneConfig = [
     },
   },
   {
-    type: 'text',
-    inputType: 'password',
-    name: 'password',
-    label: t('registration_password'),
-    placeholder: t('registration_password_placeholder'),
-    required: true,
-    hint: 'Password must be 12+ chars, include upper & lower case letters, a number, and a special character (event.g., P@ssw0rd123!).',
-    validation: {
-      required: true,
-      errorEmptyMessage: `Ups! You need to enter a password`,
-      errorPatternMessage: `Password isn't strong enough, add more characters, numbers, and special characters`,
-      pattern:
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+\[\]{}|;:,.<>?/~]).{12,}$/,
-    },
-    debounce: 500,
-  },
-
-  {
     type: 'links',
     links: [
       {
-        label: t('back_to_login'),
+        label: t('common.back_to_login'),
         path: '/login',
       },
     ],
@@ -82,14 +60,14 @@ const regisStepThreeConfig = [
     hint: "Sometimes PIN email can take a few minutes to arrive. If you don't receive it, please wait until the timer ends to request a new one.",
     timer: {
       duration: 3,
-      resendLabel: t('resend_pin_button_label'),
+      resendLabel: t('buttons.resend_pin_button_label'),
     },
   },
   {
     type: 'links',
     links: [
       {
-        label: t('back_to_login'),
+        label: t('common.back_to_login'),
         path: '/login',
       },
     ],
@@ -152,9 +130,9 @@ export const stepConfig = [
           showLogo
           darkTheme
           enableSubmit
-          submitText={t('next')}
+          submitText={t('buttons.next')}
           title={`${t('registration.title')}`}
-          subtitle={t('registration_subtitle')}
+          subtitle={t('registration.subtitle')}
           margin={5}
           maxW="500px"
           formConfig={regisStepOneConfig}
@@ -162,13 +140,7 @@ export const stepConfig = [
           marginBottom="20px"
           authMethod="register"
           handleThirdPartyChange={(value) => {
-            const {
-              messageType,
-              message,
-              status,
-              user_exist,
-              user_completed_registration,
-            } = value.payload
+            const { messageType, message, status, user_exist } = value.payload
 
             userErrorAlertHandler({
               errTitle: messageType,
@@ -227,9 +199,9 @@ export const stepConfig = [
           animationType={topBottomAnim}
           onSubmit={handleSubmit}
           showLogo
-          submitText={t('next')}
-          title={`${t('registration_select_pin_field_title')}`}
-          subtitle={t('registration_select_pin_field_subtitle')}
+          submitText={t('buttons.next')}
+          title={`${t('login_form.select_pin_field_title')}`}
+          subtitle={t('login_form.select_pin_field_subtitle')}
           margin={5}
           maxW="500px"
           formConfig={regisStepThreeConfig}

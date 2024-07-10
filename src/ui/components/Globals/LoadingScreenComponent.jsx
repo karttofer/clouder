@@ -1,3 +1,4 @@
+// Dependencies
 import React, { useState, useEffect } from 'react'
 import {
   Box,
@@ -6,17 +7,11 @@ import {
   Image,
   Spinner,
   useColorModeValue,
-  keyframes,
   Flex,
 } from '@chakra-ui/react'
 
+// Logo
 import Logo from 'Assets/images/company-logo-dark.svg'
-
-const pulse = keyframes`
-  0% { transform: scale(1); }
-  50% { transform: scale(1.2); }
-  100% { transform: scale(1); }
-`
 
 const motivationalQuotes = [
   {

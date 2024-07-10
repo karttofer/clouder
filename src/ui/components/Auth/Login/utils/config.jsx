@@ -24,7 +24,7 @@ export const formConfig = [
     type: 'text',
     label: '',
     name: 'name',
-    placeholder: t('login_form_username_placeholder'),
+    placeholder: t('login_form.username_placeholder'),
     validation: {
       required: true,
     },
@@ -33,8 +33,8 @@ export const formConfig = [
     type: 'links',
     links: [
       {
-        parentLabel: t('login_signup_title'),
-        label: t('login_signup'),
+        parentLabel: t('login_form.signup_title'),
+        label: t('login_form.signup'),
         path: '/sign-up',
       },
     ],
@@ -61,8 +61,8 @@ export const ContinueRegisModal = ({
   return (
     <ModalComponent
       autoOpen={handleOpenModal}
-      modalTitle={t('incomplete_registration_modal_title')}
-      jsxContent={<Text>{t('incomplete_registration_modal_message')}</Text>}
+      modalTitle={t('modals.incomplete_registration_title')}
+      jsxContent={<Text>{t('modals.incomplete_registration_message')}</Text>}
       jsxBottom={
         <VStack width="100%">
           <Button
@@ -70,7 +70,7 @@ export const ContinueRegisModal = ({
             {...ButtonDisableTheme}
             color="layout.black.black0"
             width="100%"
-            loadingText={t('redirect_counter', { timeLeft })}
+            loadingText={t('registration.redirect_counter', { timeLeft })}
           />
           <Button
             width="100%"
@@ -81,7 +81,7 @@ export const ContinueRegisModal = ({
             }}
           >
             <Text color="layout.white.white0">
-              {t('use_another_account_to_login')}
+              {t('modals.use_another_account_to_login')}
             </Text>
           </Button>
         </VStack>
@@ -98,8 +98,10 @@ export const CreateAccountByGoogleAuth = ({
   return (
     <ModalComponent
       autoOpen={handleOpenModal}
-      modalTitle={t('want_to_crate_account_by_google_auth_title')}
-      jsxContent={<Text>{t('want_to_crate_account_by_google_auth')}</Text>}
+      modalTitle={t('modals.want_to_crate_account_by_google_auth_title')}
+      jsxContent={
+        <Text>{t('modals.want_to_crate_account_by_google_auth')}</Text>
+      }
       jsxBottom={
         <VStack width="100%">
           <Button
@@ -109,12 +111,12 @@ export const CreateAccountByGoogleAuth = ({
             onClick={handleAccept}
           >
             <Text>
-              {t('want_to_crate_account_by_google_auth_acccept_button')}
+              {t('modals.want_to_crate_account_by_google_auth_acccept_button')}
             </Text>
           </Button>
           <Button width="100%" {...ButtonCancelTheme} onClick={handleCancel}>
             <Text color="layout.white.white0">
-              {t('want_to_crate_account_by_google_auth_denied_button')}
+              {t('modals.want_to_crate_account_by_google_auth_denied_button')}
             </Text>
           </Button>
         </VStack>

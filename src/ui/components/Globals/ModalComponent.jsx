@@ -1,3 +1,4 @@
+// Dependencies
 import React, { useEffect } from 'react'
 import {
   ModalContent,

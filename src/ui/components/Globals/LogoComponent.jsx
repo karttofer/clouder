@@ -1,7 +1,6 @@
 // Dependencies
 import React from 'react'
 import { Flex, Text } from '@chakra-ui/react'
-import { Dot } from 'lucide-react'
 
 const LogoComponent = ({ message, showLogo }) => {
   return (

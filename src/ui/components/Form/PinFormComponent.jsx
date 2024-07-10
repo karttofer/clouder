@@ -90,7 +90,7 @@ const PinFormComponent = ({
           <Text
             color={!darkTheme ? 'layout.white.white0' : 'layout.black.black850'}
           >
-            {t('resend_pin', { timeLeft })}
+            {t('registration.resend_pin', { timeLeft })}
           </Text>
         )}
         <Button

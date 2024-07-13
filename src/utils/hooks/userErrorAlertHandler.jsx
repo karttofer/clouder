@@ -34,6 +34,11 @@ const translateErrorCode = (error) => {
   )
 }
 
+/**
+ * @description User error alert handler, will be display for any error in the application
+ * @param {*} error - { errTitle: string, errMessage: string, alertType: string }
+ * @returns JSX Element
+ */
 const userErrorAlertHandler = (error) => {
   const errorAlert =
     typeof error === 'number' ? translateErrorCode(error) : error

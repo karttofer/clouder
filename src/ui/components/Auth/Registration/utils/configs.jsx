@@ -13,6 +13,8 @@ import { LOCAL_BASE_URL } from 'Env'
 import showErrorToast from 'Utils/hooks/userErrorAlertHandler.jsx'
 import { CONFIRM_EMAIL } from 'Utils/constants/store.js'
 import userErrorAlertHandler from 'Utils/hooks/userErrorAlertHandler.jsx'
+import { registrationService } from 'Utils/services/auth.js'
+import { saveUserRegistrationAction } from 'Utils/store/action.js'
 
 const regisStepOneConfig = [
   {
@@ -78,42 +80,31 @@ export const stepConfig = [
   {
     title: 'Registration',
     component: ({ onComplete }) => {
-      const handleSubmit = async (formData) => {
-        const dispatch = useDispatch()
-        const { email, nickname, password } = formData
+      const dispatch = useDispatch()
 
-        if (!email || !nickname || !password)
-          return console.log('Ups! You need to fill all the fields')
+      const handleSubmit = async (formData) => {
+        const { email, nickname } = formData
+
+        if (!email || !nickname)
+          return console.error('Ups! You need to fill all the fields')
 
         try {
-          const res = await fetch(`${LOCAL_BASE_URL}/auth/register`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              email,
-              nickname,
-              password,
-            }),
+          const res = await registrationService({ email, nickname })
+
+          const { message, messageType, status, user } = await res.json()
+
+          userErrorAlertHandler({
+            errTitle: messageType,
+            errMessage: t(message),
+            alertType: messageType,
           })
-
-          if (!res.ok) {
-            // Handle HTTP errors
-            const errorText = await res.json()
-            console.error('Error:', errorText)
-            return
-          }
-
-          const { status, payload } = await res.json()
-          showErrorToast(status)
 
           if (status === 200) {
             dispatch(
-              save_user_registration({
-                nickname: payload.user_nickname,
-                email: payload.user_email,
-                user_token: payload.user_id,
+              saveUserRegistrationAction({
+                nickname: user.nickname,
+                email: user.email,
+                user_token: user.user_id,
               })
             )
             onComplete()

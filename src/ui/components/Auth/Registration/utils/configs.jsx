@@ -7,13 +7,14 @@ import DynamicFormComponent from 'Components/Form/DynamicFormComponent.jsx'
 
 // Anims
 import { topBottomAnim } from 'Assets/chakra/appStyle.js'
-import { LOCAL_BASE_URL } from 'Env'
 
 // Utils
 import showErrorToast from 'Utils/hooks/userErrorAlertHandler.jsx'
-import { CONFIRM_EMAIL } from 'Utils/constants/store.js'
 import userErrorAlertHandler from 'Utils/hooks/userErrorAlertHandler.jsx'
-import { registrationService } from 'Utils/services/auth.js'
+import {
+  registrationService,
+  createMagicLinkService,
+} from 'Utils/services/auth.js'
 import { saveUserRegistrationAction } from 'Utils/store/action.js'
 
 const regisStepOneConfig = [
@@ -28,7 +29,7 @@ const regisStepOneConfig = [
     placeholder: t('registration.nick_placeholder'),
     validation: {
       required: true,
-      errorEmptyMessage: 'Ups! You need to enter a nickname',
+      errorEmptyMessage: t('errors.error_empty_nickname'),
     },
   },
   {
@@ -40,7 +41,7 @@ const regisStepOneConfig = [
     required: true,
     validation: {
       required: true,
-      errorEmptyMessage: 'Ups, you need to enter an email address.',
+      errorEmptyMessage: t('errors.error_emty_email'),
     },
   },
   {
@@ -59,9 +60,9 @@ const regisStepThreeConfig = [
     type: 'pin',
     name: 'pin',
     length: 4,
-    hint: "Sometimes PIN email can take a few minutes to arrive. If you don't receive it, please wait until the timer ends to request a new one.",
+    hint: t('registration.pin_hint'),
     timer: {
-      duration: 3,
+      duration: 50,
       resendLabel: t('buttons.resend_pin_button_label'),
     },
   },
@@ -78,7 +79,7 @@ const regisStepThreeConfig = [
 
 export const stepConfig = [
   {
-    title: 'Registration',
+    title: t('registration.registration_title_step'),
     component: ({ onComplete }) => {
       const dispatch = useDispatch()
 
@@ -131,6 +132,7 @@ export const stepConfig = [
           marginBottom="20px"
           authMethod="register"
           handleThirdPartyChange={(value) => {
+            console.log(value)
             const { messageType, message, status, user_exist } = value.payload
 
             userErrorAlertHandler({
@@ -149,12 +151,9 @@ export const stepConfig = [
     },
   },
   {
-    title: 'PIN Confirmation',
+    title: t('registration.pin_confirmation_title_step'),
     component: ({ onComplete }) => {
       const userEmail = useSelector((store) => store.state.user.email)
-      const useGoogleGmail = useSelector(
-        (store) => store.state.user.googleTempInformation.email
-      )
 
       useEffect(() => {
         createMagicLink()
@@ -162,18 +161,9 @@ export const stepConfig = [
 
       const createMagicLink = async () => {
         try {
-          const res = await fetch(`${LOCAL_BASE_URL}/auth/magic-link`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              email: userEmail || useGoogleGmail,
-              verification_type: CONFIRM_EMAIL,
-            }),
+          createMagicLinkService({
+            email: userEmail,
           })
-
-          console.log(res.json())
         } catch (error) {
           console.error('Fetch error:', error)
           showErrorToast(500)
@@ -199,5 +189,8 @@ export const stepConfig = [
         />
       )
     },
+  },
+  {
+    title: t('registration.done_title_step'),
   },
 ]

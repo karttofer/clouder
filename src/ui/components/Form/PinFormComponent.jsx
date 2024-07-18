@@ -9,6 +9,7 @@ import {
   FormHelperText,
 } from '@chakra-ui/react'
 import { t } from 'i18next'
+import { useSelector } from 'react-redux'
 
 // Assets
 import {
@@ -19,6 +20,7 @@ import {
 // Hooks
 import useTimer from 'Utils/hooks/useTimer.jsx'
 import usePinValidation from 'Utils/hooks/usePinValidation.jsx'
+import { createMagicLinkService } from 'Utils/services/auth.js'
 
 const PinFormComponent = ({
   name,
@@ -31,6 +33,7 @@ const PinFormComponent = ({
 }) => {
   const { pin, errorMessage, isPinValid, handlePinChange, handlePaste } =
     usePinValidation(length, validatePin, handleChange)
+  const userEmail = useSelector((store) => store.state.user.email)
 
   const [timeLeft, isTimerActive, resetTimer] = useTimer(
     timerConfig.duration,
@@ -39,6 +42,9 @@ const PinFormComponent = ({
 
   const handleResend = () => {
     resetTimer(timerConfig.duration)
+    createMagicLinkService({
+      email: userEmail,
+    })
   }
 
   return (

@@ -30,7 +30,13 @@ const CustomStepper = ({ config, activeStep }) => {
   return (
     <ShowAnimationComponent
       jsx={
-        <Stepper w="90vw" index={activeStep} marginTop="50px">
+        <Stepper
+          colorScheme="yellow"
+          maxW="900px"
+          w="90vw"
+          index={activeStep}
+          marginTop="50px"
+        >
           {config.map((step, index) => (
             <Step key={index}>
               <StepIndicator>

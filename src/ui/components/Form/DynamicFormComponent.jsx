@@ -34,7 +34,6 @@ import PinFormComponent from 'Components/Form/PinFormComponent.jsx'
 
 // Hook
 import useTimer from 'Utils/hooks/useTimer.jsx'
-import userErrorAlertHandler from 'Utils/hooks/userErrorAlertHandler.jsx'
 
 // Env
 import { LOCAL_BASE_URL } from 'Env'
@@ -46,7 +45,10 @@ import {
 } from 'Utils/store/action.js'
 
 // Utils
-import { googleAuthService } from 'Utils/services/auth.js'
+import {
+  googleAuthService,
+  googlerUserInformationService,
+} from 'Utils/services/auth.js'
 
 const DynamicFormComponent = ({
   title,
@@ -64,6 +66,7 @@ const DynamicFormComponent = ({
   handleThirdPartyChange,
   triggerGoogleAuth,
   submitTranslationLabel = 'common.submit',
+  submitBlockTime = 50,
 }) => {
   const [formData, setFormData] = useState({})
   const [selectedAvatar, setSelectedAvatar] = useState(null)
@@ -72,7 +75,7 @@ const DynamicFormComponent = ({
   const [isFormValid, setIsFormValid] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [clickCount, setClickCount] = useState(0)
-  const [timeLeft, isTimerActive, resetTimer] = useTimer(10, false)
+  const [timeLeft, isTimerActive, resetTimer] = useTimer(submitBlockTime, false)
   const navigate = useNavigate()
   const debounceTimeoutRef = useRef({})
   const dispatch = useDispatch()
@@ -121,17 +124,16 @@ const DynamicFormComponent = ({
   const handleValidationField = (name, value, validation) => {
     let error = null
 
+    // Check for required field
     if (validation.required && !value) {
       error =
-        validation.errorEmptyMessage || t('errors.regex_field_default_message')
-    } else if (validation.pattern && !validation.pattern.test(value)) {
+        validation.errorEmptyMessage || t('errors.empty_field_default_message')
+    }
+    // Check for pattern if the field is not empty
+    else if (value && validation.pattern && !validation.pattern.test(value)) {
       error =
         validation.errorPatternMessage ||
-        t('errors.empty_field_default_message')
-    }
-
-    if (name === 'repeated_password' && formData.password !== value) {
-      error = validation.errorPatternMessage || t('errors.error_password_match')
+        t('errors.regex_field_default_message')
     }
 
     setErrors((prevErrors) => ({ ...prevErrors, [name]: error }))
@@ -203,6 +205,7 @@ const DynamicFormComponent = ({
   }
 
   const handleValidatePIN = async (pin) => {
+    // TODO: Transform this into a service
     const pinValidation = await fetch(
       `${LOCAL_BASE_URL}/auth/pin-verification`,
       {
@@ -223,16 +226,8 @@ const DynamicFormComponent = ({
     onSuccess: async (credentialResponse) => {
       try {
         const { access_token } = credentialResponse
-
-        const googleInfo = await fetch(
-          'https://www.googleapis.com/oauth2/v3/userinfo',
-          {
-            method: 'GET',
-            headers: {
-              Authorization: `Bearer ${access_token}`,
-            },
-          }
-        )
+        // TODO: Transform this into a service
+        const googleInfo = await googlerUserInformationService(access_token)
 
         if (!googleInfo.ok) {
           throw new Error(
@@ -244,7 +239,16 @@ const DynamicFormComponent = ({
 
         dispatch(saveGoogleTempInformationAction(googleUser))
 
-        const googleAuthCall = await googleAuthService(googleUser, authMethod)
+        const googleUserReqObj = {
+          email: googleUser.email,
+          nickname: googleUser.name,
+          picture: googleUser.picture,
+        }
+
+        const googleAuthCall = await googleAuthService(
+          googleUserReqObj,
+          authMethod
+        )
 
         const googleAuthCallRes = await googleAuthCall.json()
         const googleAuthStatus = googleAuthCallRes.status
@@ -520,38 +524,45 @@ const DynamicFormComponent = ({
             _disabled={ButtonDisableTheme}
           >
             {isTimerActive
-              ? t(`${submitTranslationLabel}`, { timeLeft })
+              ? t('common.submit_blocket_by_counter', { timeLeft })
               : submitText || t(`${submitTranslationLabel}`)}
           </Button>
         )}
 
-        <Flex flexDir="column" justify="center" align="center">
-          <Box width="100%" position="relative" padding="10">
-            <Divider opacity=".7" />
-            <AbsoluteCenter
-              background={
-                !darkTheme ? 'layout.black.black800' : 'layout.white.white0'
-              }
-              px="4"
-            >
-              <Text
-                color={
-                  !darkTheme ? 'layout.white.white0' : 'layout.black.black0'
-                }
+        {formConfig.map((field) =>
+          field.type === 'google' ? (
+            <Flex flexDir="column" justify="center" align="center">
+              <Box width="100%" position="relative" padding="10">
+                <Divider opacity=".7" />
+                <AbsoluteCenter
+                  background={
+                    !darkTheme ? 'layout.black.black800' : 'layout.white.white0'
+                  }
+                  px="4"
+                >
+                  <Text
+                    color={
+                      !darkTheme ? 'layout.white.white0' : 'layout.black.black0'
+                    }
+                  >
+                    {t('common.or')}
+                  </Text>
+                </AbsoluteCenter>
+              </Box>
+              <Button
+                w="100%"
+                {...ButtonSecondaryTheme}
+                onClick={() => googleLogin()}
               >
-                {t('common.or')}
-              </Text>
-            </AbsoluteCenter>
-          </Box>
-          <Button
-            w="100%"
-            {...ButtonSecondaryTheme}
-            onClick={() => googleLogin()}
-          >
-            <Image src={googleIcon} alt="google icon" margin="10px" />
-            {t('common.login_using_google')}
-          </Button>
-        </Flex>
+                <Image src={googleIcon} alt="google icon" margin="10px" />
+                {t('common.login_using_google')}
+              </Button>
+            </Flex>
+          ) : (
+            false
+          )
+        )}
+
         <VStack spacing={2} mt={4} w="100%">
           {formConfig.map((field) => {
             if (field.type === 'links') {

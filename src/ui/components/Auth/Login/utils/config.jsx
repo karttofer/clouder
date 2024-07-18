@@ -22,12 +22,15 @@ export const formConfig = [
   },
   {
     type: 'text',
+    inputType: 'email',
     label: '',
-    name: 'name',
+    name: 'email',
     placeholder: t('login_form.username_placeholder'),
     validation: {
       required: true,
+      pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
     },
+    debounce: 300,
   },
   {
     type: 'links',

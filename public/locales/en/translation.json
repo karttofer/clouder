@@ -58,6 +58,9 @@
     "email_just_sent_subtitle": "If you have an account with us, you will recieve the message"
   },
   "registration": {
+    "registration_title_step": "Registration",
+    "pin_confirmation_title_step": "PIN Confirmation",
+    "done_title_step": "All done 🎉",
     "title": "Ahuuuuu, welcome to Clouder! 🎉",
     "subtitle": "We are so happy to have you here! Please fill in the form below to create your account. 🚀",
     "nickname": "Nickname",
@@ -77,17 +80,21 @@
     "select_pin_field_subtitle": "PIN are better than confirmation emails, right?",
     "resend_pin": "Resend PIN in {{timeLeft}} seconds",
     "redirect_counter": "You will be redirect in {{timeLeft}} seconds",
-    "submit_button_timer_block": "You're being blocked for {{timeLeft}} seconds, try again later"
+    "submit_button_timer_block": "You're being blocked for {{timeLeft}} seconds, try again later",
+    "pin_hint": "Sometimes PIN email can take a few minutes to arrive. If you don't receive it, please wait until the timer ends to request a new one."
   },
   "errors": {
-    "empty_field_default_message": "Input the PIN we sent to your email",
-    "regex_field_default_message": "This value in input is invalid",
-    "error_password_match": "Passwords don't match"
+    "empty_field_default_message": "This field is required, please fill it in",
+    "regex_field_default_message": "This field does not meet the required format",
+    "error_password_match": "Passwords don't match",
+    "error_emty_email": "Ups, you need to enter an email address",
+    "error_empty_nickname": "Ups! You need to enter a nickname"
   },
   "common": {
     "or": "Or",
     "login_using_google": "Login using Google",
     "submit": "Submit",
+    "submit_blocket_by_counter": "Too many attempts, please wait {{timeLeft}} seconds before trying again",
     "back_to_login": "Back to login"
   },
   "modals": {
@@ -102,6 +109,9 @@
   "backend": {
     "invalid_method": "Request isn't valid, please check payload or headers",
     "user_created": "User created successfully, continue to the PIN confirmation",
-    "user_exist": "User already exists, but is not confirmed. You will be redirect to PIN confirmation, check your email"
+    "user_exist": "User already exists, but is not confirmed. You will be redirect to PIN confirmation, check your email",
+    "user_registration_not_completed": "User registration not completed, You will be redirect to PIN confirmation, check your email",
+    "user_logged_successfully": "User logged successfully, you will be redirect",
+    "user_does_not_exist": "User does not exist, go to register if you want to create an account"
   }
 }

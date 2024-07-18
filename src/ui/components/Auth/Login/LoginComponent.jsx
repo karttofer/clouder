@@ -17,12 +17,17 @@ import {
   saveRegistrationStep,
   isThirdPartyRegisAction,
   deleteAllUnserInformationFromStoreAction,
+  saveUserRegistrationAction,
 } from 'Utils/store/action.js'
 import {
   ContinueRegisModal,
   CreateAccountByGoogleAuth,
 } from 'Components/Auth/Login/utils/config.jsx'
-import { googleAuthService, getUserService } from 'Utils/services/auth.js'
+import {
+  googleAuthService,
+  getUserService,
+  loginService,
+} from 'Utils/services/auth.js'
 
 const LoginComponent = () => {
   const [showContinueRegisModal, setThowContinueRegisModal] = useState(false)
@@ -57,13 +62,33 @@ const LoginComponent = () => {
     userValidationCall()
   }, [email])
 
-  const handleSubmit = (data) => {
-    console.log('Form Data:', data)
+  const handleSubmit = async (data) => {
+    const { email } = data
+
+    const res = await loginService({
+      email,
+    })
+
+    const resJson = await res.json()
+
+    dispatch(
+      saveUserRegistrationAction({
+        email: resJson.user_email,
+      })
+    )
+
+    if (!resJson.user_completed_registration) {
+      dispatch(saveRegistrationStep(1))
+    }
+
+    userErrorAlertHandler({
+      errTitle: resJson.messageType,
+      errMessage: t(resJson.message),
+      alertType: resJson.messageType,
+    })
   }
 
   const handleTimerEnd = () => {
-    dispatch(isThirdPartyRegisAction(true))
-    dispatch(saveRegistrationStep(1))
     navigate('/sign-up')
   }
 
@@ -77,6 +102,7 @@ const LoginComponent = () => {
   const handleQuickGoogleLogin = async () => {
     setShowQuickCreateAccountModal(false)
     setShowLoading(true)
+    console.log('nickname', nickname)
     const req = await googleAuthService(
       {
         nickname,
@@ -92,7 +118,6 @@ const LoginComponent = () => {
 
     if (response.user_created) {
       dispatch(isThirdPartyRegisAction(true))
-      console.log('SIGN UP REDIRECT')
       navigate('/sign-up')
     }
 
@@ -163,6 +188,7 @@ const LoginComponent = () => {
             w="100%"
           >
             <DynamicFormComponent
+              isGloogleButton
               marginBottom="20px"
               marginTop="10px"
               darkTheme

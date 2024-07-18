@@ -5,7 +5,7 @@ import {
   SAVE_USER_REGISTRATION_INFORMATION,
   SAVE_GOOGLE_TEMP_INFORMATION,
   DELETE_ALL_USER_INFORMATION_FROM_STORE,
-} from 'Utils/constants/store.js'
+} from 'Utils/constants/magicStrings.js'
 
 export const saveRegistrationStep = (regis_last_step) => ({
   type: SAVE_REGISTRATION_STEP,

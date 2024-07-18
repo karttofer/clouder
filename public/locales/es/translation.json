@@ -54,6 +54,9 @@
     "email_just_sent_subtitle": "Si tienes una cuenta con nosotros recibirás el correo"
   },
   "registration": {
+    "registration_title_step": "Registro",
+    "pin_confirmation_title_step": "Confirmación de PIN",
+    "done_title_step": "¡Todo listo 🎉!",
     "nickname": "Apodo de usuario",
     "title": "¡Bienvenido a Clouder! 🚀",
     "subtitle": "¡Solo un paso más para unirte a la comunidad!",
@@ -73,16 +76,20 @@
     "select_pin_field_subtitle": "Los PIN son mejores que los correos de confirmación, ¿verdad?",
     "resend_pin": "Reenviar PIN en {{timeLeft}} segundos",
     "redirect_counter": "Serás redirigido en {{timeLeft}} segundos",
-    "submit_button_timer_block": "Estás siendo bloqueado por {{timeLeft}} segundos, intenta nuevamente más tarde"
+    "submit_button_timer_block": "Estás siendo bloqueado por {{timeLeft}} segundos, intenta nuevamente más tarde",
+    "pin_hint": "A veces, el correo electrónico con el PIN puede tardar unos minutos en llegar. Si no lo recibes, por favor espera hasta que termine el temporizador para solicitar uno nuevo."
   },
   "errors": {
     "empty_field_default_message": "Este campo no puede estar vacío",
-    "regex_field_default_message": "Este campo no cumple con el formato requerido"
+    "regex_field_default_message": "Este campo no cumple con el formato requerido",
+    "error_empty_email": "Ups, necesitas ingresar una dirección de correo electrónico",
+    "error_empty_nickname": "¡Ups! Necesitas ingresar un apodo"
   },
   "common": {
     "or": "O",
     "login_using_google": "Iniciar sesión con Google",
     "submit": "Enviar",
+    "submit_blocket_by_counter": "Bloqueado por {{timeLeft}} segundos, intenta nuevamente más tarde",
     "back_to_login": "Regresar al login"
   },
   "modals": {
@@ -95,6 +102,9 @@
   "backend": {
     "invalid_method": "Petición al servidor inválida, por favor intenta de nuevo",
     "user_created": "Usuario creado exitosamente, serás redirigido a la sección de PIN, revisa tu correo electrónico",
-    "user_exist": "El usuario ya existe, serás redirigido a la sección de PIN, revisa tu correo electrónico"
+    "user_exist": "El usuario ya existe, serás redirigido a la sección de PIN, revisa tu correo electrónico",
+    "user_registration_not_completed": "El registro del usuario no se ha completado, serás redirigido a la sección de PIN, revisa tu correo electrónico",
+    "user_logged_successfully": "Usuario logueado exitosamente, serás redirigido",
+    "user_does_not_exist": "El usuario no existe, puedes registrarte para tener una cuenta"
   }
 }

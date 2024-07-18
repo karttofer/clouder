@@ -1,5 +1,8 @@
 // Env
-import { LOCAL_BASE_URL } from 'Env'
+import { LOCAL_BASE_URL, GOOGLE_USER_INFO_URL } from 'Env'
+
+// Constants
+import { CONFIRM_EMAIL } from 'Utils/constants/magicStrings.js'
 
 // TODO: check this, why auth_method?
 export const googleAuthService = (payload, auth_method) => {
@@ -55,6 +58,30 @@ export const getUserService = (payload) => {
     }),
     headers: {
       'Content-Type': 'application/json',
+    },
+  })
+}
+
+export const createMagicLinkService = (payload) => {
+  const { email } = payload
+
+  return fetch(`${LOCAL_BASE_URL}/auth/magic-link`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email,
+      verification_type: CONFIRM_EMAIL,
+    }),
+  })
+}
+
+export const googlerUserInformationService = (accessToken) => {
+  return fetch(GOOGLE_USER_INFO_URL, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
     },
   })
 }

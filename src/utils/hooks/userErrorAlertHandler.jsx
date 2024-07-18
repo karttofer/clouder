@@ -44,7 +44,6 @@ const userErrorAlertHandler = (error) => {
     typeof error === 'number' ? translateErrorCode(error) : error
 
   if (!errorAlert || !errorAlert.errTitle) {
-    console.error('Invalid error object:', error)
     return
   }
 

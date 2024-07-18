@@ -6,7 +6,7 @@ import {
   IS_THIRD_PARTY_REGIS,
   SAVE_GOOGLE_TEMP_INFORMATION,
   DELETE_ALL_USER_INFORMATION_FROM_STORE,
-} from 'Utils/constants/store.js'
+} from 'Utils/constants/magicStrings.js'
 
 const userReducers = (state = initialState, action) => {
   switch (action.type) {
